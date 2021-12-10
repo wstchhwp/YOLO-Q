@@ -82,8 +82,9 @@ def check_font(font="Arial.ttf", size=10):
 
 
 class Annotator:
-    if RANK in (-1, 0):
-        check_font()  # download TTF if necessary
+    # TODO
+    # if RANK in (-1, 0):
+    #     check_font()  # download TTF if necessary
 
     # YOLOv5 Annotator for train/val mosaics and jpgs and detect/hub inference annotations
     def __init__(
