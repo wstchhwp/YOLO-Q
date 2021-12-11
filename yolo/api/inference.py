@@ -187,8 +187,10 @@ class Predictor(object):
                 continue
             # label = '%s %.2f' % (self.names[int(cls)], conf)
             # TODO
-            label = '%s' % (self.names[int(cls)])
-            color = self.colors[int(cls)]
+            # label = '%s' % (self.names[int(cls)])
+            label = None
+            # color = self.colors[int(cls)]
+            color = (255, 255, 0)
             plot_one_box(xyxy, img, label=label,
                          color=color, 
                          line_thickness=2)

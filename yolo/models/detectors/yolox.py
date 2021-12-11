@@ -1,8 +1,5 @@
 import torch.nn as nn
 
-from ..layers.yolo_head import YOLOXHead
-from ..layers.yolo_pafpn import YOLOPAFPN
-
 class YOLOX(nn.Module):
     """
     YOLOX model module. The module list is defined by create_yolov3_modules function.
@@ -12,11 +9,6 @@ class YOLOX(nn.Module):
 
     def __init__(self, backbone=None, head=None):
         super().__init__()
-        if backbone is None:
-            backbone = YOLOPAFPN()
-        if head is None:
-            head = YOLOXHead(80)
-
         self.backbone = backbone
         self.head = head
 
