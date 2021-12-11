@@ -3,7 +3,8 @@ import numpy as np
 import cv2
 import time
 import torchvision
-from .utils import box_iou, xywh2xyxy
+from ..utils.metrics import box_iou 
+from ..utils.boxes import xywh2xyxy
 
 # ---------------------Preprocessing----------------------
 def letterbox(

@@ -33,7 +33,6 @@ from torch.utils.data import Dataset as torchDataset
 from torch.utils.data.sampler import BatchSampler as torchBatchSampler
 from torch.utils.data.sampler import Sampler, RandomSampler
 import torch.distributed as dist
-from .general import colorstr
 from tqdm import tqdm
 from .paste import paste1
 
@@ -45,18 +44,23 @@ from .augmentations import (
     mixup,
     random_perspective,
 )
-from .general import (
+
+from ..utils.general import clean_str
+from ..utils.general import colorstr
+from ..utils.check import (
     check_dataset,
     check_requirements,
     check_yaml,
-    clean_str,
+)
+
+from ..utils.boxes import (
     segments2boxes,
     xywh2xyxy,
     xywhn2xyxy,
     xyxy2xywhn,
     xyn2xy,
 )
-from .torch_utils import torch_distributed_zero_first
+from ..utils.torch_utils import torch_distributed_zero_first
 
 # Parameters
 HELP_URL = "https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data"

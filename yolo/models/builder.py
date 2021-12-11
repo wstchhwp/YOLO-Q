@@ -1,6 +1,8 @@
-from .yolov5.models.yolo import Model
-from .utils import select_device, plot_one_box
-from .inference_utils import letterbox, non_max_suppression, scale_coords
+from .detectors.yolov5 import Model
+from ..utils.torch_utils import select_device 
+from ..utils.plots import plot_one_box
+from ..data.datasets import letterbox
+from ..utils.boxes import non_max_suppression, scale_coords
 import torch
 import random
 import cv2
@@ -19,6 +21,7 @@ def build_yolov5(cfg, weight_path, device):
     return model
 
 def build_yolox(exp_path, weight_path, device):
+    # TODO
     device = select_device(device)
     exp = get_exp(exp_path)
     with torch.no_grad():

@@ -32,7 +32,7 @@ from models.common import Bottleneck, BottleneckCSP, Concat, Conv, C3, DWConv, F
 from models.experimental import CrossConv, MixConv2d, attempt_load
 from models.yolo import Detect
 from utils.general import make_divisible, print_args, set_logging
-from utils.activations import SiLU
+from .activations import SiLU
 
 LOGGER = logging.getLogger(__name__)
 

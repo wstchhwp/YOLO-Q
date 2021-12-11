@@ -1,5 +1,8 @@
-from .inference_utils import letterbox, non_max_suppression, scale_coords
-from .utils import plot_one_box, to_2tuple, select_device
+from ..data.datasets import letterbox
+from ..utils.boxes import non_max_suppression, scale_coords
+from ..utils.plots import plot_one_box
+from ..utils.general import to_2tuple
+from ..utils.torch_utils import select_device
 import os
 import cv2
 import numpy as np

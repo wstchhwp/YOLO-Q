@@ -1,4 +1,5 @@
-from detectors import Yolov5
+from yolo.models import Yolov5
+exit()
 import yolox
 import cv2
 import os.path as osp
