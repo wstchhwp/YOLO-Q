@@ -33,28 +33,28 @@ class Colors:
     def __init__(self):
         # hex = matplotlib.colors.TABLEAU_COLORS.values()
         hex = (
-            "FF3838",
-            "FF9D97",
-            "FF701F",
-            "FFB21D",
-            "CFD231",
-            "48F90A",
-            "92CC17",
-            "3DDB86",
-            "1A9334",
-            "00D4BB",
-            "2C99A8",
-            "00C2FF",
-            "344593",
-            "6473FF",
-            "0018EC",
-            "8438FF",
-            "520085",
-            "CB38FF",
-            "FF95C8",
-            "FF37C7",
+            "#FF3838",
+            "#FF9D97",
+            "#FF701F",
+            "#FFB21D",
+            "#CFD231",
+            "#48F90A",
+            "#92CC17",
+            "#3DDB86",
+            "#1A9334",
+            "#00D4BB",
+            "#2C99A8",
+            "#00C2FF",
+            "#344593",
+            "#6473FF",
+            "#0018EC",
+            "#8438FF",
+            "#520085",
+            "#CB38FF",
+            "#FF95C8",
+            "#FF37C7",
         )
-        self.palette = [self.hex2rgb("#" + c) for c in hex]
+        self.palette = [self.hex2rgb(c) for c in hex]
         self.n = len(self.palette)
 
     def __call__(self, i, bgr=False):
@@ -588,6 +588,23 @@ def plot_one_box(x, img, color=None, label=None, line_thickness=None):
             lineType=cv2.LINE_AA,
         )
 
+def plot_one_box_PIL(box, img, color=None, label=None, line_thickness=None):
+    img = Image.fromarray(img)
+    draw = ImageDraw.Draw(img)
+    line_thickness = line_thickness or max(int(min(img.size) / 200), 2)
+    draw.rectangle(box, width=line_thickness, outline=tuple(color))  # plot
+    if label:
+        fontsize = max(round(max(img.size) / 40), 12)
+        font = ImageFont.truetype("Arial.ttf", fontsize)
+        txt_width, txt_height = font.getsize(label)
+        draw.rectangle(
+            [box[0], box[1] - txt_height + 4, box[0] + txt_width, box[1]],
+            fill=tuple(color))
+        draw.text((box[0], box[1] - txt_height + 1),
+                  label,
+                  fill=(255, 255, 255),
+                  font=font)
+    return np.asarray(img)
 
 def feature_visualization(
     x, module_type, stage, n=32, save_dir=Path("runs/detect/exp")
