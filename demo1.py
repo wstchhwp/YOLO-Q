@@ -4,7 +4,7 @@ import os.path as osp
 import cv2
 
 if __name__ == "__main__":
-    root = "./detectors/yolov5/weights"
+    root = "./weights"
     base = 'yolov5s'
 
     model = build_yolov5(cfg=osp.join(root, base + '.yaml'), 
@@ -26,7 +26,7 @@ if __name__ == "__main__":
         if not ret:
             break
         outputs = predictor.inference(frame)
-        img = predictor.visualize_one_img(frame)
+        img = predictor.visualize_one_img(frame, outputs)
         cv2.imshow('p', img)
         if cv2.waitKey(1) == ord('q'):
             break

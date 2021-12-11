@@ -67,6 +67,8 @@ class Predictor(object):
                                       new_shape=self.img_hw, 
                                       auto=auto,
                                       center_padding=center_padding)
+        if auto:
+            self.img_hw = resized_img.shape[:2]
         # cv2.imshow('x', resized_img)
         # cv2.waitKey(0)
 
@@ -104,9 +106,9 @@ class Predictor(object):
             see function `inference_single_model` and `inference_multi_model`.
         """
         if isinstance(images, list):
-            imgs = self.preprocess_one_img(images)
-        else:
             imgs = self.preprocess_multi_img(images)
+        else:
+            imgs = self.preprocess_one_img(images)
         imgs = torch.from_numpy(imgs).to(self.device)
         imgs = imgs.half() if self.half else imgs.float()  # uint8 to fp16/32
         # if self.yolov5:
@@ -182,7 +184,10 @@ class Predictor(object):
         """
         if output is None or len(output) == 0:
             return
-        for *xyxy, conf, cls in reversed(output[:, :6]):
+        # TODO
+        if isinstance(output, list):
+            output = output[0]
+        for (*xyxy, conf, cls) in reversed(output[:, :6]):
             if conf < vis_conf:
                 continue
             # label = '%s %.2f' % (self.names[int(cls)], conf)

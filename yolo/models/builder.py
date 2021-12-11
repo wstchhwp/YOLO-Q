@@ -23,7 +23,7 @@ yolox_type = {
     "x": {"depth": 1.33, "width": 1.25, "depthwise": False,},
 }
 
-def build_yolov5(cfg, weight_path, device):
+def build_yolov5(cfg, weight_path, device, half=True):
     device = select_device(device)
     # TODO
     with torch.no_grad():
@@ -31,6 +31,8 @@ def build_yolov5(cfg, weight_path, device):
         ckpt = torch.load(weight_path)
         model.load_state_dict(ckpt, strict=False)
         model.fuse().eval()
+        if half:
+            model.half()
     return model
 
 def build_yolox(model_type, weight_path, device, num_classes):
