@@ -16,13 +16,13 @@ if __name__ == "__main__":
                           model_type='yolov5',
                           half=True)
     # if predictor.multi_model:
-    #     vis = [Visualizer(names=model.classnames) for model in predictor.models]
+    #     vis = [Visualizer(names=model.names) for model in predictor.models]
     #     for i, v in enumerate(vis):
     #         v.draw_imgs(img, outputs[i])
     # else:
-    #     vis = Visualizer(names=predictor.models.classnames)
+    #     vis = Visualizer(names=predictor.models.names)
     #     vis.draw_imgs(img, outputs[i])
-    vis = Visualizer(names=model.classnames)
+    vis = Visualizer(names=model.names)
 
     cap = cv2.VideoCapture('/e/1.avi')
     frame_num = 1

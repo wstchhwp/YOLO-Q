@@ -27,6 +27,8 @@ class Visualizer(object):
         """
         if output is None or len(output) == 0:
             return img
+        if isinstance(output, list):
+            output = output[0]
         for (*xyxy, conf, cls) in reversed(output[:, :6]):
             if conf < vis_conf:
                 continue
