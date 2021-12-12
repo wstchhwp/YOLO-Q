@@ -11,7 +11,7 @@ if __name__ == "__main__":
     # model = build_yolov5(cfg=osp.join(root, base + '.yaml'), 
     #                      weight_path=osp.join(root, base + '.pth'),
     #                      device="0")
-    model = build_from_configs()
+    model = build_from_configs(cfg_path='./config.yaml')
     predictor = Predictor(img_hw=(640, 640),
                           models=model,
                           device="0",
