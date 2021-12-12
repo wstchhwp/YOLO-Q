@@ -22,7 +22,7 @@ class Predictor(object):
         half (bool, optional): Whether use fp16 to inference.
     """
 
-    def __init__(self, img_hw, models, device, model_type='yolov5', half=True):
+    def __init__(self, img_hw, models, device, half=True):
         super(Predictor, self).__init__()
         img_hw = to_2tuple(img_hw) if isinstance(img_hw, int) else img_hw
 
@@ -33,7 +33,7 @@ class Predictor(object):
         self.half = half
         self.multi_model = True if isinstance(models, list) else False
 
-        self._is_yolov5(model_type)
+        # self._is_yolov5(model_type)
 
     def _is_yolov5(self, model_type):
         if self.multi_model:
@@ -42,11 +42,11 @@ class Predictor(object):
             assert len(self.models) == len(model_type)
             # TODO
             for m in model_type:
-                assert m in ['yolov5', 'yolox']
-            self.yolov5 = [m is not 'yolox' for m in model_type]
+                assert m in ["yolov5", "yolox"]
+            self.yolov5 = [m is not "yolox" for m in model_type]
         else:
-            assert model_type in ['yolov5', 'yolox']
-            self.yolov5 = model_type is not 'yolox'
+            assert model_type in ["yolov5", "yolox"]
+            self.yolov5 = model_type is not "yolox"
 
     def preprocess_one_img(self, image, auto=True, center_padding=True):
         """Preprocess one image.
@@ -63,10 +63,9 @@ class Predictor(object):
             img_raw = cv2.imread(image)
         else:
             img_raw = image
-        resized_img, _, _ = letterbox(img_raw,
-                                      new_shape=self.img_hw, 
-                                      auto=auto,
-                                      center_padding=center_padding)
+        resized_img, _, _ = letterbox(
+            img_raw, new_shape=self.img_hw, auto=auto, center_padding=center_padding
+        )
         if auto:
             self.img_hw = resized_img.shape[:2]
         # cv2.imshow('x', resized_img)
@@ -91,8 +90,9 @@ class Predictor(object):
         """
         resized_imgs = []
         for image in images:
-            img = self.preprocess_one_img(image, auto=auto, 
-                                          center_padding=center_padding)
+            img = self.preprocess_one_img(
+                image, auto=auto, center_padding=center_padding
+            )
             resized_imgs.append(img)
         imgs = np.stack(resized_imgs, axis=0)
         return imgs
@@ -118,7 +118,7 @@ class Predictor(object):
             return self.inference_multi_model(imgs)
         else:
             return self.inference_single_model(imgs)
-    
+
     def inference_single_model(self, images):
         """Inference single model.
         
@@ -127,12 +127,17 @@ class Predictor(object):
         Return:
             outputs (torch.Tensor): B, num_boxes, classes+5
         """
-        if self.yolov5:
-            images = images / 255.
+        if self.models.model_type == "yolov5":
+            images = images / 255.0
         preds = self.models(images)
-        if self.yolov5:
+        if self.models.model_type == "yolov5":
             preds = preds[0]
-        outputs = self.postprocess(preds)
+        outputs = self.postprocess(
+            preds,
+            conf_thres=self.models.conf_thres,
+            iou_thres=self.models.iou_thres,
+            classes=self.models.filter,
+        )
         return outputs
 
     def inference_multi_model(self, images):
@@ -145,11 +150,18 @@ class Predictor(object):
         """
         total_outputs = []
         for mi, model in enumerate(self.models):
-            inputs = images / 255. if self.yolov5[mi] else images
+            inputs = images / 255.0 if self.yolov5[mi] else images
             preds = model(inputs)
-            if self.yolov5[mi]:
+            if model.model_type == "yolov5":
                 preds = preds[0]
-            total_outputs.append(self.postprocess(preds))
+            total_outputs.append(
+                self.postprocess(
+                    preds,
+                    conf_thres=model.conf_thres,
+                    iou_thres=model.iou_thres,
+                    classes=model.filter,
+                )
+            )
         return total_outputs
 
     def postprocess(self, preds, conf_thres=0.4, iou_thres=0.5, classes=None):
@@ -166,8 +178,6 @@ class Predictor(object):
         for i, det in enumerate(outputs):  # detections per image
             if det is None or len(det) == 0:
                 continue
-            # TODO
-            det[:, :4] = scale_coords(
-                self.img_hw, det[:, :4], self.ori_hw[i]
-            ).round()
+            # TODO, suppert center_padding only.
+            det[:, :4] = scale_coords(self.img_hw, det[:, :4], self.ori_hw[i]).round()
         return outputs

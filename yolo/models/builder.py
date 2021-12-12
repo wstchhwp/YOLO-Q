@@ -25,7 +25,8 @@ yolox_type = {
 
 def build_yolov5(cfg, weight_path, device, half=True):
     device = select_device(device)
-    # TODO
+    # TODO, torch.no_grad() support inference only.
+    # TODO, device may move to `Predictor`
     with torch.no_grad():
         model = Model(cfg).to(device)
         ckpt = torch.load(weight_path)
@@ -52,13 +53,39 @@ def build_yolox(model_type, weight_path, device, num_classes):
     model.head.initialize_biases(1e-2)
 
     # load checkpoint
-    # TODO
+    # TODO, torch.no_grad() support inference only.
+    # TODO, device may move to `Predictor`
     device = select_device(device)
     with torch.no_grad():
         model.to(device).eval()
         ckpt = torch.load(weight_path, map_location="cpu")
         model.load_state_dict(ckpt["model"])
     return model
+
+def build_from_configs():
+    # TODO, accept a config path as a argument may be better.
+    from ...config import config
+    model_list = []
+    for _, v in config.items():
+        assert v.model_type in ['yolov5', 'yolox']
+        if v.model_type == 'yolov5':
+            model = build_yolov5(cfg=v.yaml,
+                                 weight_path=v.weight,
+                                 device='0')
+        else:
+            model = build_yolox(model_type=v.type,
+                                weight_path=v.weight,
+                                device='0')
+        setattr(model, 'model_type', v.model_type)
+        setattr(model, 'conf_thres', v.conf_thres)
+        setattr(model, 'iou_thres', v.iou_thres)
+        setattr(model, 'filter', v.filter)
+    model_list.append(model)
+    if len(config) > 1:
+        return model_list
+    else:
+        return model_list[0]
+        
 
 class Yolov5:
     def __init__(self, cfg, weight_path, device, img_hw=(384, 640)):
