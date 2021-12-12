@@ -86,7 +86,7 @@ def build_from_configs(cfg_path):
         setattr(model, 'conf_thres', v.conf_thres)
         setattr(model, 'iou_thres', v.iou_thres)
         setattr(model, 'filter', v.filter)
-    model_list.append(model)
+        model_list.append(model)
     if len(config) > 1:
         return model_list
     else:

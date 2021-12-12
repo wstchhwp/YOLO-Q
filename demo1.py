@@ -16,25 +16,24 @@ if __name__ == "__main__":
                           models=model,
                           device="0",
                           half=True)
-    # if predictor.multi_model:
-    #     vis = [Visualizer(names=model.names) for model in predictor.models]
-    #     for i, v in enumerate(vis):
-    #         v.draw_imgs(img, outputs[i])
-    # else:
-    #     vis = Visualizer(names=predictor.models.names)
-    #     vis.draw_imgs(img, outputs[i])
-    vis = Visualizer(names=model.names)
+    if predictor.multi_model:
+        vis = [Visualizer(names=model.names) for model in predictor.models]
+    else:
+        vis = [Visualizer(names=predictor.models.names)]
+        # vis.draw_imgs(img, outputs[i])
+    # vis = Visualizer(names=model[1].names)
 
     cap = cv2.VideoCapture('/e/1.avi')
     frame_num = 1
     while cap.isOpened():
         frame_num += 1
-        # print(frame_num)
+        print(frame_num)
         ret, frame = cap.read()
         if not ret:
             break
         outputs = predictor.inference(frame)
-        img = vis.draw_one_img(frame, outputs)
-        cv2.imshow('p', img)
+        # for i, v in enumerate(vis):
+        #     v.draw_imgs(frame, outputs[i])
+        # cv2.imshow('p', frame)
         if cv2.waitKey(1) == ord('q'):
             break

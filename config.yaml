@@ -5,6 +5,15 @@ model1:
   conf_thres: 0.4
   iou_thres: 0.4
   filter: null
+
+model2:
+  model_type: yolov5
+  yaml: ./weights/play_phone.yaml
+  weight: ./weights/play_phone.pth
+  conf_thres: 0.4
+  iou_thres: 0.4
+  filter: null
+
 # model2:
 #   model_type: yolox
 #   type: s

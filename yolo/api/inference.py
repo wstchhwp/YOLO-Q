@@ -3,6 +3,8 @@ from ..utils.boxes import non_max_suppression, scale_coords
 from ..utils.plots import plot_one_box
 from ..utils.general import to_2tuple
 from ..utils.torch_utils import select_device
+from multiprocessing.pool import ThreadPool
+import threading
 import os
 import cv2
 import numpy as np
@@ -116,6 +118,7 @@ class Predictor(object):
 
         if self.multi_model:
             return self.inference_multi_model(imgs)
+            # return self.inference_multi_thread(imgs)
         else:
             return self.inference_single_model(imgs)
 
@@ -125,7 +128,7 @@ class Predictor(object):
         Args:
             images (torch.Tensor): B, C, H, W.
         Return:
-            outputs (torch.Tensor): B, num_boxes, classes+5
+            outputs (List): List[num_boxes, classes+5] x B
         """
         if self.models.model_type == "yolov5":
             images = images / 255.0
@@ -146,11 +149,11 @@ class Predictor(object):
         Args:
             images (torch.Tensor): B, C, H, W.
         Return:
-            outputs (List[torch.Tensor]): List[B, num_boxes, classes+5]
+            outputs (List[List[torch.Tensor]]): List[List[num_boxes, classes+5] x B] x num_models
         """
         total_outputs = []
-        for mi, model in enumerate(self.models):
-            inputs = images / 255.0 if self.yolov5[mi] else images
+        for _, model in enumerate(self.models):
+            inputs = images / 255.0 if model.model_type == "yolov5" else images
             preds = model(inputs)
             if model.model_type == "yolov5":
                 preds = preds[0]
@@ -163,6 +166,33 @@ class Predictor(object):
                 )
             )
         return total_outputs
+
+    def inference_multi_thread(self, images):
+        """Inference multi model.
+        
+        Args:
+            images (torch.Tensor): B, C, H, W.
+        Return:
+            outputs (List[List[torch.Tensor]]): List[List[num_boxes, classes+5] x B] x num_models
+        """
+        def multi_thread(model):
+            inputs = images / 255.0 if model.model_type == "yolov5" else images
+            preds = model(inputs)
+            if model.model_type == "yolov5":
+                preds = preds[0]
+            return self.postprocess(
+                preds,
+                conf_thres=model.conf_thres,
+                iou_thres=model.iou_thres,
+                classes=model.filter,
+            )
+        # with ThreadPool() as p:
+        #     total_outputs = p.map(multi_thread, self.models)
+        t1 = threading.Thread(target=multi_thread, args=(self.models[0], ))
+        t2 = threading.Thread(target=multi_thread, args=(self.models[1], ))
+        t1.start()
+        t2.start()
+        return []
 
     def postprocess(self, preds, conf_thres=0.4, iou_thres=0.5, classes=None):
         """Postprocess multi images. NMS and scale coords to original image size.

@@ -39,7 +39,7 @@ class Visualizer(object):
                          line_thickness=2)
         return img
 
-    def visualize_multi_img(self, imgs, outputs, vis_confs=0.4):
+    def draw_multi_img(self, imgs, outputs, vis_confs=0.4):
         """Visualize multi images.
         
         Args:
@@ -58,6 +58,6 @@ class Visualizer(object):
 
     def draw_imgs(self, imgs, outputs, vis_confs=0.4):
         if isinstance(imgs, np.ndarray):
-            return self.visualize_one_img(imgs, outputs, vis_confs)
+            return self.draw_one_img(imgs, outputs, vis_confs)
         else:
-            return self.visualize_multi_img(imgs, outputs, vis_confs)
+            return self.draw_multi_img(imgs, outputs, vis_confs)
