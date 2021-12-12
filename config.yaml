@@ -1,0 +1,15 @@
+model1:
+  model_type: yolov5
+  yaml: ./weights/yolov5s.yaml
+  weight: ./weights/yolov5s.pth
+  conf_thres: 0.4
+  iou_thres: 0.4
+  filter: null
+# model2:
+#   model_type: yolox
+#   type: s
+#   weight: yolox-nano.pth
+#   num_classes: 80
+#   conf_thres: 0.4
+#   iou_thres: 0.4
+#   filter: null

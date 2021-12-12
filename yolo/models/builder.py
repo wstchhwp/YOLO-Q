@@ -12,7 +12,7 @@ import random
 import cv2
 import os
 import numpy as np
-from yolox.exp import get_exp
+import yaml
 
 yolox_type = {
     "nano": {"depth": 0.33, "width": 0.25, "depthwise": True,},
@@ -62,9 +62,12 @@ def build_yolox(model_type, weight_path, device, num_classes):
         model.load_state_dict(ckpt["model"])
     return model
 
-def build_from_configs():
+def build_from_configs(cfg_path):
     # TODO, accept a config path as a argument may be better.
-    from config import config
+    # from config import config
+    with open(cfg_path, 'r') as f:
+        config = yaml.safe_load(f)
+
     model_list = []
     for _, v in config.items():
         assert v.model_type in ['yolov5', 'yolox']
