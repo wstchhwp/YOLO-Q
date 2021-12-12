@@ -1,4 +1,5 @@
-from yolo.models import build_yolov5
+# from yolo.models import build_yolov5
+from yolo.models import build_from_configs
 from yolo.api.inference import Predictor
 from yolo.api.visualization import Visualizer
 import os.path as osp
@@ -7,13 +8,13 @@ import cv2
 if __name__ == "__main__":
     root = "./weights"
     base = 'yolov5s'
-    model = build_yolov5(cfg=osp.join(root, base + '.yaml'), 
-                         weight_path=osp.join(root, base + '.pth'),
-                         device="0")
+    # model = build_yolov5(cfg=osp.join(root, base + '.yaml'), 
+    #                      weight_path=osp.join(root, base + '.pth'),
+    #                      device="0")
+    model = build_from_configs()
     predictor = Predictor(img_hw=(640, 640),
                           models=model,
                           device="0",
-                          model_type='yolov5',
                           half=True)
     # if predictor.multi_model:
     #     vis = [Visualizer(names=model.names) for model in predictor.models]

@@ -64,7 +64,7 @@ def build_yolox(model_type, weight_path, device, num_classes):
 
 def build_from_configs():
     # TODO, accept a config path as a argument may be better.
-    from ...config import config
+    from config import config
     model_list = []
     for _, v in config.items():
         assert v.model_type in ['yolov5', 'yolox']
@@ -75,7 +75,8 @@ def build_from_configs():
         else:
             model = build_yolox(model_type=v.type,
                                 weight_path=v.weight,
-                                device='0')
+                                device='0', 
+                                num_classes=v.num_classes)
         setattr(model, 'model_type', v.model_type)
         setattr(model, 'conf_thres', v.conf_thres)
         setattr(model, 'iou_thres', v.iou_thres)
