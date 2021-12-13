@@ -15,7 +15,7 @@ class Visualizer(object):
             [random.randint(0, 255) for _ in range(3)] for _ in range(num_classes)
         ]
 
-    def draw_one_img(self, img, output, vis_conf=0.4):
+    def draw_one_img(self, img, output, vis_conf=0.4, offset=0):
         """Visualize one images.
         
         Args:
@@ -34,6 +34,7 @@ class Visualizer(object):
                 continue
             label = '%s %.2f' % (self.names[int(cls)], conf)
             color = self.colors[int(cls)]
+            xyxy[0] += offset
             plot_one_box(xyxy, img, label=label,
                          color=color, 
                          line_thickness=2)
@@ -53,11 +54,11 @@ class Visualizer(object):
             vis_confs = list(repeat(vis_confs, len(imgs)))
         assert len(imgs) == len(outputs) == len(vis_confs)
         for i, output in enumerate(outputs):  # detections per image
-            self.visualize_one_img(imgs[i], output, vis_confs[i])
+            self.draw_one_img(imgs[i], output, vis_confs[i])
         return imgs
 
-    def draw_imgs(self, imgs, outputs, vis_confs=0.4):
+    def draw_imgs(self, imgs, outputs, vis_confs=0.4, offset=0):
         if isinstance(imgs, np.ndarray):
-            return self.draw_one_img(imgs, outputs, vis_confs)
+            return self.draw_one_img(imgs, outputs, vis_confs, offset)
         else:
             return self.draw_multi_img(imgs, outputs, vis_confs)

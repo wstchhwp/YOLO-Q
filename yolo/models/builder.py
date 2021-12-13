@@ -37,18 +37,21 @@ def build_yolov5(cfg, weight_path, device, half=True):
             model.half()
     return model
 
-def build_yolox(model_type, weight_path, device, num_classes):
+def build_yolox(cfg, weight_path, device, half=True):
     def init_yolo(M):
         for m in M.modules():
             if isinstance(m, nn.BatchNorm2d):
                 m.eps = 1e-3
                 m.momentum = 0.03
 
-    cfg = yolox_type[model_type]
+    with open(cfg, 'r') as f:
+        cfg = OmegaConf.load(f)
+    model_cfg = yolox_type[cfg.type]
     in_channels = [256, 512, 1024]
-    backbone = YOLOPAFPN(cfg['depth'], cfg['width'], in_channels=in_channels, depthwise=cfg['depthwise'])
-    head = YOLOXHead(num_classes, cfg['width'], in_channels=in_channels, depthwise=cfg['depthwise'])
+    backbone = YOLOPAFPN(model_cfg['depth'], model_cfg['width'], in_channels=in_channels, depthwise=model_cfg['depthwise'])
+    head = YOLOXHead(cfg.nc, model_cfg['width'], in_channels=in_channels, depthwise=model_cfg['depthwise'])
     model = YOLOX(backbone, head)
+    setattr(model, 'names', cfg.names)
 
     model.apply(init_yolo)
     model.head.initialize_biases(1e-2)
@@ -61,11 +64,11 @@ def build_yolox(model_type, weight_path, device, num_classes):
         model.to(device).eval()
         ckpt = torch.load(weight_path, map_location="cpu")
         model.load_state_dict(ckpt["model"])
+        if half:
+            model.half()
     return model
 
 def build_from_configs(cfg_path):
-    # TODO, accept a config path as a argument may be better.
-    # from config import config
     with open(cfg_path, 'r') as f:
         # config = yaml.safe_load(f)
         config =OmegaConf.load(f)
@@ -74,14 +77,12 @@ def build_from_configs(cfg_path):
     for _, v in config.items():
         assert v.model_type in ['yolov5', 'yolox']
         if v.model_type == 'yolov5':
-            model = build_yolov5(cfg=v.yaml,
-                                 weight_path=v.weight,
-                                 device='0')
+            builder = build_yolov5
         else:
-            model = build_yolox(model_type=v.type,
-                                weight_path=v.weight,
-                                device='0', 
-                                num_classes=v.num_classes)
+            builder = build_yolox
+        model = builder(cfg=v.yaml,
+                        weight_path=v.weight,
+                        device='0')
         setattr(model, 'model_type', v.model_type)
         setattr(model, 'conf_thres', v.conf_thres)
         setattr(model, 'iou_thres', v.iou_thres)

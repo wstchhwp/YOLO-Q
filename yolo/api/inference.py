@@ -1,6 +1,5 @@
 from ..data.datasets import letterbox
 from ..utils.boxes import non_max_suppression, scale_coords
-from ..utils.plots import plot_one_box
 from ..utils.general import to_2tuple
 from ..utils.torch_utils import select_device
 from multiprocessing.pool import ThreadPool
@@ -10,6 +9,7 @@ import cv2
 import numpy as np
 from itertools import repeat
 import torch
+import time
 
 
 class Predictor(object):
@@ -96,7 +96,7 @@ class Predictor(object):
                 image, auto=auto, center_padding=center_padding
             )
             resized_imgs.append(img)
-        imgs = np.stack(resized_imgs, axis=0)
+        imgs = np.concatenate(resized_imgs, axis=0)
         return imgs
 
     def inference(self, images):
@@ -107,14 +107,20 @@ class Predictor(object):
         Return:
             see function `inference_single_model` and `inference_multi_model`.
         """
+        times = {}
+        pst = time.time()
         if isinstance(images, list):
             imgs = self.preprocess_multi_img(images)
         else:
             imgs = self.preprocess_one_img(images)
+        pet = time.time()
+        times['preprocess'] = pet - pst
+        print(f'preprocess time:', times['preprocess'])
         imgs = torch.from_numpy(imgs).to(self.device)
         imgs = imgs.half() if self.half else imgs.float()  # uint8 to fp16/32
-        # if self.yolov5:
-        #     imgs = imgs / 255.
+        cet = time.time()
+        times['copy'] = cet - pet
+        # print(f'copy time:', times['copy'])
 
         if self.multi_model:
             return self.inference_multi_model(imgs)
@@ -128,7 +134,7 @@ class Predictor(object):
         Args:
             images (torch.Tensor): B, C, H, W.
         Return:
-            outputs (List): List[num_boxes, classes+5] x B
+            outputs (List[torch.Tensor]): List[num_boxes, classes+5] x B
         """
         if self.models.model_type == "yolov5":
             images = images / 255.0
@@ -154,9 +160,15 @@ class Predictor(object):
         total_outputs = []
         for _, model in enumerate(self.models):
             inputs = images / 255.0 if model.model_type == "yolov5" else images
+            torch.cuda.synchronize()
+            ms = time.time()
             preds = model(inputs)
+            torch.cuda.synchronize()
+            me = time.time()
+            print(f'inference time:', me - ms)
             if model.model_type == "yolov5":
                 preds = preds[0]
+            # total_outputs.append(preds)
             total_outputs.append(
                 self.postprocess(
                     preds,
@@ -175,7 +187,8 @@ class Predictor(object):
         Return:
             outputs (List[List[torch.Tensor]]): List[List[num_boxes, classes+5] x B] x num_models
         """
-        def multi_thread(model):
+        def single_thread(model):
+            # TODO, multi threading may change inputs.
             inputs = images / 255.0 if model.model_type == "yolov5" else images
             preds = model(inputs)
             if model.model_type == "yolov5":
@@ -186,13 +199,21 @@ class Predictor(object):
                 iou_thres=model.iou_thres,
                 classes=model.filter,
             )
+        # -------multiprocessing.threadpool-------
+        p = ThreadPool()
+        total_outputs = p.map(single_thread, self.models)
+        # p.join()
+        p.close()
         # with ThreadPool() as p:
         #     total_outputs = p.map(multi_thread, self.models)
-        t1 = threading.Thread(target=multi_thread, args=(self.models[0], ))
-        t2 = threading.Thread(target=multi_thread, args=(self.models[1], ))
-        t1.start()
-        t2.start()
-        return []
+        # -------threading-------
+        # t1 = threading.Thread(target=multi_thread, args=(self.models[0], ))
+        # t2 = threading.Thread(target=multi_thread, args=(self.models[1], ))
+        # t1.start()
+        # t2.start()
+        # t1.join()
+        # t2.join()
+        return total_outputs
 
     def postprocess(self, preds, conf_thres=0.4, iou_thres=0.5, classes=None):
         """Postprocess multi images. NMS and scale coords to original image size.
@@ -202,6 +223,8 @@ class Predictor(object):
         Return:
             otuputs (torch.Tensor): [B, num_boxes, classes+5].
         """
+        # TODO
+        ppst = time.time()
         outputs = non_max_suppression(
             preds, conf_thres, iou_thres, classes=classes, agnostic=False
         )
@@ -210,4 +233,6 @@ class Predictor(object):
                 continue
             # TODO, suppert center_padding only.
             det[:, :4] = scale_coords(self.img_hw, det[:, :4], self.ori_hw[i]).round()
+        ppet = time.time()
+        print('postprocess time:', ppet - ppst)
         return outputs

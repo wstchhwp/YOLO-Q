@@ -1,22 +1,22 @@
-# from yolo.models import build_yolov5
-from yolo.models import build_from_configs
-from yolo.api.inference import Predictor
+from yolo.trt import build_from_configs
+from yolo.api.trt_inference import TRTPredictor
 from yolo.api.visualization import Visualizer
-import os.path as osp
 import cv2
 import time
+import pycuda.driver as cuda
 
 if __name__ == "__main__":
-    root = "./weights"
-    base = 'yolov5s'
-    # model = build_yolov5(cfg=osp.join(root, base + '.yaml'), 
-    #                      weight_path=osp.join(root, base + '.pth'),
-    #                      device="0")
-    model = build_from_configs(cfg_path='./config.yaml')
-    predictor = Predictor(img_hw=(640, 640),
-                          models=model,
-                          device="0",
-                          half=True)
+
+    device = "0"
+    cuda.init()
+    cfx = cuda.Device(int(device)).make_context()
+    stream = cuda.Stream()
+
+    model = build_from_configs(cfg_path='./config_trt.yaml',
+                               cfx=cfx,
+                               stream=stream)
+    predictor = TRTPredictor(img_hw=(384, 640), models=model, stream=stream)
+
     if predictor.multi_model:
         vis = [Visualizer(names=model.names) for model in predictor.models]
     else:
@@ -29,8 +29,8 @@ if __name__ == "__main__":
     while cap.isOpened():
         st = time.time()
         frame_num += 1
-        if frame_num % 2 == 0:
-            continue
+        # if frame_num % 2 == 0:
+        #     continue
         # print(frame_num)
         # if frame_num == 1000:
         #     break
@@ -38,7 +38,6 @@ if __name__ == "__main__":
         frame_copy = frame.copy()
         if not ret:
             break
-        # outputs = predictor.inference([frame, frame_copy])
         outputs = predictor.inference([frame for _ in range(15)])
         # outputs = predictor.inference(frame)
         # for i, v in enumerate(vis):

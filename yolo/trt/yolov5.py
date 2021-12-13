@@ -1,0 +1,162 @@
+import numpy as np
+import ctypes
+import pycuda.driver as cuda
+import tensorrt as trt
+
+def alloc_inputs(batch_size, hw, split=True):
+    """
+    split:表示以batch-size为1处理
+    """
+    host_inputs = []
+    cuda_inputs = []
+    dtype = np.float32
+    if split:
+        for _ in range(batch_size):
+            size = hw[0] * hw[1] * 3
+            host_mem = cuda.pagelocked_empty(size, dtype)
+            cuda_mem = cuda.mem_alloc(host_mem.nbytes)
+            # []是为了和其他情况调用一致，detect里面是使用的cuda_input[0]. host_input[0]
+            host_inputs.append([host_mem])
+            cuda_inputs.append([cuda_mem])
+    else:
+        size = hw[0] * hw[1] * 3 * batch_size
+        host_mem = cuda.pagelocked_empty(size, dtype)
+        cuda_mem = cuda.mem_alloc(host_mem.nbytes)
+        # []是为了和其他情况调用一致，detect里面是使用的cuda_input[0]. host_input[0]
+        host_inputs.append(host_mem)
+        cuda_inputs.append(cuda_mem)
+    return cuda_inputs, host_inputs
+
+
+def to_device(input_image, host_inputs, cuda_inputs, stream, split=True):
+    """
+    split:表示以batch-size为1处理
+    """
+    # input_image = input_image / 255.
+    if split:
+        for i, img in enumerate(input_image):
+            np.copyto(host_inputs[i][0], img.ravel())
+            cuda.memcpy_htod_async(
+                cuda_inputs[i][0], host_inputs[i][0], stream)
+    else:
+        np.copyto(host_inputs[0], input_image.ravel())
+        # Transfer input data  to the GPU.
+        cuda.memcpy_htod_async(
+            cuda_inputs[0], host_inputs[0], stream)
+    return cuda_inputs
+
+
+class YOLOV5TRT:
+    def __init__(self, engine_file_path, library, cfx, stream):
+        # Create a Context on this device,
+        self.cfx = cfx
+        TRT_LOGGER = trt.Logger(trt.Logger.INFO)
+        runtime = trt.Runtime(TRT_LOGGER)
+        ctypes.CDLL(library)
+
+        # Deserialize the engine from file
+        with open(engine_file_path, "rb") as f:
+            engine = runtime.deserialize_cuda_engine(f.read())
+        # print(engine)
+        context = engine.create_execution_context()
+
+        host_inputs = []
+        cuda_inputs = []
+        host_outputs = []
+        cuda_outputs = []
+
+        # Store
+        self.stream = stream
+        self.context = context
+        self.engine = engine
+        self.host_inputs = host_inputs
+        self.cuda_inputs = cuda_inputs
+        self.host_outputs = host_outputs
+        self.cuda_outputs = cuda_outputs
+        # self.bindings = bindings
+
+        self.batch_size = engine.max_batch_size
+        self.alloc_output(batch_size=self.batch_size)
+
+    def alloc_input(self, batch_size=0, hw=(384, 640)):
+        batch_size = self.engine.max_batch_size if batch_size == 0 else batch_size
+        size = hw[0] * hw[1] * 3 * batch_size
+        dtype = np.float32
+        host_mem = cuda.pagelocked_empty(size, dtype)
+        cuda_mem = cuda.mem_alloc(host_mem.nbytes)
+        self.host_inputs.append(host_mem)
+        self.cuda_inputs.append(cuda_mem)
+
+    def alloc_output(self, batch_size=0, size=6001):
+        batch_size = self.engine.max_batch_size if batch_size == 0 else batch_size
+        size = size * batch_size
+        dtype = np.float32
+        host_mem = cuda.pagelocked_empty(size, dtype)
+        cuda_mem = cuda.mem_alloc(host_mem.nbytes)
+        self.host_outputs.append(host_mem)
+        self.cuda_outputs.append(cuda_mem)
+
+    def __call__(self, cuda_input):
+        self.cfx.push()
+        # Restore
+        stream = self.stream
+        context = self.context
+        # host_inputs = self.host_inputs
+        cuda_inputs = cuda_input
+        host_outputs = self.host_outputs
+        cuda_outputs = self.cuda_outputs
+        # Run inference.
+        context.execute_async(batch_size=self.batch_size,
+                              bindings=[cuda_inputs[0], cuda_outputs[0]], stream_handle=stream.handle)
+        # Transfer predictions back from the GPU.
+        cuda.memcpy_dtoh_async(host_outputs[0], cuda_outputs[0], stream)
+        # Synchronize the stream
+        stream.synchronize()
+        # Remove any context from the top of the context stack, deactivating it.
+        self.cfx.pop()
+        # Here we use the first row of output in that batch_size = 1
+        output = host_outputs[0]
+        # Do postprocess
+        preds = np.split(output, self.batch_size)  # list
+        preds = [np.reshape(pred[1:], (-1, 6))[:int(pred[0]), :]
+                 for pred in preds]
+        return preds
+
+    def destory(self):
+        # Remove any context from the top of the context stack, deactivating it.
+        self.cfx.pop()
+
+    # def post_process(self, output, batch_size,  classes=None, conf_threshold=0.6, iou_threshold=0.4):
+    #     '''
+    #     description: postprocess the prediction
+    #     param:
+    #         output:     A tensor likes [num_boxes,cx,cy,w,h,conf,cls_id, cx,cy,w,h,conf,cls_id, ...]
+    #         origin_h:   height of original image
+    #         origin_w:   width of original image
+    #     return:
+    #         result_boxes: finally boxes, a boxes tensor, each row is a box [x1, y1, x2, y2]
+    #         result_scores: finally scores, a tensor, each element is the score correspoing to box
+    #         result_classid: finally classid, a tensor, each element is the classid correspoing to box
+    #     '''
+    #     # Get the num of boxes detected
+    #     preds = np.split(output, batch_size)  # list
+    #     preds = [np.reshape(pred[1:], (-1, 6))[:int(pred[0]), :]
+    #              for pred in preds]
+    #     out_preds = []
+    #     for pred in preds:
+    #         if classes:
+    #             pred = pred[(pred[:, 5:6] == classes).any(1)]
+    #         si = pred[:, 4] > conf_threshold
+    #         pred = pred[si]
+    #         # boxes = boxes[si, :]
+    #         # scores = scores[si]
+    #         # classid = classid[si]
+    #         pred[:, :4] = xywh2xyxy(pred[:, :4])
+    #         # Do nms
+    #         indices = nms_numpy(pred[:, :4], pred[:, 4],
+    #                             pred[:, 5], threshold=iou_threshold)
+    #         keep_pred = torch.from_numpy(pred[indices, :])
+    #         # keep_pred = pred[indices, :]
+    #         out_preds.append(keep_pred if len(keep_pred) else None)
+    #     # return pred[indices, :]
+    #     return out_preds
