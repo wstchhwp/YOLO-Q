@@ -15,9 +15,9 @@ if __name__ == "__main__":
     cfx = cuda.Device(int(device)).make_context()
     stream = cuda.Stream()
 
-    pre_multi = False  # 多线程速度较快
-    infer_multi = False  # 路数较少时，多线程速度较快
-    post_multi = False  # 多线程速度较快
+    pre_multi = False  # 多线程速度较慢
+    infer_multi = False  # 多线程速度较慢 
+    post_multi = False  # 多线程速度较慢
 
     # logger.add("trt15.log", format="{message}")
     # logger.add("trt1.log", format="{message}")
