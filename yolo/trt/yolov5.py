@@ -125,38 +125,3 @@ class YOLOV5TRT:
     def destory(self):
         # Remove any context from the top of the context stack, deactivating it.
         self.cfx.pop()
-
-    # def post_process(self, output, batch_size,  classes=None, conf_threshold=0.6, iou_threshold=0.4):
-    #     '''
-    #     description: postprocess the prediction
-    #     param:
-    #         output:     A tensor likes [num_boxes,cx,cy,w,h,conf,cls_id, cx,cy,w,h,conf,cls_id, ...]
-    #         origin_h:   height of original image
-    #         origin_w:   width of original image
-    #     return:
-    #         result_boxes: finally boxes, a boxes tensor, each row is a box [x1, y1, x2, y2]
-    #         result_scores: finally scores, a tensor, each element is the score correspoing to box
-    #         result_classid: finally classid, a tensor, each element is the classid correspoing to box
-    #     '''
-    #     # Get the num of boxes detected
-    #     preds = np.split(output, batch_size)  # list
-    #     preds = [np.reshape(pred[1:], (-1, 6))[:int(pred[0]), :]
-    #              for pred in preds]
-    #     out_preds = []
-    #     for pred in preds:
-    #         if classes:
-    #             pred = pred[(pred[:, 5:6] == classes).any(1)]
-    #         si = pred[:, 4] > conf_threshold
-    #         pred = pred[si]
-    #         # boxes = boxes[si, :]
-    #         # scores = scores[si]
-    #         # classid = classid[si]
-    #         pred[:, :4] = xywh2xyxy(pred[:, :4])
-    #         # Do nms
-    #         indices = nms_numpy(pred[:, :4], pred[:, 4],
-    #                             pred[:, 5], threshold=iou_threshold)
-    #         keep_pred = torch.from_numpy(pred[indices, :])
-    #         # keep_pred = pred[indices, :]
-    #         out_preds.append(keep_pred if len(keep_pred) else None)
-    #     # return pred[indices, :]
-    #     return out_preds

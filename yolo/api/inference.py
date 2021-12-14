@@ -2,14 +2,15 @@ from ..data.datasets import letterbox
 from ..utils.boxes import non_max_suppression, scale_coords
 from ..utils.general import to_2tuple
 from ..utils.torch_utils import select_device
+from ..utils.timer import Timer
 from multiprocessing.pool import ThreadPool
-import threading
+from typing import Optional
 import os
 import cv2
 import numpy as np
+import torch.nn as nn
 from itertools import repeat
 import torch
-import time
 
 
 class Predictor(object):
@@ -23,8 +24,14 @@ class Predictor(object):
             (like div 255.), example: 'yolox' or ['yolov5', 'yolox'].
         half (bool, optional): Whether use fp16 to inference.
     """
-
-    def __init__(self, img_hw, models, device, half=True):
+    def __init__(self,
+                 img_hw,
+                 models,
+                 device,
+                 half=True,
+                 pre_multi=False,
+                 infer_multi=False,
+                 post_multi=False):
         super(Predictor, self).__init__()
         img_hw = to_2tuple(img_hw) if isinstance(img_hw, int) else img_hw
 
@@ -34,6 +41,12 @@ class Predictor(object):
         self.device = select_device(device)
         self.half = half
         self.multi_model = True if isinstance(models, list) else False
+        self.times = {}
+
+        # multi threading
+        self.pre_multi = pre_multi
+        self.infer_multi = infer_multi
+        self.post_multi = post_multi
 
         # self._is_yolov5(model_type)
 
@@ -65,9 +78,10 @@ class Predictor(object):
             img_raw = cv2.imread(image)
         else:
             img_raw = image
-        resized_img, _, _ = letterbox(
-            img_raw, new_shape=self.img_hw, auto=auto, center_padding=center_padding
-        )
+        resized_img, _, _ = letterbox(img_raw,
+                                      new_shape=self.img_hw,
+                                      auto=auto,
+                                      center_padding=center_padding)
         if auto:
             self.img_hw = resized_img.shape[:2]
         # cv2.imshow('x', resized_img)
@@ -90,149 +104,150 @@ class Predictor(object):
             imgs (numpy.ndarray): Images after resize and transpose,
                 List[(H, W, C)] -> (B, C, H, W).
         """
-        resized_imgs = []
-        for image in images:
-            img = self.preprocess_one_img(
-                image, auto=auto, center_padding=center_padding
-            )
-            resized_imgs.append(img)
+
+        if self.pre_multi:
+            # --------------multi threading-----------
+            def single_pre(image):
+                return self.preprocess_one_img(image,
+                                               auto=auto,
+                                               center_padding=center_padding)
+
+            p = ThreadPool()
+            resized_imgs = p.map(single_pre, images)
+            p.close()
+        else:
+            # --------------single threading-----------
+            resized_imgs = []
+            for image in images:
+                img = self.preprocess_one_img(image,
+                                              auto=auto,
+                                              center_padding=center_padding)
+                resized_imgs.append(img)
         imgs = np.concatenate(resized_imgs, axis=0)
         return imgs
 
-    def inference(self, images):
-        """Inference.
-        
-        Args:
-            images (numpy.ndarray | List[numpy.ndarray]): Input images.
-        Return:
-            see function `inference_single_model` and `inference_multi_model`.
-        """
-        times = {}
-        pst = time.time()
-        if isinstance(images, list):
-            imgs = self.preprocess_multi_img(images)
-        else:
-            imgs = self.preprocess_one_img(images)
-        pet = time.time()
-        times['preprocess'] = pet - pst
-        print(f'preprocess time:', times['preprocess'])
-        imgs = torch.from_numpy(imgs).to(self.device)
-        imgs = imgs.half() if self.half else imgs.float()  # uint8 to fp16/32
-        cet = time.time()
-        times['copy'] = cet - pet
-        # print(f'copy time:', times['copy'])
-
-        if self.multi_model:
-            return self.inference_multi_model(imgs)
-            # return self.inference_multi_thread(imgs)
-        else:
-            return self.inference_single_model(imgs)
-
-    def inference_single_model(self, images):
+    def inference_one_model(self,
+                            images: torch.Tensor,
+                            model: Optional[nn.Module] = None):
         """Inference single model.
-        
+
         Args:
             images (torch.Tensor): B, C, H, W.
         Return:
             outputs (List[torch.Tensor]): List[num_boxes, classes+5] x B
         """
-        if self.models.model_type == "yolov5":
+        # TODO
+        model = self.models if model is None else model
+        if model.model_type == "yolov5":
             images = images / 255.0
-        preds = self.models(images)
-        if self.models.model_type == "yolov5":
+        preds = model(images)
+        if model.model_type == "yolov5":
             preds = preds[0]
-        outputs = self.postprocess(
-            preds,
-            conf_thres=self.models.conf_thres,
-            iou_thres=self.models.iou_thres,
-            classes=self.models.filter,
-        )
-        return outputs
+        return preds
 
-    def inference_multi_model(self, images):
+    def inference_multi_model(self, images: torch.Tensor) -> list:
         """Inference multi model.
-        
+
         Args:
             images (torch.Tensor): B, C, H, W.
         Return:
             outputs (List[List[torch.Tensor]]): List[List[num_boxes, classes+5] x B] x num_models
         """
-        total_outputs = []
-        for _, model in enumerate(self.models):
-            inputs = images / 255.0 if model.model_type == "yolov5" else images
-            torch.cuda.synchronize()
-            ms = time.time()
-            preds = model(inputs)
-            torch.cuda.synchronize()
-            me = time.time()
-            print(f'inference time:', me - ms)
-            if model.model_type == "yolov5":
-                preds = preds[0]
-            # total_outputs.append(preds)
-            total_outputs.append(
-                self.postprocess(
-                    preds,
-                    conf_thres=model.conf_thres,
-                    iou_thres=model.iou_thres,
-                    classes=model.filter,
-                )
-            )
+
+        if self.infer_multi:
+            # --------------multi threading-----------
+            def single_infer(model):
+                return self.inference_one_model(images, model)
+
+            p = ThreadPool()
+            total_outputs = p.map(single_infer, self.models)
+            p.close()
+        else:
+            # --------------single threading-----------
+            total_outputs = []
+            for _, model in enumerate(self.models):
+                preds = self.inference_one_model(images, model)
+                total_outputs.append(preds)
         return total_outputs
 
-    def inference_multi_thread(self, images):
-        """Inference multi model.
-        
-        Args:
-            images (torch.Tensor): B, C, H, W.
-        Return:
-            outputs (List[List[torch.Tensor]]): List[List[num_boxes, classes+5] x B] x num_models
-        """
-        def single_thread(model):
-            # TODO, multi threading may change inputs.
-            inputs = images / 255.0 if model.model_type == "yolov5" else images
-            preds = model(inputs)
-            if model.model_type == "yolov5":
-                preds = preds[0]
-            return self.postprocess(
-                preds,
-                conf_thres=model.conf_thres,
-                iou_thres=model.iou_thres,
-                classes=model.filter,
-            )
-        # -------multiprocessing.threadpool-------
-        p = ThreadPool()
-        total_outputs = p.map(single_thread, self.models)
-        # p.join()
-        p.close()
-        # with ThreadPool() as p:
-        #     total_outputs = p.map(multi_thread, self.models)
-        # -------threading-------
-        # t1 = threading.Thread(target=multi_thread, args=(self.models[0], ))
-        # t2 = threading.Thread(target=multi_thread, args=(self.models[1], ))
-        # t1.start()
-        # t2.start()
-        # t1.join()
-        # t2.join()
-        return total_outputs
-
-    def postprocess(self, preds, conf_thres=0.4, iou_thres=0.5, classes=None):
+    def postprocess_one_model(self, preds, model: Optional[nn.Module] = None):
         """Postprocess multi images. NMS and scale coords to original image size.
 
         Args:
             preds (torch.Tensor): [B, num_boxes, classes+5].
         Return:
-            otuputs (torch.Tensor): [B, num_boxes, classes+5].
+            otuputs (torch.Tensor): [B, num_boxes, 6].
         """
-        # TODO
-        ppst = time.time()
-        outputs = non_max_suppression(
-            preds, conf_thres, iou_thres, classes=classes, agnostic=False
-        )
+        if model is None:
+            model = self.models
+        conf_thres = model.conf_thres
+        iou_thres = model.iou_thres
+        classes = model.filter
+        outputs = non_max_suppression(preds,
+                                      conf_thres,
+                                      iou_thres,
+                                      classes=classes,
+                                      agnostic=False)
         for i, det in enumerate(outputs):  # detections per image
             if det is None or len(det) == 0:
                 continue
             # TODO, suppert center_padding only.
-            det[:, :4] = scale_coords(self.img_hw, det[:, :4], self.ori_hw[i]).round()
-        ppet = time.time()
-        print('postprocess time:', ppet - ppst)
+            det[:, :4] = scale_coords(self.img_hw, det[:, :4],
+                                      self.ori_hw[i]).round()
+        return outputs
+
+    def postprocess_multi_model(self, outputs: list):
+        """Postprocess multi images. NMS and scale coords to original image size.
+
+        Args:
+            outputs (List[torch.Tensor]): List[B, num_boxes, classes+5].
+            models (List[nn.Module]): Models.
+        Return:
+            outputs (List[torch.Tensor]): List[B, num_boxes, 6], results after nms and scale_coords.
+        """
+
+        if self.post_multi:
+            # --------------multi threading-----------
+            def single_post(i):
+                output = outputs[i]
+                model = self.models[i]
+                outputs[i] = self.postprocess_one_model(output, model)
+
+            p = ThreadPool()
+            p.map(single_post, range(len(self.models)))
+            p.close()
+        else:
+            # --------------single threading-----------
+            for i in range(len(outputs)):
+                outputs[i] = self.postprocess_one_model(
+                    outputs[i], self.models[i])
+
+        return outputs
+
+    def inference(self, images):
+        """Inference.
+
+        Args:
+            images (numpy.ndarray | List[numpy.ndarray]): Input images.
+        Return:
+            see function `inference_single_model` and `inference_multi_model`.
+        """
+        preprocess = self.preprocess_multi_img if isinstance(
+            images, list) else self.preprocess_one_img
+        forward = (self.inference_multi_model
+                   if self.multi_model else self.inference_one_model)
+        postprocess = (self.postprocess_multi_model
+                       if self.multi_model else self.postprocess_one_model)
+
+        timer = Timer(cuda_sync=True)
+        imgs = preprocess(images)
+        imgs = torch.from_numpy(imgs).to(self.device)
+        imgs = imgs.half() if self.half else imgs.float()  # uint8 to fp16/32
+        self.times['preprocess'] = timer.since_start()
+
+        preds = forward(imgs)
+        self.times['inference'] = timer.since_last_check()
+        outputs = postprocess(preds)
+        self.times['postprocess'] = timer.since_last_check()
+
         return outputs

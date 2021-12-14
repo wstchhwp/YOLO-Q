@@ -34,7 +34,7 @@ class Visualizer(object):
                 continue
             label = '%s %.2f' % (self.names[int(cls)], conf)
             color = self.colors[int(cls)]
-            xyxy[0] += offset
+            # xyxy[0] += offset
             plot_one_box(xyxy, img, label=label,
                          color=color, 
                          line_thickness=2)

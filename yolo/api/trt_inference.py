@@ -1,21 +1,32 @@
 from ..trt import to_device, alloc_inputs
-from ..data.augmentations import letterbox
 from ..utils.boxes import nms_numpy, xywh2xyxy, scale_coords
-import cv2
-import numpy as np
+from ..utils.timer import Timer
+from .inference import Predictor
 import torch
-import os
-import time
+from multiprocessing.pool import ThreadPool
+import numpy as np
 
 
-class TRTPredictor(object):
+class TRTPredictor(Predictor):
     """YOLOV5 Tensorrt Inference"""
-    def __init__(self, img_hw, models, stream):
+    def __init__(self,
+                 img_hw,
+                 models,
+                 stream,
+                 pre_multi=False,
+                 infer_multi=False,
+                 post_multi=False):
         self.stream = stream
         self.img_hw = img_hw
         self.ori_hw = []
         self.models = models
         self.multi_model = True if isinstance(models, list) else False
+        self.times = {}
+
+        # multi threading
+        self.pre_multi = pre_multi
+        self.infer_multi = infer_multi
+        self.post_multi = post_multi
         # TODO
         self.sign = 1
 
@@ -26,81 +37,12 @@ class TRTPredictor(object):
             imgs = self.preprocess_one_img(images, auto)
 
         if self.sign == 1:
-            self.cuda_inputs, self.host_inputs = alloc_inputs(batch_size=len(imgs),
-                                                              hw=self.img_hw,
-                                                              split=False)
+            self.cuda_inputs, self.host_inputs = alloc_inputs(
+                batch_size=len(imgs), hw=self.img_hw, split=False)
             self.sign += 1
         return imgs
 
-    def preprocess_one_img(self, image, auto=True, center_padding=True):
-        """Preprocess one image.
-
-        Args:
-            image (numpy.ndarray | str): Input image or image path.
-            auto (bool, optional): Whether to use rect.
-            center_padding (bool, optional): Whether to center padding.
-        Return:
-            resized_img (numpy.ndarray): Image after resize and transpose,
-                (H, W, C) -> (1, C, H, W).
-        """
-        if type(image) == str and os.path.isfile(image):
-            img_raw = cv2.imread(image)
-        else:
-            img_raw = image
-        resized_img, _, _ = letterbox(img_raw,
-                                      new_shape=self.img_hw,
-                                      auto=auto,
-                                      center_padding=center_padding)
-        if auto:
-            self.img_hw = resized_img.shape[:2]
-        # cv2.imshow('x', resized_img)
-        # cv2.waitKey(0)
-
-        # H, W, C -> 1, C, H, W
-        resized_img = resized_img[:, :, ::-1].transpose(2, 0, 1)[None, :]
-        resized_img = np.ascontiguousarray(resized_img)
-        # TODO
-        resized_img = resized_img.astype(np.float32) / 255.0
-        self.ori_hw.append(img_raw.shape[:2])
-        return resized_img
-
-    def preprocess_multi_img(self, images, auto=True, center_padding=True):
-        """Preprocess multi image.
-
-        Args:
-            images (List[numpy.ndarray] | List[str]): Input images or image paths.
-            auto (bool, optional): Whether to use rect.
-            center_padding (bool, optional): Whether to center padding.
-        Return:
-            imgs (numpy.ndarray): Images after resize and transpose,
-                List[(H, W, C)] -> (B, C, H, W).
-        """
-        resized_imgs = []
-        for image in images:
-            img = self.preprocess_one_img(image,
-                                          auto=auto,
-                                          center_padding=center_padding)
-            resized_imgs.append(img)
-        imgs = np.concatenate(resized_imgs, axis=0)
-        return imgs
-
-    def inference(self, images):
-        pst = time.time()
-        imgs = self.preprocess(images)
-        pet = time.time()
-        images = to_device(imgs,
-                           self.host_inputs,
-                           self.cuda_inputs,
-                           self.stream,
-                           split=False)
-        print('preprocess time:', pet - pst)
-        if self.multi_model:
-            return self.inference_multi_model(images)
-            # return self.inference_multi_thread(images)
-        else:
-            return self.inference_single_model(images)
-
-    def inference_single_model(self, images):
+    def inference_one_model(self, images, model=None):
         """Inference single model.
         
         Args:
@@ -108,15 +50,10 @@ class TRTPredictor(object):
         Return:
             outputs (List[numpy.ndarray]): List[num_boxes, 6] x B
         """
-        preds = self.models(images)
-        # postprocessing
-        outputs = self.postprocess(
-            preds,
-            conf_thres=self.models.conf_thres,
-            iou_thres=self.models.iou_thres,
-            classes=self.models.filter,
-        )
-        return outputs
+        if model is None:
+            model = self.models
+        preds = model(images)
+        return preds
 
     def inference_multi_model(self, images):
         """Inference multi model.
@@ -126,27 +63,27 @@ class TRTPredictor(object):
         Return:
             outputs (List[List[numpy.ndarray]]): List[List[num_boxes, 6] x B] x num_models
         """
-        total_outputs = []
-        for _, model in enumerate(self.models):
-            mt = time.time()
-            preds = model(images)
-            me = time.time()
-            print('inference time:', me - mt)
-            total_outputs.append(preds)
-            # total_outputs.append(
-            #     self.postprocess(
-            #         preds,
-            #         conf_thres=model.conf_thres,
-            #         iou_thres=model.iou_thres,
-            #         classes=model.filter,
-            #     ))
+        if self.infer_multi:
+            # --------------multi threading-----------
+            def single_infer(model):
+                return self.inference_one_model(images, model)
+
+            p = ThreadPool()
+            total_outputs = p.map(single_infer, self.models)
+            p.close()
+        else:
+            total_outputs = []
+            for _, model in enumerate(self.models):
+                preds = model(images)
+                total_outputs.append(preds)
         return total_outputs
 
-    def postprocess(self,
-                       preds,
-                       conf_thres=0.4,
-                       iou_thres=0.5,
-                       classes=None):
+    def postprocess_one_model(self, preds, model=None):
+        if model is None:
+            model = self.models
+        conf_thres = model.conf_thres
+        iou_thres = model.iou_thres
+        classes = model.filter
         out_preds = []
         for i, pred in enumerate(preds):
             if classes:
@@ -166,5 +103,35 @@ class TRTPredictor(object):
             else:
                 keep_pred = None
             out_preds.append(keep_pred)
-        # return pred[indices, :]
         return out_preds
+
+    def inference(self, images):
+        """Inference.
+
+        Args:
+            images (numpy.ndarray | List[numpy.ndarray]): Input images.
+        Return:
+            see function `inference_single_model` and `inference_multi_model`.
+        """
+        preprocess = self.preprocess
+        forward = (self.inference_multi_model
+                   if self.multi_model else self.inference_one_model)
+        postprocess = (self.postprocess_multi_model
+                       if self.multi_model else self.postprocess_one_model)
+
+        timer = Timer(cuda_sync=False)
+        imgs = preprocess(images)
+        imgs = imgs.astype(np.float32) / 255.
+        imgs = to_device(imgs,
+                         self.host_inputs,
+                         self.cuda_inputs,
+                         self.stream,
+                         split=False)
+        self.times['preprocess'] = timer.since_start()
+
+        preds = forward(imgs)
+        self.times['inference'] = timer.since_last_check()
+        outputs = postprocess(preds)
+        self.times['postprocess'] = timer.since_last_check()
+
+        return outputs
