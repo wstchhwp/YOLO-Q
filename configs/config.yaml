@@ -30,6 +30,8 @@
 #   iou_thres: 0.4
 #   filter: null
 
+# ----global config--------
+
 model1:
   model_type: yolov5
   yaml: ./weights/yolov5/yolov5n.yaml

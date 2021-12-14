@@ -30,7 +30,7 @@ class TRTPredictor(Predictor):
         # TODO
         self.sign = 1
 
-    def preprocess(self, images, auto=True):
+    def preprocess(self, images, auto=False):
         if isinstance(images, list):
             imgs = self.preprocess_multi_img(images, auto)
         else:

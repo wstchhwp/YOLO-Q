@@ -5,6 +5,7 @@
 - [X] same interface of `yolov5` and `yolox`.
 - [X] **add time**
 - [ ] add log
+- [ ] add `auto` to config
 - [ ] better visualization
 - [ ] clean up
 - [ ] inference

@@ -23,11 +23,11 @@ if __name__ == "__main__":
     # logger.add("trt1.log", format="{message}")
     # logger.add("trt15.log")
 
-    model = build_from_configs(cfg_path='./configs/config_trt.yaml',
+    model = build_from_configs(cfg_path='./configs/config_trt15n640.yaml',
                                cfx=cfx,
                                stream=stream)
     predictor = TRTPredictor(
-        img_hw=(384, 640),
+        img_hw=(640, 640),
         models=model,
         stream=stream,
         pre_multi=pre_multi,
@@ -56,16 +56,16 @@ if __name__ == "__main__":
         ret, frame = cap.read()
         if not ret:
             break
-        # outputs = predictor.inference([frame for _ in range(15)])
-        outputs = predictor.inference(frame)
-        for i, v in enumerate(vis):
-            v.draw_imgs(frame, outputs[i])
-        cv2.imshow('p', frame)
-        # cv2.imshow('p1', frame.copy())
-        if cv2.waitKey(1) == ord('q'):
-            break
-        te = time.time()
-        print(f"frame {frame_num} time: {te - ts}")
+        outputs = predictor.inference([frame for _ in range(15)])
+        # outputs = predictor.inference(frame)
+        # for i, v in enumerate(vis):
+        #     v.draw_imgs(frame, outputs[i])
+        # cv2.imshow('p', frame)
+        # # cv2.imshow('p1', frame.copy())
+        # if cv2.waitKey(1) == ord('q'):
+        #     break
+        # te = time.time()
+        # print(f"frame {frame_num} time: {te - ts}")
         memory = gpu_mem_usage()
         utilize = gpu_use()
         logger.info(f"{predictor.times}, {memory}, {utilize}")
