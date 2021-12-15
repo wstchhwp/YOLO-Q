@@ -16,14 +16,14 @@ if __name__ == "__main__":
     stream = cuda.Stream()
 
     pre_multi = False  # 多线程速度较慢
-    infer_multi = False  # 多线程速度较慢 
+    infer_multi = True  # 多线程速度较慢 
     post_multi = False  # 多线程速度较慢
 
     # logger.add("trt15.log", format="{message}")
     # logger.add("trt1.log", format="{message}")
     # logger.add("trt15.log")
 
-    model = build_from_configs(cfg_path='./configs/config_trt15n640.yaml',
+    model = build_from_configs(cfg_path='./configs/config_trt.yaml',
                                cfx=cfx,
                                stream=stream)
     predictor = TRTPredictor(
@@ -51,13 +51,13 @@ if __name__ == "__main__":
         frame_num += 1
         # if frame_num % 2 == 0:
         #     continue
-        if frame_num == 200:
+        if frame_num == 2000:
             break
         ret, frame = cap.read()
         if not ret:
             break
-        outputs = predictor.inference([frame for _ in range(15)])
-        # outputs = predictor.inference(frame)
+        # outputs = predictor.inference([frame for _ in range(15)])
+        outputs = predictor.inference(frame)
         # for i, v in enumerate(vis):
         #     v.draw_imgs(frame, outputs[i])
         # cv2.imshow('p', frame)
@@ -78,12 +78,13 @@ if __name__ == "__main__":
     logger.info(f"infer_multi: {infer_multi}")
     logger.info(f"post_multi: {post_multi}")
     logger.info(f"Average preprocess: {meter['preprocess'].avg}s")
-    logger.info(f"Average inference: {meter['inference'].avg}s")
+    logger.info(f"Average inference: {meter['inference'].total}s")
     logger.info(f"Average postprocess: {meter['postprocess'].avg}s")
     logger.info(f"Average memory: {meter['memory'].avg}MB")
     logger.info(f"Average utilize: {meter['utilize'].avg}%")
 
 cfx.pop()
+# Average inference: 11.596075057983398s
 
 # -----------5000 frames-----------
 # -----------two models------------
