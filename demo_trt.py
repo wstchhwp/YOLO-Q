@@ -37,6 +37,7 @@ if __name__ == "__main__":
     cuda.init()
     ctx = cuda.Device(int(device)).make_context()
     stream = cuda.Stream()
+    # stream = None
 
     pre_multi = False  # 多线程速度较慢
     infer_multi = False  # 多线程速度较慢
@@ -114,7 +115,49 @@ if __name__ == "__main__":
     logger.info(f"Average utilize: {meter['utilize'].avg}%")
     logger.info(f"Max utilize: {meter['utilize'].max}%")
 
-ctx.pop()
+    ctx.pop()
+
+# multi stream one thread
+# Average preprocess: 0.027459805749027604s
+# Average inference: 0.029808317801081032s
+# Average postprocess: 0.023598009323978042s
+# Average memory: 2369.6875MB
+# Average utilize: 36.43574297188755%
+# Max utilize: 40%
+
+# multi stream multi thread
+# Average preprocess: 0.0272097893986836s
+# Average inference: 0.027776270506372415s
+# Average postprocess: 0.023574815696501827s
+# Average memory: 2356.715612449799MB
+# Average utilize: 35.06024096385542%
+# Max utilize: 38%
+
+# one stream one thread
+# Average preprocess: 0.027554046198067415s
+# Average inference: 0.02978426720722612s
+# Average postprocess: 0.02378575820999452s
+# Average memory: 2369.6875MB
+# Average utilize: 36.238955823293175%
+# Max utilize: 40%
+
+# ------------1x5-----------
+# multi stream one thread
+# Average preprocess: 0.001693828996405544s
+# Average inference: 0.0054869872020430355s
+# Average postprocess: 0.0017274603786238704s
+# Average memory: 1847.6875MB
+# Average utilize: 45.69477911646587%
+# Max utilize: 55%
+
+# multi stream multi thread
+# Average preprocess: 0.0018568163415993073s
+# Average inference: 0.0054639515627818895s
+# Average postprocess: 0.0024826655904930757s
+# Average memory: 1847.6875MB
+# Average utilize: 36.74497991967871%
+# Max utilize: 45%
+
 
 # -----------5000 frames-----------
 # -----------two models------------

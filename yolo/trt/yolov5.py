@@ -3,6 +3,7 @@ import ctypes
 import pycuda.driver as cuda
 import tensorrt as trt
 
+
 def alloc_inputs(batch_size, hw, split=True):
     """
     split:表示以batch-size为1处理
@@ -36,20 +37,19 @@ def to_device(input_image, host_inputs, cuda_inputs, stream, split=True):
     if split:
         for i, img in enumerate(input_image):
             np.copyto(host_inputs[i][0], img.ravel())
-            cuda.memcpy_htod_async(
-                cuda_inputs[i][0], host_inputs[i][0], stream)
+            cuda.memcpy_htod_async(cuda_inputs[i][0], host_inputs[i][0],
+                                   stream)
     else:
         np.copyto(host_inputs[0], input_image.ravel())
         # Transfer input data  to the GPU.
-        cuda.memcpy_htod_async(
-            cuda_inputs[0], host_inputs[0], stream)
+        cuda.memcpy_htod_async(cuda_inputs[0], host_inputs[0], stream)
     return cuda_inputs
 
 
 class YOLOV5TRT:
-    def __init__(self, engine_file_path, library, ctx, stream):
+    def __init__(self, engine_file_path, library, ctx=None, stream=None):
         # Create a Context on this device,
-        self.ctx = ctx
+        self.ctx = cuda.Device(0).make_context() if ctx is None else ctx
         TRT_LOGGER = trt.Logger(trt.Logger.INFO)
         runtime = trt.Runtime(TRT_LOGGER)
         ctypes.CDLL(library)
@@ -66,7 +66,7 @@ class YOLOV5TRT:
         cuda_outputs = []
 
         # Store
-        self.stream = stream
+        self.stream = cuda.Stream() if stream is None else stream
         self.context = context
         self.engine = engine
         self.host_inputs = host_inputs
@@ -107,7 +107,8 @@ class YOLOV5TRT:
         cuda_outputs = self.cuda_outputs
         # Run inference.
         context.execute_async(batch_size=self.batch_size,
-                              bindings=[cuda_inputs[0], cuda_outputs[0]], stream_handle=stream.handle)
+                              bindings=[cuda_inputs[0], cuda_outputs[0]],
+                              stream_handle=stream.handle)
         # Transfer predictions back from the GPU.
         cuda.memcpy_dtoh_async(host_outputs[0], cuda_outputs[0], stream)
         # Synchronize the stream
@@ -118,8 +119,9 @@ class YOLOV5TRT:
         output = host_outputs[0]
         # Do postprocess
         preds = np.split(output, self.batch_size)  # list
-        preds = [np.reshape(pred[1:], (-1, 6))[:int(pred[0]), :]
-                 for pred in preds]
+        preds = [
+            np.reshape(pred[1:], (-1, 6))[:int(pred[0]), :] for pred in preds
+        ]
         return preds
 
     def destory(self):
