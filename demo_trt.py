@@ -8,6 +8,29 @@ import pycuda.driver as cuda
 from loguru import logger
 import time
 
+global_settings = {
+    './configs/config_trt.yaml': {
+        'batch': 1,
+        'model': 'n',
+        'size': (384, 640)
+    },
+    './configs/config_trt15n.yaml': {
+        'batch': 15,
+        'model': 'n',
+        'size': (384, 640)
+    },
+    './configs/config_trt15n640.yaml': {
+        'batch': 15,
+        'model': 'n',
+        'size': (640, 640)
+    },
+    './configs/config_trt15s.yaml': {
+        'batch': 15,
+        'model': 's',
+        'size': (384, 640)
+    },
+}
+
 if __name__ == "__main__":
 
     device = "0"
@@ -15,19 +38,27 @@ if __name__ == "__main__":
     ctx = cuda.Device(int(device)).make_context()
     stream = cuda.Stream()
 
-    pre_multi = True  # 多线程速度较慢
-    infer_multi = True  # 多线程速度较慢 
+    pre_multi = False  # 多线程速度较慢
+    infer_multi = False  # 多线程速度较慢
     post_multi = False  # 多线程速度较慢
+
+    cfg_path = './configs/config_trt.yaml'
+    test_frames = 500
+    setting = global_settings[cfg_path]
+
+    test_batch = setting['batch']
+    test_model = setting['model']
+    test_size = setting['size']
 
     # logger.add("trt15.log", format="{message}")
     # logger.add("trt1.log", format="{message}")
     # logger.add("trt15.log")
 
-    model = build_from_configs(cfg_path='./configs/config_trt.yaml',
+    model = build_from_configs(cfg_path=cfg_path,
                                ctx=ctx,
                                stream=stream)
     predictor = TRTPredictor(
-        img_hw=(384, 640),
+        img_hw=test_size,
         models=model,
         stream=stream,
         pre_multi=pre_multi,
@@ -42,7 +73,7 @@ if __name__ == "__main__":
         # vis.draw_imgs(img, outputs[i])
     # vis = Visualizer(names=model[1].names)
 
-    meter = MeterBuffer(window_size=100)
+    meter = MeterBuffer(window_size=500)
 
     cap = cv2.VideoCapture('/e/1.avi')
     frame_num = 1
@@ -51,19 +82,17 @@ if __name__ == "__main__":
         frame_num += 1
         # if frame_num % 2 == 0:
         #     continue
-        if frame_num == 200:
+        if frame_num == test_frames:
             break
         ret, frame = cap.read()
         if not ret:
             break
-        # outputs = predictor.inference([frame for _ in range(15)])
-        outputs = predictor.inference(frame)
-        for i, v in enumerate(vis):
-            v.draw_imgs(frame, outputs[i])
-        cv2.imshow('p', frame)
-        # cv2.imshow('p1', frame.copy())
-        if cv2.waitKey(1) == ord('q'):
-            break
+        outputs = predictor.inference([frame for _ in range(test_batch)])
+        # for i, v in enumerate(vis):
+        #     v.draw_imgs(frame, outputs[i])
+        # cv2.imshow('p', frame)
+        # if cv2.waitKey(1) == ord('q'):
+        #     break
         # te = time.time()
         # print(f"frame {frame_num} time: {te - ts}")
         memory = gpu_mem_usage()
@@ -72,8 +101,9 @@ if __name__ == "__main__":
         meter.update(memory=memory, utilize=utilize, **predictor.times)
 
     logger.info("-------------------------------------------------------")
-    # logger.info("Tensort, 15x5, yolov5n, 640x384, 100/200frames average time.")
-    logger.info("Tensort, 1x5, yolov5n, 640x384, 100/200frames average time.")
+    logger.info(
+        f"Tensort, {test_batch}x5, yolov5{test_model}, {test_size}, {test_frames}frames average time."
+    )
     logger.info(f"pre_multi: {pre_multi}")
     logger.info(f"infer_multi: {infer_multi}")
     logger.info(f"post_multi: {post_multi}")
@@ -82,6 +112,7 @@ if __name__ == "__main__":
     logger.info(f"Average postprocess: {meter['postprocess'].avg}s")
     logger.info(f"Average memory: {meter['memory'].avg}MB")
     logger.info(f"Average utilize: {meter['utilize'].avg}%")
+    logger.info(f"Max utilize: {meter['utilize'].max}%")
 
 ctx.pop()
 

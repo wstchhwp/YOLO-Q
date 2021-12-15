@@ -357,6 +357,11 @@ class AverageMeter:
         return np.median(d)
 
     @property
+    def max(self):
+        d = np.array(list(self._deque))
+        return np.max(d)
+
+    @property
     def avg(self):
         # if deque is empty, nan will be returned.
         d = np.array(list(self._deque))
