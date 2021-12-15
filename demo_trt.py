@@ -12,10 +12,10 @@ if __name__ == "__main__":
 
     device = "0"
     cuda.init()
-    cfx = cuda.Device(int(device)).make_context()
+    ctx = cuda.Device(int(device)).make_context()
     stream = cuda.Stream()
 
-    pre_multi = False  # 多线程速度较慢
+    pre_multi = True  # 多线程速度较慢
     infer_multi = True  # 多线程速度较慢 
     post_multi = False  # 多线程速度较慢
 
@@ -24,10 +24,10 @@ if __name__ == "__main__":
     # logger.add("trt15.log")
 
     model = build_from_configs(cfg_path='./configs/config_trt.yaml',
-                               cfx=cfx,
+                               ctx=ctx,
                                stream=stream)
     predictor = TRTPredictor(
-        img_hw=(640, 640),
+        img_hw=(384, 640),
         models=model,
         stream=stream,
         pre_multi=pre_multi,
@@ -51,19 +51,19 @@ if __name__ == "__main__":
         frame_num += 1
         # if frame_num % 2 == 0:
         #     continue
-        if frame_num == 2000:
+        if frame_num == 200:
             break
         ret, frame = cap.read()
         if not ret:
             break
         # outputs = predictor.inference([frame for _ in range(15)])
         outputs = predictor.inference(frame)
-        # for i, v in enumerate(vis):
-        #     v.draw_imgs(frame, outputs[i])
-        # cv2.imshow('p', frame)
-        # # cv2.imshow('p1', frame.copy())
-        # if cv2.waitKey(1) == ord('q'):
-        #     break
+        for i, v in enumerate(vis):
+            v.draw_imgs(frame, outputs[i])
+        cv2.imshow('p', frame)
+        # cv2.imshow('p1', frame.copy())
+        if cv2.waitKey(1) == ord('q'):
+            break
         # te = time.time()
         # print(f"frame {frame_num} time: {te - ts}")
         memory = gpu_mem_usage()
@@ -78,13 +78,12 @@ if __name__ == "__main__":
     logger.info(f"infer_multi: {infer_multi}")
     logger.info(f"post_multi: {post_multi}")
     logger.info(f"Average preprocess: {meter['preprocess'].avg}s")
-    logger.info(f"Average inference: {meter['inference'].total}s")
+    logger.info(f"Average inference: {meter['inference'].avg}s")
     logger.info(f"Average postprocess: {meter['postprocess'].avg}s")
     logger.info(f"Average memory: {meter['memory'].avg}MB")
     logger.info(f"Average utilize: {meter['utilize'].avg}%")
 
-cfx.pop()
-# Average inference: 11.596075057983398s
+ctx.pop()
 
 # -----------5000 frames-----------
 # -----------two models------------

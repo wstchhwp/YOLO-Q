@@ -47,9 +47,9 @@ def to_device(input_image, host_inputs, cuda_inputs, stream, split=True):
 
 
 class YOLOV5TRT:
-    def __init__(self, engine_file_path, library, cfx, stream):
+    def __init__(self, engine_file_path, library, ctx, stream):
         # Create a Context on this device,
-        self.cfx = cfx
+        self.ctx = ctx
         TRT_LOGGER = trt.Logger(trt.Logger.INFO)
         runtime = trt.Runtime(TRT_LOGGER)
         ctypes.CDLL(library)
@@ -97,7 +97,7 @@ class YOLOV5TRT:
         self.cuda_outputs.append(cuda_mem)
 
     def __call__(self, cuda_input):
-        self.cfx.push()
+        self.ctx.push()
         # Restore
         stream = self.stream
         context = self.context
@@ -113,7 +113,7 @@ class YOLOV5TRT:
         # Synchronize the stream
         stream.synchronize()
         # Remove any context from the top of the context stack, deactivating it.
-        self.cfx.pop()
+        self.ctx.pop()
         # Here we use the first row of output in that batch_size = 1
         output = host_outputs[0]
         # Do postprocess
@@ -124,4 +124,4 @@ class YOLOV5TRT:
 
     def destory(self):
         # Remove any context from the top of the context stack, deactivating it.
-        self.cfx.pop()
+        self.ctx.pop()
