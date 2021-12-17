@@ -1,6 +1,5 @@
 weights/
 __pycache__/
-*.log
 *.mp4
 *.jpg
 *.png

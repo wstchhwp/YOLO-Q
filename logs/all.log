@@ -1,0 +1,91 @@
+- 1x5
+- torch
+-------------------------------------------------------
+Torch, 1x5, yolov5n, 640x384, 100/200frames average time.
+pre_multi: True
+infer_multi: True
+post_multi: True
+Average preprocess: 0.0010876154899597168s
+Average inference: 0.01822072982788086s
+Average postprocess: 0.006319987773895264s
+Average memory: 1753.5225MB
+Average utilize: 47.93%
+-------------------------------------------------------
+Torch, 1x5, yolov5n, 640x384, 100/200frames average time.
+pre_multi: False
+infer_multi: False
+post_multi: False
+Average preprocess: 0.0010921692848205567s
+Average inference: 0.03131651163101196s
+Average postprocess: 0.006760215759277344s
+Average memory: 1529.9375MB
+Average utilize: 38.63%
+
+- tensorrt
+-------------------------------------------------------
+Tensort, 1x5, yolov5n, 640x384, 100/200frames average time.
+pre_multi: True
+infer_multi: True
+post_multi: True
+Average preprocess: 0.0017171812057495117s
+Average inference: 0.007779769897460938s
+Average postprocess: 0.004221723079681396s
+Average memory: 1803.8125MB
+Average utilize: 41.44%
+-------------------------------------------------------
+Tensort, 1x5, yolov5n, 640x384, 100/200frames average time.
+pre_multi: False
+infer_multi: False
+post_multi: False
+Average preprocess: 0.0015916919708251953s
+Average inference: 0.0053179717063903805s
+Average postprocess: 0.0017489051818847655s
+Average memory: 1759.325MB
+Average utilize: 52.74%
+
+
+
+- 15x5
+- torch
+-------------------------------------------------------
+Torch, 15x5, yolov5n, 640x384, 100/200frames average time.
+pre_multi: True
+infer_multi: True
+post_multi: True
+Average preprocess: 0.013760726451873779s
+Average inference: 0.06215290069580078s
+Average postprocess: 0.055889673233032226s
+Average memory: 2763.44625MB
+Average utilize: 56.87%
+-------------------------------------------------------
+Torch, 15x5, yolov5n, 640x384, 100/200frames average time.
+pre_multi: False
+infer_multi: False
+post_multi: False
+Average preprocess: 0.013842697143554688s
+Average inference: 0.05881061553955078s
+Average postprocess: 0.09153090238571167s
+Average memory: 2413.8125MB
+Average utilize: 44.91%
+
+- tensorrt
+-------------------------------------------------------
+Tensort, 15x5, yolov5n, 640x384, 100/200frames average time.
+pre_multi: True
+infer_multi: True
+post_multi: True
+Average preprocess: 0.025586740970611574s
+Average inference: 0.02956021308898926s
+Average postprocess: 0.03163627147674561s
+Average memory: 2289.875MB
+Average utilize: 34.68%
+-------------------------------------------------------
+Tensort, 15x5, yolov5n, 640x384, 100/200frames average time.
+pre_multi: False
+infer_multi: False
+post_multi: False
+Average preprocess: 0.027943847179412843s
+Average inference: 0.029593231678009032s
+Average postprocess: 0.023970592021942138s
+Average memory: 2289.875MB
+Average utilize: 36.18%
