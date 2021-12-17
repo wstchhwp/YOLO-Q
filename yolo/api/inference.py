@@ -176,7 +176,7 @@ class Predictor(object):
         Args:
             preds (torch.Tensor): [B, num_boxes, classes+5].
         Return:
-            otuputs (torch.Tensor): [B, num_boxes, 6].
+            otuputs (torch.Tensor): List[num_boxes, 6]xB.
         """
         if model is None:
             model = self.models
@@ -203,7 +203,7 @@ class Predictor(object):
             outputs (List[torch.Tensor]): List[B, num_boxes, classes+5].
             models (List[nn.Module]): Models.
         Return:
-            outputs (List[torch.Tensor]): List[B, num_boxes, 6], results after nms and scale_coords.
+            outputs (List[torch.Tensor]): List[List[num_boxes, 6]*B]*num_models, results after nms and scale_coords.
         """
 
         if self.post_multi:
