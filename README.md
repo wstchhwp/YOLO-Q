@@ -10,7 +10,7 @@ A inference framework that support multi models of `yolo5`(torch and tensorrt) a
 - [ ] better visualization
 - [ ] clean up
 - [ ] inference
-- [ ] training
+- [ ] return the output with dict type
 
 ## Quick Start
 - Installation
