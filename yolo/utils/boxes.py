@@ -3,6 +3,7 @@ import numpy as np
 import time
 import torchvision
 import cv2
+from typing import Iterable
 
 from .metrics import box_iou
 from .general import increment_path
@@ -146,10 +147,11 @@ def non_max_suppression(prediction, conf_thres=0.25, iou_thres=0.45, classes=Non
     """
 
     nc = prediction.shape[2] - 5  # number of classes
-    xc = prediction[..., 4] > conf_thres  # candidates
+    min_conf = min(conf_thres) if isinstance(conf_thres, Iterable) else conf_thres
+    xc = prediction[..., 4] > min_conf  # candidates
 
     # Checks
-    assert 0 <= conf_thres <= 1, f'Invalid Confidence threshold {conf_thres}, valid values are between 0.0 and 1.0'
+    assert 0 <= min_conf <= 1, f'Invalid Confidence threshold {min_conf}, valid values are between 0.0 and 1.0'
     assert 0 <= iou_thres <= 1, f'Invalid IoU {iou_thres}, valid values are between 0.0 and 1.0'
 
     # Settings
@@ -192,7 +194,16 @@ def non_max_suppression(prediction, conf_thres=0.25, iou_thres=0.45, classes=Non
             x = torch.cat((box[i], x[i, j + 5, None], j[:, None].float()), 1)
         else:  # best class only
             conf, j = x[:, 5:].max(1, keepdim=True)
-            x = torch.cat((box, conf, j.float()), 1)[conf.view(-1) > conf_thres]
+            x = torch.cat((box, conf, j.float()), 1)
+            if isinstance(conf_thres, Iterable):
+                assert j.max() <= len(conf_thres)
+                temp_x = []
+                for ci, conf in enumerate(conf_thres):
+                    ci_x = x[x[:, 5] == ci]
+                    temp_x.append(ci_x[ci_x[:, 4] > conf])
+                x = torch.cat(temp_x, 0)
+            else:
+                x = x[conf.view(-1) > conf_thres]
 
         # Filter by class
         if classes is not None:
