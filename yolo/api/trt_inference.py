@@ -103,6 +103,8 @@ class TRTPredictor(Predictor):
             else:
                 keep_pred = None
             out_preds.append(keep_pred)
+        if not self.multi_model:  # 表示只有一个模型
+            self.ori_hw.clear()
         return out_preds
 
     def inference(self, images):

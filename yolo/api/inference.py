@@ -194,6 +194,9 @@ class Predictor(object):
             # TODO, suppert center_padding only.
             det[:, :4] = scale_coords(self.img_hw, det[:, :4],
                                       self.ori_hw[i]).round()
+        # TODO
+        if not self.multi_model:  # 表示只有一个模型
+            self.ori_hw.clear()
         return outputs
 
     def postprocess_multi_model(self, outputs: list):
@@ -222,7 +225,8 @@ class Predictor(object):
             for i in range(len(outputs)):
                 outputs[i] = self.postprocess_one_model(
                     outputs[i], self.models[i])
-
+        # TODO
+        self.ori_hw.clear()
         return outputs
 
     def inference(self, images):

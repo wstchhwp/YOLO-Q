@@ -352,3 +352,16 @@ def nms_numpy(boxes, scores, class_id, threshold, method=None, agnostic=False):
 
     pick = pick[:counter].copy()
     return pick
+
+def crop_box(xyxy, im, gain=1.02, pad=10, square=False, BGR=False):
+    # Save image crop as {file} with crop size multiple {gain} and {pad} pixels. Save and/or return crop
+    # xyxy = torch.tensor(xyxy).view(-1, 4)
+    xyxy = xyxy.clone().view(-1, 4)
+    b = xyxy2xywh(xyxy)  # boxes
+    if square:
+        b[:, 2:] = b[:, 2:].max(1)[0].unsqueeze(1)  # attempt rectangle to square
+    b[:, 2:] = b[:, 2:] * gain + pad  # box wh * gain + pad
+    xyxy = xywh2xyxy(b).long()
+    clip_coords(xyxy, im.shape)
+    crop = im[int(xyxy[0, 1]):int(xyxy[0, 3]), int(xyxy[0, 0]):int(xyxy[0, 2]), ::(1 if BGR else -1)]
+    return crop
