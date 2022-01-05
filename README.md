@@ -11,6 +11,7 @@ A inference framework that support multi models of `yolo5`(torch and tensorrt) a
 - [ ] clean up
 - [ ] inference
 - [ ] return the output with dict type
+- [ ] device
 
 ## Quick Start
 - Installation

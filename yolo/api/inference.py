@@ -29,6 +29,7 @@ class Predictor(object):
                  models,
                  device,
                  half=True,
+                 auto=True,
                  pre_multi=False,
                  infer_multi=False,
                  post_multi=False):
@@ -40,6 +41,7 @@ class Predictor(object):
         self.models = models
         self.device = select_device(device)
         self.half = half
+        self.auto=auto
         self.multi_model = True if isinstance(models, list) else False
         self.times = {}
 
@@ -63,7 +65,7 @@ class Predictor(object):
             assert model_type in ["yolov5", "yolox"]
             self.yolov5 = model_type is not "yolox"
 
-    def preprocess_one_img(self, image, auto=True, center_padding=True):
+    def preprocess_one_img(self, image, center_padding=True):
         """Preprocess one image.
 
         Args:
@@ -80,9 +82,9 @@ class Predictor(object):
             img_raw = image
         resized_img, _, _ = letterbox(img_raw,
                                       new_shape=self.img_hw,
-                                      auto=auto,
+                                      auto=self.auto,
                                       center_padding=center_padding)
-        if auto:
+        if self.auto:
             self.img_hw = resized_img.shape[:2]
         # cv2.imshow('x', resized_img)
         # cv2.waitKey(0)
@@ -93,7 +95,7 @@ class Predictor(object):
         self.ori_hw.append(img_raw.shape[:2])
         return resized_img
 
-    def preprocess_multi_img(self, images, auto=True, center_padding=True):
+    def preprocess_multi_img(self, images, center_padding=True):
         """Preprocess multi image.
 
         Args:
@@ -109,7 +111,6 @@ class Predictor(object):
             # --------------multi threading-----------
             def single_pre(image):
                 return self.preprocess_one_img(image,
-                                               auto=auto,
                                                center_padding=center_padding)
 
             p = ThreadPool()
@@ -120,7 +121,6 @@ class Predictor(object):
             resized_imgs = []
             for image in images:
                 img = self.preprocess_one_img(image,
-                                              auto=auto,
                                               center_padding=center_padding)
                 resized_imgs.append(img)
         imgs = np.concatenate(resized_imgs, axis=0)

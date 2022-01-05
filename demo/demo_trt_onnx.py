@@ -1,5 +1,5 @@
-from yolo.trt import build_from_configs
-from yolo.api.trt_inference import TRTPredictorx
+from yolo.trt import build_trt_from_configs
+from yolo.api.trt_inference import TRTPredictor
 from yolo.api.visualization import Visualizer
 from yolo.utils.metrics import MeterBuffer
 from yolo.utils.gpu_metrics import gpu_mem_usage, gpu_use
@@ -9,59 +9,32 @@ from loguru import logger
 import time
 
 global_settings = {
-    './configs/config_trt.yaml': {
-        'batch': 1,
-        'model': 'n',
-        'size': (384, 640)
-    },
-    './configs/config_trt15n.yaml': {
-        'batch': 15,
-        'model': 'n',
-        'size': (384, 640)
-    },
-    './configs/config_trt15n640.yaml': {
-        'batch': 15,
-        'model': 'n',
-        'size': (640, 640)
-    },
-    './configs/config_trt15s.yaml': {
-        'batch': 15,
-        'model': 's',
-        'size': (384, 640)
-    },
+    "./configs/config_trt_onnx.yaml": {"batch": 1, "model": "s", "size": (640, 640)},
 }
 
 if __name__ == "__main__":
-
-    device = "0"
-    cuda.init()
-    ctx = cuda.Device(int(device)).make_context()
-    stream = cuda.Stream()
-    # stream = None
-
     pre_multi = False  # 多线程速度较慢
     infer_multi = False  # 多线程速度较慢
     post_multi = False  # 多线程速度较慢
 
-    cfg_path = './configs/config_trt.yaml'
+    cfg_path = "./configs/config_trt_onnx.yaml"
     test_frames = 500
     setting = global_settings[cfg_path]
 
-    test_batch = setting['batch']
-    test_model = setting['model']
-    test_size = setting['size']
+    test_batch = setting["batch"]
+    test_model = setting["model"]
+    test_size = setting["size"]
 
     # logger.add("trt15.log", format="{message}")
     # logger.add("trt1.log", format="{message}")
     # logger.add("trt15.log")
 
-    model = build_from_configs(cfg_path=cfg_path,
-                               ctx=ctx,
-                               stream=stream)
-    predictor = TRTPredictorx(
+    model = build_trt_from_configs(cfg_path=cfg_path)
+    predictor = TRTPredictor(
         img_hw=test_size,
         models=model,
-        stream=stream,
+        device=0,
+        auto=True,
         pre_multi=pre_multi,
         infer_multi=infer_multi,
         post_multi=post_multi,
@@ -76,7 +49,7 @@ if __name__ == "__main__":
 
     meter = MeterBuffer(window_size=500)
 
-    cap = cv2.VideoCapture('/e/1.avi')
+    cap = cv2.VideoCapture("/e/1.avi")
     frame_num = 1
     while cap.isOpened():
         ts = time.time()

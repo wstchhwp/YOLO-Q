@@ -12,16 +12,16 @@ class TRT_Model:
         logger = trt.Logger(trt.Logger.INFO)
         with open(engine_file_path, 'rb') as f, trt.Runtime(logger) as runtime:
             model = runtime.deserialize_cuda_engine(f.read())
-        bindings = OrderedDict()
+        self.bindings = OrderedDict()
         for index in range(model.num_bindings):
             name = model.get_binding_name(index)
             dtype = trt.nptype(model.get_binding_dtype(index))
             shape = tuple(model.get_binding_shape(index))
-            data = torch.from_numpy(np.empty(shape, dtype=np.dtype(dtype))).to(device)
-            bindings[name] = Binding(name, dtype, shape, data, int(data.data_ptr()))
-        self.binding_addrs = OrderedDict((n, d.ptr) for n, d in bindings.items())
+            data = torch.from_numpy(np.empty(shape, dtype=np.dtype(dtype))).to(self.device)
+            self.bindings[name] = Binding(name, dtype, shape, data, int(data.data_ptr()))
+        self.binding_addrs = OrderedDict((n, d.ptr) for n, d in self.bindings.items())
         self.context = model.create_execution_context()
-        self.batch_size = bindings['images'].shape[0]
+        self.batch_size = self.bindings['images'].shape[0]
 
     def __call__(self, img):
         assert img.shape == self.bindings['images'].shape, (img.shape, self.bindings['images'].shape)
