@@ -139,18 +139,20 @@ class TRTPredictorx(Predictor):  # `x` means repo `tensorrtx`
         imgs = to_device(
             imgs, self.host_inputs, self.cuda_inputs, self.stream, split=False
         )
-        self.times["preprocess"] = timer.since_start()
+        self.times['preprocess'] = round(timer.since_start() * 1000, 1)
 
         preds = forward(imgs)
-        self.times["inference"] = timer.since_last_check()
+        self.times['inference'] = round(timer.since_last_check() * 1000, 1)
         outputs = postprocess(preds)
-        self.times["postprocess"] = timer.since_last_check()
+        self.times['postprocess'] = round(timer.since_last_check() * 1000, 1)
+        self.times['total'] = round(timer.since_start() * 1000, 1)
 
         return outputs
 
 
 class TRTPredictor(Predictor):
     """Support yolov5 model from onnx -> tensorrt"""
+
     def __init__(
         self,
         img_hw,
@@ -177,6 +179,5 @@ class TRTPredictor(Predictor):
             outputs (List[torch.Tensor]): List[num_boxes, classes+5] x B
         """
         model = self.models if model is None else model
-        images = images / 255.0
-        preds = model(images)
+        preds = model(images / 255.)
         return preds

@@ -15,17 +15,22 @@ class TRT_Model:
         self.bindings = OrderedDict()
         for index in range(model.num_bindings):
             name = model.get_binding_name(index)
+            # 不需要额外给`images`创建data
+            if name in ['images']:
+                continue
             dtype = trt.nptype(model.get_binding_dtype(index))
             shape = tuple(model.get_binding_shape(index))
             data = torch.from_numpy(np.empty(shape, dtype=np.dtype(dtype))).to(self.device)
             self.bindings[name] = Binding(name, dtype, shape, data, int(data.data_ptr()))
         self.binding_addrs = OrderedDict((n, d.ptr) for n, d in self.bindings.items())
         self.context = model.create_execution_context()
-        self.batch_size = self.bindings['images'].shape[0]
+        # self.batch_size = self.bindings['images'].shape[0]
 
     def __call__(self, img):
-        assert img.shape == self.bindings['images'].shape, (img.shape, self.bindings['images'].shape)
+        # assert img.shape == self.bindings['images'].shape, (img.shape, self.bindings['images'].shape)
         self.binding_addrs['images'] = int(img.data_ptr())
-        self.context.execute_v2(list(self.binding_addrs.values()))
+        self.context.execute_v2([self.binding_addrs['images'], self.binding_addrs['output']])
+        # self.context.execute_v2(list(self.binding_addrs.values()))
+        # 没有拷贝到cpu，数据依旧在cuda, 可供torch操作
         y = self.bindings['output'].data
         return y

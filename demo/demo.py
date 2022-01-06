@@ -40,20 +40,20 @@ if __name__ == "__main__":
         # if frame_num % 2 == 0:
         #     continue
         # print(frame_num)
-        if frame_num == 200:
+        if frame_num == 500:
             break
         ret, frame = cap.read()
         frame_copy = frame.copy()
         if not ret:
             break
-        # outputs = predictor.inference([frame for _ in range(15)])
-        outputs = predictor.inference(frame)
-        for i, v in enumerate(vis):
-            v.draw_imgs(frame, outputs[i])
-        cv2.imshow('p', frame)
-        # cv2.imshow('p1', frame.copy())
-        if cv2.waitKey(1) == ord('q'):
-            break
+        outputs = predictor.inference([frame for _ in range(1)])
+        # outputs = predictor.inference(frame)
+        # for i, v in enumerate(vis):
+        #     v.draw_imgs(frame, outputs[i])
+        # cv2.imshow('p', frame)
+        # # cv2.imshow('p1', frame.copy())
+        # if cv2.waitKey(1) == ord('q'):
+        #     break
         # et = time.time()
         # print(f'frame {frame_num} total time:', et - st)
         memory = gpu_mem_usage()
@@ -63,15 +63,17 @@ if __name__ == "__main__":
 
     logger.info("-------------------------------------------------------")
     # logger.info("Torch, 15x5, yolov5n, 640x384, 200frames average time.")
-    logger.info("Torch, 1x5, yolov5n, 640x384, 100/200frames average time.")
+    logger.info("Torch, 1x5, yolov5n, 640x384, 100/500frames average time.")
     logger.info(f"pre_multi: {pre_multi}")
     logger.info(f"infer_multi: {infer_multi}")
     logger.info(f"post_multi: {post_multi}")
-    logger.info(f"Average preprocess: {meter['preprocess'].avg}s")
-    logger.info(f"Average inference: {meter['inference'].avg}s")
-    logger.info(f"Average postprocess: {meter['postprocess'].avg}s")
-    logger.info(f"Average memory: {meter['memory'].avg}MB")
-    logger.info(f"Average utilize: {meter['utilize'].avg}%")
+    logger.info(f"Average preprocess: {round(meter['preprocess'].avg, 1)}ms")
+    logger.info(f"Average inference: {round(meter['inference'].avg, 1)}ms")
+    logger.info(f"Average postprocess: {round(meter['postprocess'].avg, 1)}ms")
+    logger.info(f"Average Total: {round(meter['total'].avg, 1)}ms")
+    logger.info(f"Average memory: {round(meter['memory'].avg)}MB")
+    logger.info(f"Average utilize: {round(meter['utilize'].avg, 1)}%")
+    logger.info(f"Max utilize: {round(meter['utilize'].max, 1)}%")
 
 # -----------5000 frames-----------
 # -----------two models------------

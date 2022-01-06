@@ -2,7 +2,7 @@ from ..data.datasets import letterbox
 from ..utils.boxes import non_max_suppression, scale_coords
 from ..utils.general import to_2tuple
 from ..utils.torch_utils import select_device
-from ..utils.timer import Timer
+from ..utils.timer import Timer, time_sync
 from multiprocessing.pool import ThreadPool
 from typing import Optional
 import os
@@ -248,11 +248,12 @@ class Predictor(object):
         imgs = preprocess(images)
         imgs = torch.from_numpy(imgs).to(self.device)
         imgs = imgs.half() if self.half else imgs.float()  # uint8 to fp16/32
-        self.times['preprocess'] = timer.since_start()
+        self.times['preprocess'] = round(timer.since_start() * 1000, 1)
 
         preds = forward(imgs)
-        self.times['inference'] = timer.since_last_check()
+        self.times['inference'] = round(timer.since_last_check() * 1000, 1)
         outputs = postprocess(preds)
-        self.times['postprocess'] = timer.since_last_check()
+        self.times['postprocess'] = round(timer.since_last_check() * 1000, 1)
+        self.times['total'] = round(timer.since_start() * 1000, 1)
 
         return outputs

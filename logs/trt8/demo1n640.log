@@ -1,0 +1,577 @@
+[01/06/2022-10:17:34] [TRT] [I] [MemUsageChange] Init CUDA: CPU +285, GPU +0, now: CPU 358, GPU 916 (MiB)
+[01/06/2022-10:17:34] [TRT] [I] Loaded engine size: 5 MiB
+[01/06/2022-10:17:36] [TRT] [W] TensorRT was linked against cuBLAS/cuBLAS LT 10.2.3 but loaded cuBLAS/cuBLAS LT 10.2.2
+[01/06/2022-10:17:36] [TRT] [I] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +50, GPU +136, now: CPU 2405, GPU 2692 (MiB)
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init cuDNN: CPU +92, GPU +136, now: CPU 2497, GPU 2828 (MiB)
+[01/06/2022-10:17:37] [TRT] [W] TensorRT was linked against cuDNN 8.2.1 but loaded cuDNN 8.0.2
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +3, now: CPU 0, GPU 3 (MiB)
+[01/06/2022-10:17:37] [TRT] [W] TensorRT was linked against cuBLAS/cuBLAS LT 10.2.3 but loaded cuBLAS/cuBLAS LT 10.2.2
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +12, now: CPU 2492, GPU 2840 (MiB)
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init cuDNN: CPU +0, GPU +178, now: CPU 2492, GPU 3018 (MiB)
+[01/06/2022-10:17:37] [TRT] [W] TensorRT was linked against cuDNN 8.2.1 but loaded cuDNN 8.0.2
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +174, now: CPU 0, GPU 177 (MiB)
+[01/06/2022-10:17:37] [TRT] [I] The logger passed into createInferRuntime differs from one already provided for an existing builder, runtime, or refitter. Uses of the global logger, returned by nvinfer1::getLogger(), will return the existing value.
+
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init CUDA: CPU +0, GPU +0, now: CPU 2492, GPU 3192 (MiB)
+[01/06/2022-10:17:37] [TRT] [I] Loaded engine size: 5 MiB
+[01/06/2022-10:17:37] [TRT] [W] TensorRT was linked against cuBLAS/cuBLAS LT 10.2.3 but loaded cuBLAS/cuBLAS LT 10.2.2
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +0, now: CPU 2503, GPU 3222 (MiB)
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init cuDNN: CPU +0, GPU +10, now: CPU 2503, GPU 3224 (MiB)
+[01/06/2022-10:17:37] [TRT] [W] TensorRT was linked against cuDNN 8.2.1 but loaded cuDNN 8.0.2
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +4, now: CPU 0, GPU 181 (MiB)
+[01/06/2022-10:17:37] [TRT] [W] TensorRT was linked against cuBLAS/cuBLAS LT 10.2.3 but loaded cuBLAS/cuBLAS LT 10.2.2
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +178, now: CPU 2498, GPU 3406 (MiB)
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init cuDNN: CPU +0, GPU +8, now: CPU 2498, GPU 3414 (MiB)
+[01/06/2022-10:17:37] [TRT] [W] TensorRT was linked against cuDNN 8.2.1 but loaded cuDNN 8.0.2
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +174, now: CPU 0, GPU 355 (MiB)
+[01/06/2022-10:17:37] [TRT] [I] The logger passed into createInferRuntime differs from one already provided for an existing builder, runtime, or refitter. Uses of the global logger, returned by nvinfer1::getLogger(), will return the existing value.
+
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init CUDA: CPU +0, GPU +0, now: CPU 2498, GPU 3588 (MiB)
+[01/06/2022-10:17:37] [TRT] [I] Loaded engine size: 5 MiB
+[01/06/2022-10:17:37] [TRT] [W] TensorRT was linked against cuBLAS/cuBLAS LT 10.2.3 but loaded cuBLAS/cuBLAS LT 10.2.2
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +8, now: CPU 2509, GPU 3794 (MiB)
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init cuDNN: CPU +0, GPU +8, now: CPU 2509, GPU 3802 (MiB)
+[01/06/2022-10:17:37] [TRT] [W] TensorRT was linked against cuDNN 8.2.1 but loaded cuDNN 8.0.2
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +3, now: CPU 0, GPU 358 (MiB)
+[01/06/2022-10:17:37] [TRT] [W] TensorRT was linked against cuBLAS/cuBLAS LT 10.2.3 but loaded cuBLAS/cuBLAS LT 10.2.2
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +8, now: CPU 2504, GPU 3794 (MiB)
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init cuDNN: CPU +0, GPU +8, now: CPU 2504, GPU 3802 (MiB)
+[01/06/2022-10:17:37] [TRT] [W] TensorRT was linked against cuDNN 8.2.1 but loaded cuDNN 8.0.2
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +174, now: CPU 0, GPU 532 (MiB)
+[01/06/2022-10:17:37] [TRT] [I] The logger passed into createInferRuntime differs from one already provided for an existing builder, runtime, or refitter. Uses of the global logger, returned by nvinfer1::getLogger(), will return the existing value.
+
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init CUDA: CPU +0, GPU +0, now: CPU 2505, GPU 3980 (MiB)
+[01/06/2022-10:17:37] [TRT] [I] Loaded engine size: 5 MiB
+[01/06/2022-10:17:37] [TRT] [W] TensorRT was linked against cuBLAS/cuBLAS LT 10.2.3 but loaded cuBLAS/cuBLAS LT 10.2.2
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +10, now: CPU 2516, GPU 4188 (MiB)
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init cuDNN: CPU +0, GPU +10, now: CPU 2516, GPU 4198 (MiB)
+[01/06/2022-10:17:37] [TRT] [W] TensorRT was linked against cuDNN 8.2.1 but loaded cuDNN 8.0.2
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +4, now: CPU 0, GPU 536 (MiB)
+[01/06/2022-10:17:37] [TRT] [W] TensorRT was linked against cuBLAS/cuBLAS LT 10.2.3 but loaded cuBLAS/cuBLAS LT 10.2.2
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +1, GPU +10, now: CPU 2511, GPU 4190 (MiB)
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init cuDNN: CPU +0, GPU +8, now: CPU 2511, GPU 4198 (MiB)
+[01/06/2022-10:17:37] [TRT] [W] TensorRT was linked against cuDNN 8.2.1 but loaded cuDNN 8.0.2
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +1, GPU +174, now: CPU 1, GPU 710 (MiB)
+[01/06/2022-10:17:37] [TRT] [I] The logger passed into createInferRuntime differs from one already provided for an existing builder, runtime, or refitter. Uses of the global logger, returned by nvinfer1::getLogger(), will return the existing value.
+
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init CUDA: CPU +0, GPU +0, now: CPU 2511, GPU 4378 (MiB)
+[01/06/2022-10:17:37] [TRT] [I] Loaded engine size: 5 MiB
+[01/06/2022-10:17:37] [TRT] [W] TensorRT was linked against cuBLAS/cuBLAS LT 10.2.3 but loaded cuBLAS/cuBLAS LT 10.2.2
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +8, now: CPU 2522, GPU 4588 (MiB)
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init cuDNN: CPU +0, GPU +10, now: CPU 2522, GPU 4598 (MiB)
+[01/06/2022-10:17:37] [TRT] [W] TensorRT was linked against cuDNN 8.2.1 but loaded cuDNN 8.0.2
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +3, now: CPU 1, GPU 713 (MiB)
+[01/06/2022-10:17:37] [TRT] [W] TensorRT was linked against cuBLAS/cuBLAS LT 10.2.3 but loaded cuBLAS/cuBLAS LT 10.2.2
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +8, now: CPU 2517, GPU 4590 (MiB)
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] Init cuDNN: CPU +0, GPU +8, now: CPU 2517, GPU 4598 (MiB)
+[01/06/2022-10:17:37] [TRT] [W] TensorRT was linked against cuDNN 8.2.1 but loaded cuDNN 8.0.2
+[01/06/2022-10:17:37] [TRT] [I] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +174, now: CPU 1, GPU 887 (MiB)
+2022-01-06 10:17:37.553 | INFO     | __main__:<module>:101 - {'preprocess': 0.09318280220031738, 'inference': 0.08733367919921875, 'postprocess': 0.019155502319335938}, 4916.5625, 14
+2022-01-06 10:17:37.736 | INFO     | __main__:<module>:101 - {'preprocess': 0.07597541809082031, 'inference': 0.08486104011535645, 'postprocess': 0.02024984359741211}, 4916.5625, 14
+2022-01-06 10:17:37.916 | INFO     | __main__:<module>:101 - {'preprocess': 0.07299423217773438, 'inference': 0.08454585075378418, 'postprocess': 0.019427776336669922}, 4916.5625, 39
+2022-01-06 10:17:38.107 | INFO     | __main__:<module>:101 - {'preprocess': 0.07356548309326172, 'inference': 0.0838162899017334, 'postprocess': 0.020905256271362305}, 4916.5625, 39
+2022-01-06 10:17:38.290 | INFO     | __main__:<module>:101 - {'preprocess': 0.07235455513000488, 'inference': 0.08979082107543945, 'postprocess': 0.019315242767333984}, 4916.5625, 39
+2022-01-06 10:17:38.474 | INFO     | __main__:<module>:101 - {'preprocess': 0.07135605812072754, 'inference': 0.0910031795501709, 'postprocess': 0.019205808639526367}, 4916.5625, 39
+2022-01-06 10:17:38.660 | INFO     | __main__:<module>:101 - {'preprocess': 0.0718698501586914, 'inference': 0.09119081497192383, 'postprocess': 0.019629240036010742}, 4916.5625, 39
+2022-01-06 10:17:38.842 | INFO     | __main__:<module>:101 - {'preprocess': 0.07288193702697754, 'inference': 0.08764863014221191, 'postprocess': 0.019433259963989258}, 4916.5625, 39
+2022-01-06 10:17:39.026 | INFO     | __main__:<module>:101 - {'preprocess': 0.07247209548950195, 'inference': 0.08939576148986816, 'postprocess': 0.01950693130493164}, 4916.5625, 48
+2022-01-06 10:17:39.211 | INFO     | __main__:<module>:101 - {'preprocess': 0.07259011268615723, 'inference': 0.08949685096740723, 'postprocess': 0.020844221115112305}, 4916.5625, 48
+2022-01-06 10:17:39.406 | INFO     | __main__:<module>:101 - {'preprocess': 0.08132767677307129, 'inference': 0.08812475204467773, 'postprocess': 0.020954608917236328}, 4916.5625, 48
+2022-01-06 10:17:39.587 | INFO     | __main__:<module>:101 - {'preprocess': 0.07302427291870117, 'inference': 0.08536696434020996, 'postprocess': 0.02074432373046875}, 4916.5625, 48
+2022-01-06 10:17:39.771 | INFO     | __main__:<module>:101 - {'preprocess': 0.07588839530944824, 'inference': 0.08446121215820312, 'postprocess': 0.02107405662536621}, 4916.5625, 48
+2022-01-06 10:17:39.950 | INFO     | __main__:<module>:101 - {'preprocess': 0.07326483726501465, 'inference': 0.08303165435791016, 'postprocess': 0.02089691162109375}, 4916.5625, 51
+2022-01-06 10:17:40.132 | INFO     | __main__:<module>:101 - {'preprocess': 0.0736699104309082, 'inference': 0.0846102237701416, 'postprocess': 0.020863771438598633}, 4916.5625, 51
+2022-01-06 10:17:40.312 | INFO     | __main__:<module>:101 - {'preprocess': 0.07299041748046875, 'inference': 0.08461904525756836, 'postprocess': 0.02096080780029297}, 4916.5625, 51
+2022-01-06 10:17:40.502 | INFO     | __main__:<module>:101 - {'preprocess': 0.0801703929901123, 'inference': 0.08521914482116699, 'postprocess': 0.02086639404296875}, 4916.5625, 51
+2022-01-06 10:17:40.682 | INFO     | __main__:<module>:101 - {'preprocess': 0.07340192794799805, 'inference': 0.08325672149658203, 'postprocess': 0.02127361297607422}, 4916.5625, 51
+2022-01-06 10:17:40.864 | INFO     | __main__:<module>:101 - {'preprocess': 0.07330060005187988, 'inference': 0.08501052856445312, 'postprocess': 0.020915746688842773}, 4916.5625, 51
+2022-01-06 10:17:41.044 | INFO     | __main__:<module>:101 - {'preprocess': 0.07376337051391602, 'inference': 0.08279919624328613, 'postprocess': 0.021159648895263672}, 4916.5625, 49
+2022-01-06 10:17:41.222 | INFO     | __main__:<module>:101 - {'preprocess': 0.07344961166381836, 'inference': 0.08249950408935547, 'postprocess': 0.019676923751831055}, 4916.5625, 49
+2022-01-06 10:17:41.402 | INFO     | __main__:<module>:101 - {'preprocess': 0.07388830184936523, 'inference': 0.08350515365600586, 'postprocess': 0.02089238166809082}, 4916.5625, 49
+2022-01-06 10:17:41.580 | INFO     | __main__:<module>:101 - {'preprocess': 0.0740196704864502, 'inference': 0.08052921295166016, 'postprocess': 0.020865678787231445}, 4916.5625, 49
+2022-01-06 10:17:41.752 | INFO     | __main__:<module>:101 - {'preprocess': 0.0751488208770752, 'inference': 0.0756063461303711, 'postprocess': 0.0197296142578125}, 4916.5625, 49
+2022-01-06 10:17:41.917 | INFO     | __main__:<module>:101 - {'preprocess': 0.07417178153991699, 'inference': 0.06767892837524414, 'postprocess': 0.01974177360534668}, 4916.5625, 54
+2022-01-06 10:17:42.069 | INFO     | __main__:<module>:101 - {'preprocess': 0.06620073318481445, 'inference': 0.06315064430236816, 'postprocess': 0.020094871520996094}, 4916.5625, 54
+2022-01-06 10:17:42.211 | INFO     | __main__:<module>:101 - {'preprocess': 0.06107068061828613, 'inference': 0.05703854560852051, 'postprocess': 0.0204007625579834}, 4916.5625, 54
+2022-01-06 10:17:42.344 | INFO     | __main__:<module>:101 - {'preprocess': 0.05438661575317383, 'inference': 0.05499148368835449, 'postprocess': 0.0202484130859375}, 4916.5625, 54
+2022-01-06 10:17:42.480 | INFO     | __main__:<module>:101 - {'preprocess': 0.06179189682006836, 'inference': 0.04702568054199219, 'postprocess': 0.02050471305847168}, 4916.5625, 54
+2022-01-06 10:17:42.592 | INFO     | __main__:<module>:101 - {'preprocess': 0.04448223114013672, 'inference': 0.043396711349487305, 'postprocess': 0.02059149742126465}, 4916.5625, 54
+2022-01-06 10:17:42.705 | INFO     | __main__:<module>:101 - {'preprocess': 0.04494357109069824, 'inference': 0.043588876724243164, 'postprocess': 0.02056884765625}, 4916.5625, 54
+2022-01-06 10:17:42.820 | INFO     | __main__:<module>:101 - {'preprocess': 0.04563641548156738, 'inference': 0.043431758880615234, 'postprocess': 0.022160053253173828}, 4916.5625, 54
+2022-01-06 10:17:42.932 | INFO     | __main__:<module>:101 - {'preprocess': 0.04546308517456055, 'inference': 0.04342532157897949, 'postprocess': 0.02021169662475586}, 4916.5625, 67
+2022-01-06 10:17:43.045 | INFO     | __main__:<module>:101 - {'preprocess': 0.0450437068939209, 'inference': 0.04357504844665527, 'postprocess': 0.02070474624633789}, 4916.5625, 67
+2022-01-06 10:17:43.159 | INFO     | __main__:<module>:101 - {'preprocess': 0.04594755172729492, 'inference': 0.04360079765319824, 'postprocess': 0.020416736602783203}, 4916.5625, 67
+2022-01-06 10:17:43.271 | INFO     | __main__:<module>:101 - {'preprocess': 0.04430198669433594, 'inference': 0.0435328483581543, 'postprocess': 0.020217180252075195}, 4916.5625, 67
+2022-01-06 10:17:43.383 | INFO     | __main__:<module>:101 - {'preprocess': 0.04470682144165039, 'inference': 0.04383420944213867, 'postprocess': 0.020174026489257812}, 4916.5625, 67
+2022-01-06 10:17:43.504 | INFO     | __main__:<module>:101 - {'preprocess': 0.051931142807006836, 'inference': 0.04468822479248047, 'postprocess': 0.02026224136352539}, 4916.5625, 67
+2022-01-06 10:17:43.615 | INFO     | __main__:<module>:101 - {'preprocess': 0.0434260368347168, 'inference': 0.04375934600830078, 'postprocess': 0.021726369857788086}, 4916.5625, 67
+2022-01-06 10:17:43.726 | INFO     | __main__:<module>:101 - {'preprocess': 0.043227434158325195, 'inference': 0.0438380241394043, 'postprocess': 0.022403478622436523}, 4916.5625, 67
+2022-01-06 10:17:43.837 | INFO     | __main__:<module>:101 - {'preprocess': 0.04373502731323242, 'inference': 0.043767690658569336, 'postprocess': 0.021783113479614258}, 4916.5625, 67
+2022-01-06 10:17:43.949 | INFO     | __main__:<module>:101 - {'preprocess': 0.04346323013305664, 'inference': 0.04381585121154785, 'postprocess': 0.0216825008392334}, 4916.5625, 76
+2022-01-06 10:17:44.061 | INFO     | __main__:<module>:101 - {'preprocess': 0.04349780082702637, 'inference': 0.04391121864318848, 'postprocess': 0.02259659767150879}, 4916.5625, 76
+2022-01-06 10:17:44.172 | INFO     | __main__:<module>:101 - {'preprocess': 0.044095754623413086, 'inference': 0.04384660720825195, 'postprocess': 0.02196812629699707}, 4916.5625, 76
+2022-01-06 10:17:44.283 | INFO     | __main__:<module>:101 - {'preprocess': 0.04277157783508301, 'inference': 0.04399275779724121, 'postprocess': 0.021596193313598633}, 4916.5625, 76
+2022-01-06 10:17:44.394 | INFO     | __main__:<module>:101 - {'preprocess': 0.04362678527832031, 'inference': 0.043744802474975586, 'postprocess': 0.02166152000427246}, 4916.5625, 76
+2022-01-06 10:17:44.506 | INFO     | __main__:<module>:101 - {'preprocess': 0.043126583099365234, 'inference': 0.045419931411743164, 'postprocess': 0.02169322967529297}, 4916.5625, 76
+2022-01-06 10:17:44.618 | INFO     | __main__:<module>:101 - {'preprocess': 0.043680429458618164, 'inference': 0.04354739189147949, 'postprocess': 0.02344799041748047}, 4916.5625, 76
+2022-01-06 10:17:44.730 | INFO     | __main__:<module>:101 - {'preprocess': 0.04300355911254883, 'inference': 0.0436100959777832, 'postprocess': 0.022919178009033203}, 4916.5625, 76
+2022-01-06 10:17:44.845 | INFO     | __main__:<module>:101 - {'preprocess': 0.04553532600402832, 'inference': 0.04361391067504883, 'postprocess': 0.024382591247558594}, 4916.5625, 76
+2022-01-06 10:17:44.957 | INFO     | __main__:<module>:101 - {'preprocess': 0.04301738739013672, 'inference': 0.04374408721923828, 'postprocess': 0.0229949951171875}, 4916.5625, 77
+2022-01-06 10:17:45.071 | INFO     | __main__:<module>:101 - {'preprocess': 0.04371380805969238, 'inference': 0.04380297660827637, 'postprocess': 0.024363279342651367}, 4916.5625, 77
+2022-01-06 10:17:45.182 | INFO     | __main__:<module>:101 - {'preprocess': 0.04347801208496094, 'inference': 0.043701171875, 'postprocess': 0.02199697494506836}, 4916.5625, 77
+2022-01-06 10:17:45.293 | INFO     | __main__:<module>:101 - {'preprocess': 0.04378867149353027, 'inference': 0.043731689453125, 'postprocess': 0.021823644638061523}, 4916.5625, 77
+2022-01-06 10:17:45.404 | INFO     | __main__:<module>:101 - {'preprocess': 0.04318833351135254, 'inference': 0.04405355453491211, 'postprocess': 0.021623849868774414}, 4916.5625, 77
+2022-01-06 10:17:45.516 | INFO     | __main__:<module>:101 - {'preprocess': 0.043743133544921875, 'inference': 0.043999433517456055, 'postprocess': 0.022008419036865234}, 4916.5625, 77
+2022-01-06 10:17:45.628 | INFO     | __main__:<module>:101 - {'preprocess': 0.04333686828613281, 'inference': 0.04349064826965332, 'postprocess': 0.021733522415161133}, 4916.5625, 77
+2022-01-06 10:17:45.742 | INFO     | __main__:<module>:101 - {'preprocess': 0.044058799743652344, 'inference': 0.04358553886413574, 'postprocess': 0.023212194442749023}, 4916.5625, 77
+2022-01-06 10:17:45.855 | INFO     | __main__:<module>:101 - {'preprocess': 0.044953107833862305, 'inference': 0.04395008087158203, 'postprocess': 0.02180624008178711}, 4916.5625, 77
+2022-01-06 10:17:45.966 | INFO     | __main__:<module>:101 - {'preprocess': 0.04367780685424805, 'inference': 0.04376626014709473, 'postprocess': 0.021462202072143555}, 4916.5625, 77
+2022-01-06 10:17:46.079 | INFO     | __main__:<module>:101 - {'preprocess': 0.043329715728759766, 'inference': 0.04382610321044922, 'postprocess': 0.023166179656982422}, 4916.5625, 77
+2022-01-06 10:17:46.191 | INFO     | __main__:<module>:101 - {'preprocess': 0.04387950897216797, 'inference': 0.04362607002258301, 'postprocess': 0.02316427230834961}, 4916.5625, 77
+2022-01-06 10:17:46.303 | INFO     | __main__:<module>:101 - {'preprocess': 0.04314827919006348, 'inference': 0.04358530044555664, 'postprocess': 0.022842884063720703}, 4916.5625, 77
+2022-01-06 10:17:46.415 | INFO     | __main__:<module>:101 - {'preprocess': 0.043674468994140625, 'inference': 0.04368901252746582, 'postprocess': 0.02294182777404785}, 4916.5625, 77
+2022-01-06 10:17:46.528 | INFO     | __main__:<module>:101 - {'preprocess': 0.04347825050354004, 'inference': 0.043547868728637695, 'postprocess': 0.023581266403198242}, 4916.5625, 77
+2022-01-06 10:17:46.645 | INFO     | __main__:<module>:101 - {'preprocess': 0.04574441909790039, 'inference': 0.04351949691772461, 'postprocess': 0.023262739181518555}, 4916.5625, 77
+2022-01-06 10:17:46.757 | INFO     | __main__:<module>:101 - {'preprocess': 0.04293966293334961, 'inference': 0.043524742126464844, 'postprocess': 0.023299217224121094}, 4916.5625, 77
+2022-01-06 10:17:46.872 | INFO     | __main__:<module>:101 - {'preprocess': 0.04573512077331543, 'inference': 0.04363250732421875, 'postprocess': 0.02319502830505371}, 4916.5625, 77
+2022-01-06 10:17:46.983 | INFO     | __main__:<module>:101 - {'preprocess': 0.04319882392883301, 'inference': 0.043665409088134766, 'postprocess': 0.02297043800354004}, 4916.5625, 76
+2022-01-06 10:17:47.097 | INFO     | __main__:<module>:101 - {'preprocess': 0.04398989677429199, 'inference': 0.043991804122924805, 'postprocess': 0.023593664169311523}, 4916.5625, 76
+2022-01-06 10:17:47.209 | INFO     | __main__:<module>:101 - {'preprocess': 0.04310131072998047, 'inference': 0.04355335235595703, 'postprocess': 0.023173809051513672}, 4916.5625, 76
+2022-01-06 10:17:47.321 | INFO     | __main__:<module>:101 - {'preprocess': 0.0439603328704834, 'inference': 0.04351019859313965, 'postprocess': 0.023022174835205078}, 4916.5625, 76
+2022-01-06 10:17:47.433 | INFO     | __main__:<module>:101 - {'preprocess': 0.04316997528076172, 'inference': 0.043616294860839844, 'postprocess': 0.023045778274536133}, 4916.5625, 76
+2022-01-06 10:17:47.546 | INFO     | __main__:<module>:101 - {'preprocess': 0.04384350776672363, 'inference': 0.043764352798461914, 'postprocess': 0.02333211898803711}, 4916.5625, 76
+2022-01-06 10:17:47.663 | INFO     | __main__:<module>:101 - {'preprocess': 0.047563791275024414, 'inference': 0.04365992546081543, 'postprocess': 0.02325272560119629}, 4916.5625, 76
+2022-01-06 10:17:47.775 | INFO     | __main__:<module>:101 - {'preprocess': 0.043678998947143555, 'inference': 0.04366421699523926, 'postprocess': 0.023322343826293945}, 4916.5625, 76
+2022-01-06 10:17:47.889 | INFO     | __main__:<module>:101 - {'preprocess': 0.04476451873779297, 'inference': 0.04381918907165527, 'postprocess': 0.023081541061401367}, 4916.5625, 76
+2022-01-06 10:17:48.001 | INFO     | __main__:<module>:101 - {'preprocess': 0.04365420341491699, 'inference': 0.04376363754272461, 'postprocess': 0.02280426025390625}, 4916.5625, 76
+2022-01-06 10:17:48.115 | INFO     | __main__:<module>:101 - {'preprocess': 0.04308128356933594, 'inference': 0.04582619667053223, 'postprocess': 0.02327728271484375}, 4916.5625, 76
+2022-01-06 10:17:48.228 | INFO     | __main__:<module>:101 - {'preprocess': 0.043793439865112305, 'inference': 0.04392266273498535, 'postprocess': 0.02324533462524414}, 4916.5625, 76
+2022-01-06 10:17:48.338 | INFO     | __main__:<module>:101 - {'preprocess': 0.0431675910949707, 'inference': 0.043860673904418945, 'postprocess': 0.02138066291809082}, 4916.5625, 76
+2022-01-06 10:17:48.449 | INFO     | __main__:<module>:101 - {'preprocess': 0.043735504150390625, 'inference': 0.04400300979614258, 'postprocess': 0.02152252197265625}, 4916.5625, 76
+2022-01-06 10:17:48.560 | INFO     | __main__:<module>:101 - {'preprocess': 0.04276418685913086, 'inference': 0.04433751106262207, 'postprocess': 0.021521568298339844}, 4916.5625, 76
+2022-01-06 10:17:48.684 | INFO     | __main__:<module>:101 - {'preprocess': 0.0531613826751709, 'inference': 0.04548788070678711, 'postprocess': 0.02314901351928711}, 4916.5625, 76
+2022-01-06 10:17:48.799 | INFO     | __main__:<module>:101 - {'preprocess': 0.04326152801513672, 'inference': 0.04586219787597656, 'postprocess': 0.024361848831176758}, 4916.5625, 76
+2022-01-06 10:17:48.916 | INFO     | __main__:<module>:101 - {'preprocess': 0.0445561408996582, 'inference': 0.045648813247680664, 'postprocess': 0.02451777458190918}, 4916.5625, 76
+2022-01-06 10:17:49.032 | INFO     | __main__:<module>:101 - {'preprocess': 0.04491853713989258, 'inference': 0.04515814781188965, 'postprocess': 0.02364826202392578}, 4916.5625, 78
+2022-01-06 10:17:49.149 | INFO     | __main__:<module>:101 - {'preprocess': 0.045906782150268555, 'inference': 0.04731893539428711, 'postprocess': 0.022635936737060547}, 4916.5625, 78
+2022-01-06 10:17:49.265 | INFO     | __main__:<module>:101 - {'preprocess': 0.04279327392578125, 'inference': 0.04552197456359863, 'postprocess': 0.025093555450439453}, 4916.5625, 78
+2022-01-06 10:17:49.381 | INFO     | __main__:<module>:101 - {'preprocess': 0.04432487487792969, 'inference': 0.04587054252624512, 'postprocess': 0.023680686950683594}, 4916.5625, 78
+2022-01-06 10:17:49.496 | INFO     | __main__:<module>:101 - {'preprocess': 0.04389524459838867, 'inference': 0.04524707794189453, 'postprocess': 0.02401256561279297}, 4916.5625, 78
+2022-01-06 10:17:49.611 | INFO     | __main__:<module>:101 - {'preprocess': 0.04408979415893555, 'inference': 0.04555177688598633, 'postprocess': 0.02399444580078125}, 4916.5625, 78
+2022-01-06 10:17:49.733 | INFO     | __main__:<module>:101 - {'preprocess': 0.05019831657409668, 'inference': 0.04549551010131836, 'postprocess': 0.02389240264892578}, 4916.5625, 78
+2022-01-06 10:17:49.850 | INFO     | __main__:<module>:101 - {'preprocess': 0.04543113708496094, 'inference': 0.04506039619445801, 'postprocess': 0.024444103240966797}, 4916.5625, 78
+2022-01-06 10:17:49.965 | INFO     | __main__:<module>:101 - {'preprocess': 0.04417872428894043, 'inference': 0.04504132270812988, 'postprocess': 0.02402949333190918}, 4916.5625, 74
+2022-01-06 10:17:50.079 | INFO     | __main__:<module>:101 - {'preprocess': 0.04485321044921875, 'inference': 0.04511237144470215, 'postprocess': 0.022413015365600586}, 4916.5625, 74
+2022-01-06 10:17:50.194 | INFO     | __main__:<module>:101 - {'preprocess': 0.04491019248962402, 'inference': 0.04536032676696777, 'postprocess': 0.02290630340576172}, 4916.5625, 74
+2022-01-06 10:17:50.308 | INFO     | __main__:<module>:101 - {'preprocess': 0.04468727111816406, 'inference': 0.04533743858337402, 'postprocess': 0.02234482765197754}, 4916.5625, 74
+2022-01-06 10:17:50.422 | INFO     | __main__:<module>:101 - {'preprocess': 0.044287681579589844, 'inference': 0.04527759552001953, 'postprocess': 0.022552013397216797}, 4916.5625, 74
+2022-01-06 10:17:50.537 | INFO     | __main__:<module>:101 - {'preprocess': 0.043805599212646484, 'inference': 0.045972585678100586, 'postprocess': 0.022667884826660156}, 4916.5625, 74
+2022-01-06 10:17:50.651 | INFO     | __main__:<module>:101 - {'preprocess': 0.04404735565185547, 'inference': 0.04518532752990723, 'postprocess': 0.022514820098876953}, 4916.5625, 74
+2022-01-06 10:17:50.770 | INFO     | __main__:<module>:101 - {'preprocess': 0.04878735542297363, 'inference': 0.04522418975830078, 'postprocess': 0.02276158332824707}, 4916.5625, 74
+2022-01-06 10:17:50.886 | INFO     | __main__:<module>:101 - {'preprocess': 0.045166969299316406, 'inference': 0.04502987861633301, 'postprocess': 0.023731470108032227}, 4916.5625, 74
+2022-01-06 10:17:51.002 | INFO     | __main__:<module>:101 - {'preprocess': 0.044606685638427734, 'inference': 0.04517245292663574, 'postprocess': 0.02404308319091797}, 4916.5625, 75
+2022-01-06 10:17:51.117 | INFO     | __main__:<module>:101 - {'preprocess': 0.04436945915222168, 'inference': 0.0450434684753418, 'postprocess': 0.02408432960510254}, 4916.5625, 75
+2022-01-06 10:17:51.233 | INFO     | __main__:<module>:101 - {'preprocess': 0.04485821723937988, 'inference': 0.04503631591796875, 'postprocess': 0.024016380310058594}, 4916.5625, 75
+2022-01-06 10:17:51.348 | INFO     | __main__:<module>:101 - {'preprocess': 0.04428458213806152, 'inference': 0.04503464698791504, 'postprocess': 0.023639678955078125}, 4916.5625, 75
+2022-01-06 10:17:51.463 | INFO     | __main__:<module>:101 - {'preprocess': 0.04483604431152344, 'inference': 0.045093536376953125, 'postprocess': 0.023774147033691406}, 4916.5625, 75
+2022-01-06 10:17:51.578 | INFO     | __main__:<module>:101 - {'preprocess': 0.04443836212158203, 'inference': 0.045032501220703125, 'postprocess': 0.023721933364868164}, 4916.5625, 75
+2022-01-06 10:17:51.695 | INFO     | __main__:<module>:101 - {'preprocess': 0.044890642166137695, 'inference': 0.04544353485107422, 'postprocess': 0.02437114715576172}, 4916.5625, 75
+2022-01-06 10:17:51.813 | INFO     | __main__:<module>:101 - {'preprocess': 0.04617667198181152, 'inference': 0.044971466064453125, 'postprocess': 0.024120569229125977}, 4916.5625, 75
+2022-01-06 10:17:51.934 | INFO     | __main__:<module>:101 - {'preprocess': 0.05050516128540039, 'inference': 0.045892953872680664, 'postprocess': 0.022213220596313477}, 4916.5625, 75
+2022-01-06 10:17:52.049 | INFO     | __main__:<module>:101 - {'preprocess': 0.0460047721862793, 'inference': 0.04498410224914551, 'postprocess': 0.02238917350769043}, 4916.5625, 75
+2022-01-06 10:17:52.168 | INFO     | __main__:<module>:101 - {'preprocess': 0.047907352447509766, 'inference': 0.04568958282470703, 'postprocess': 0.023040771484375}, 4916.5625, 75
+2022-01-06 10:17:52.283 | INFO     | __main__:<module>:101 - {'preprocess': 0.0451810359954834, 'inference': 0.0451357364654541, 'postprocess': 0.022626638412475586}, 4916.5625, 75
+2022-01-06 10:17:52.399 | INFO     | __main__:<module>:101 - {'preprocess': 0.045879364013671875, 'inference': 0.04510760307312012, 'postprocess': 0.022762298583984375}, 4916.5625, 75
+2022-01-06 10:17:52.514 | INFO     | __main__:<module>:101 - {'preprocess': 0.04450702667236328, 'inference': 0.045024871826171875, 'postprocess': 0.023963451385498047}, 4916.5625, 75
+2022-01-06 10:17:52.630 | INFO     | __main__:<module>:101 - {'preprocess': 0.045638084411621094, 'inference': 0.0451505184173584, 'postprocess': 0.02276897430419922}, 4916.5625, 75
+2022-01-06 10:17:52.747 | INFO     | __main__:<module>:101 - {'preprocess': 0.04452776908874512, 'inference': 0.045175790786743164, 'postprocess': 0.025330781936645508}, 4916.5625, 75
+2022-01-06 10:17:52.863 | INFO     | __main__:<module>:101 - {'preprocess': 0.04368424415588379, 'inference': 0.04534149169921875, 'postprocess': 0.024636268615722656}, 4916.5625, 75
+2022-01-06 10:17:52.978 | INFO     | __main__:<module>:101 - {'preprocess': 0.043071746826171875, 'inference': 0.04553937911987305, 'postprocess': 0.024474143981933594}, 4916.5625, 72
+2022-01-06 10:17:53.092 | INFO     | __main__:<module>:101 - {'preprocess': 0.04358196258544922, 'inference': 0.0459752082824707, 'postprocess': 0.022858142852783203}, 4916.5625, 72
+2022-01-06 10:17:53.208 | INFO     | __main__:<module>:101 - {'preprocess': 0.04452848434448242, 'inference': 0.045392513275146484, 'postprocess': 0.0242917537689209}, 4916.5625, 72
+2022-01-06 10:17:53.324 | INFO     | __main__:<module>:101 - {'preprocess': 0.04343986511230469, 'inference': 0.04565620422363281, 'postprocess': 0.024311065673828125}, 4916.5625, 72
+2022-01-06 10:17:53.439 | INFO     | __main__:<module>:101 - {'preprocess': 0.043054819107055664, 'inference': 0.045511484146118164, 'postprocess': 0.024500608444213867}, 4916.5625, 72
+2022-01-06 10:17:53.554 | INFO     | __main__:<module>:101 - {'preprocess': 0.043503761291503906, 'inference': 0.04569077491760254, 'postprocess': 0.024428129196166992}, 4916.5625, 72
+2022-01-06 10:17:53.669 | INFO     | __main__:<module>:101 - {'preprocess': 0.04282331466674805, 'inference': 0.04550051689147949, 'postprocess': 0.024338245391845703}, 4916.5625, 72
+2022-01-06 10:17:53.785 | INFO     | __main__:<module>:101 - {'preprocess': 0.04330015182495117, 'inference': 0.04591035842895508, 'postprocess': 0.025249004364013672}, 4916.5625, 72
+2022-01-06 10:17:53.899 | INFO     | __main__:<module>:101 - {'preprocess': 0.04340362548828125, 'inference': 0.04377102851867676, 'postprocess': 0.02478766441345215}, 4916.5625, 72
+2022-01-06 10:17:54.014 | INFO     | __main__:<module>:101 - {'preprocess': 0.04350996017456055, 'inference': 0.0439910888671875, 'postprocess': 0.024750232696533203}, 4916.5625, 76
+2022-01-06 10:17:54.128 | INFO     | __main__:<module>:101 - {'preprocess': 0.0433650016784668, 'inference': 0.04415297508239746, 'postprocess': 0.024762868881225586}, 4916.5625, 76
+2022-01-06 10:17:54.242 | INFO     | __main__:<module>:101 - {'preprocess': 0.04346036911010742, 'inference': 0.044104814529418945, 'postprocess': 0.024428844451904297}, 4916.5625, 76
+2022-01-06 10:17:54.355 | INFO     | __main__:<module>:101 - {'preprocess': 0.043082237243652344, 'inference': 0.04404449462890625, 'postprocess': 0.024307727813720703}, 4916.5625, 76
+2022-01-06 10:17:54.468 | INFO     | __main__:<module>:101 - {'preprocess': 0.04324769973754883, 'inference': 0.0440521240234375, 'postprocess': 0.02286219596862793}, 4916.5625, 76
+2022-01-06 10:17:54.580 | INFO     | __main__:<module>:101 - {'preprocess': 0.04314017295837402, 'inference': 0.043897151947021484, 'postprocess': 0.023092985153198242}, 4916.5625, 76
+2022-01-06 10:17:54.692 | INFO     | __main__:<module>:101 - {'preprocess': 0.04319930076599121, 'inference': 0.04408740997314453, 'postprocess': 0.023127317428588867}, 4916.5625, 76
+2022-01-06 10:17:54.806 | INFO     | __main__:<module>:101 - {'preprocess': 0.04294300079345703, 'inference': 0.044582366943359375, 'postprocess': 0.024141311645507812}, 4916.5625, 76
+2022-01-06 10:17:54.918 | INFO     | __main__:<module>:101 - {'preprocess': 0.0436396598815918, 'inference': 0.04384803771972656, 'postprocess': 0.023523807525634766}, 4916.5625, 76
+2022-01-06 10:17:55.029 | INFO     | __main__:<module>:101 - {'preprocess': 0.042867422103881836, 'inference': 0.04405570030212402, 'postprocess': 0.021779537200927734}, 4916.5625, 76
+2022-01-06 10:17:55.141 | INFO     | __main__:<module>:101 - {'preprocess': 0.04355907440185547, 'inference': 0.0443727970123291, 'postprocess': 0.0216524600982666}, 4916.5625, 76
+2022-01-06 10:17:55.251 | INFO     | __main__:<module>:101 - {'preprocess': 0.04303240776062012, 'inference': 0.04402279853820801, 'postprocess': 0.02167367935180664}, 4916.5625, 76
+2022-01-06 10:17:55.362 | INFO     | __main__:<module>:101 - {'preprocess': 0.04345846176147461, 'inference': 0.043991804122924805, 'postprocess': 0.021997690200805664}, 4916.5625, 76
+2022-01-06 10:17:55.473 | INFO     | __main__:<module>:101 - {'preprocess': 0.04332304000854492, 'inference': 0.044139862060546875, 'postprocess': 0.02131485939025879}, 4916.5625, 76
+2022-01-06 10:17:55.584 | INFO     | __main__:<module>:101 - {'preprocess': 0.04398465156555176, 'inference': 0.043976783752441406, 'postprocess': 0.02147841453552246}, 4916.5625, 76
+2022-01-06 10:17:55.697 | INFO     | __main__:<module>:101 - {'preprocess': 0.04302477836608887, 'inference': 0.043967247009277344, 'postprocess': 0.023151159286499023}, 4916.5625, 76
+2022-01-06 10:17:55.810 | INFO     | __main__:<module>:101 - {'preprocess': 0.04372429847717285, 'inference': 0.044223785400390625, 'postprocess': 0.022979259490966797}, 4916.5625, 76
+2022-01-06 10:17:55.926 | INFO     | __main__:<module>:101 - {'preprocess': 0.047178030014038086, 'inference': 0.045601844787597656, 'postprocess': 0.02167534828186035}, 4916.5625, 76
+2022-01-06 10:17:56.038 | INFO     | __main__:<module>:101 - {'preprocess': 0.0433652400970459, 'inference': 0.045143842697143555, 'postprocess': 0.02162480354309082}, 4916.5625, 77
+2022-01-06 10:17:56.152 | INFO     | __main__:<module>:101 - {'preprocess': 0.04272150993347168, 'inference': 0.04535388946533203, 'postprocess': 0.023860692977905273}, 4916.5625, 77
+2022-01-06 10:17:56.264 | INFO     | __main__:<module>:101 - {'preprocess': 0.04356884956359863, 'inference': 0.04408121109008789, 'postprocess': 0.023060083389282227}, 4916.5625, 77
+2022-01-06 10:17:56.376 | INFO     | __main__:<module>:101 - {'preprocess': 0.0430142879486084, 'inference': 0.045038700103759766, 'postprocess': 0.02143073081970215}, 4916.5625, 77
+2022-01-06 10:17:56.488 | INFO     | __main__:<module>:101 - {'preprocess': 0.043526411056518555, 'inference': 0.043906211853027344, 'postprocess': 0.023070096969604492}, 4916.5625, 77
+2022-01-06 10:17:56.600 | INFO     | __main__:<module>:101 - {'preprocess': 0.0429232120513916, 'inference': 0.04407525062561035, 'postprocess': 0.023000717163085938}, 4916.5625, 77
+2022-01-06 10:17:56.713 | INFO     | __main__:<module>:101 - {'preprocess': 0.04391217231750488, 'inference': 0.04397702217102051, 'postprocess': 0.02295660972595215}, 4916.5625, 77
+2022-01-06 10:17:56.825 | INFO     | __main__:<module>:101 - {'preprocess': 0.04287838935852051, 'inference': 0.044005632400512695, 'postprocess': 0.023006916046142578}, 4916.5625, 77
+2022-01-06 10:17:56.948 | INFO     | __main__:<module>:101 - {'preprocess': 0.05255484580993652, 'inference': 0.0459895133972168, 'postprocess': 0.023398399353027344}, 4916.5625, 77
+2022-01-06 10:17:57.063 | INFO     | __main__:<module>:101 - {'preprocess': 0.044350385665893555, 'inference': 0.04532742500305176, 'postprocess': 0.0231781005859375}, 4916.5625, 77
+2022-01-06 10:17:57.180 | INFO     | __main__:<module>:101 - {'preprocess': 0.04519081115722656, 'inference': 0.04711294174194336, 'postprocess': 0.02324843406677246}, 4916.5625, 77
+2022-01-06 10:17:57.294 | INFO     | __main__:<module>:101 - {'preprocess': 0.043463945388793945, 'inference': 0.04548215866088867, 'postprocess': 0.023148775100708008}, 4916.5625, 77
+2022-01-06 10:17:57.409 | INFO     | __main__:<module>:101 - {'preprocess': 0.0441899299621582, 'inference': 0.045735836029052734, 'postprocess': 0.022980451583862305}, 4916.5625, 77
+2022-01-06 10:17:57.523 | INFO     | __main__:<module>:101 - {'preprocess': 0.04288649559020996, 'inference': 0.04600977897644043, 'postprocess': 0.022767066955566406}, 4916.5625, 77
+2022-01-06 10:17:57.637 | INFO     | __main__:<module>:101 - {'preprocess': 0.04353141784667969, 'inference': 0.04596376419067383, 'postprocess': 0.022787094116210938}, 4916.5625, 77
+2022-01-06 10:17:57.751 | INFO     | __main__:<module>:101 - {'preprocess': 0.043081045150756836, 'inference': 0.04589104652404785, 'postprocess': 0.022747278213500977}, 4916.5625, 77
+2022-01-06 10:17:57.865 | INFO     | __main__:<module>:101 - {'preprocess': 0.04355263710021973, 'inference': 0.045825958251953125, 'postprocess': 0.02284097671508789}, 4916.5625, 77
+2022-01-06 10:17:57.987 | INFO     | __main__:<module>:101 - {'preprocess': 0.05236363410949707, 'inference': 0.045065879821777344, 'postprocess': 0.023127079010009766}, 4916.5625, 77
+2022-01-06 10:17:58.101 | INFO     | __main__:<module>:101 - {'preprocess': 0.044484615325927734, 'inference': 0.04522275924682617, 'postprocess': 0.022823333740234375}, 4916.5625, 77
+2022-01-06 10:17:58.217 | INFO     | __main__:<module>:101 - {'preprocess': 0.04592442512512207, 'inference': 0.04653429985046387, 'postprocess': 0.02095508575439453}, 4916.5625, 77
+2022-01-06 10:17:58.333 | INFO     | __main__:<module>:101 - {'preprocess': 0.04365372657775879, 'inference': 0.045796871185302734, 'postprocess': 0.024510860443115234}, 4916.5625, 77
+2022-01-06 10:17:58.448 | INFO     | __main__:<module>:101 - {'preprocess': 0.042870283126831055, 'inference': 0.046025991439819336, 'postprocess': 0.024350881576538086}, 4916.5625, 77
+2022-01-06 10:17:58.562 | INFO     | __main__:<module>:101 - {'preprocess': 0.043415069580078125, 'inference': 0.04592609405517578, 'postprocess': 0.022698640823364258}, 4916.5625, 77
+2022-01-06 10:17:58.675 | INFO     | __main__:<module>:101 - {'preprocess': 0.043009281158447266, 'inference': 0.045854806900024414, 'postprocess': 0.022890567779541016}, 4916.5625, 77
+2022-01-06 10:17:58.789 | INFO     | __main__:<module>:101 - {'preprocess': 0.043437957763671875, 'inference': 0.045616865158081055, 'postprocess': 0.022611141204833984}, 4916.5625, 77
+2022-01-06 10:17:58.902 | INFO     | __main__:<module>:101 - {'preprocess': 0.042943716049194336, 'inference': 0.04572463035583496, 'postprocess': 0.022834062576293945}, 4916.5625, 77
+2022-01-06 10:17:59.025 | INFO     | __main__:<module>:101 - {'preprocess': 0.05240941047668457, 'inference': 0.04652261734008789, 'postprocess': 0.022631406784057617}, 4916.5625, 75
+2022-01-06 10:17:59.140 | INFO     | __main__:<module>:101 - {'preprocess': 0.04469466209411621, 'inference': 0.045560359954833984, 'postprocess': 0.022832632064819336}, 4916.5625, 75
+2022-01-06 10:17:59.258 | INFO     | __main__:<module>:101 - {'preprocess': 0.046822309494018555, 'inference': 0.045403242111206055, 'postprocess': 0.022954940795898438}, 4916.5625, 75
+2022-01-06 10:17:59.373 | INFO     | __main__:<module>:101 - {'preprocess': 0.044815778732299805, 'inference': 0.04540371894836426, 'postprocess': 0.02262735366821289}, 4916.5625, 75
+2022-01-06 10:17:59.488 | INFO     | __main__:<module>:101 - {'preprocess': 0.04567718505859375, 'inference': 0.045409440994262695, 'postprocess': 0.022595882415771484}, 4916.5625, 75
+2022-01-06 10:17:59.603 | INFO     | __main__:<module>:101 - {'preprocess': 0.04530954360961914, 'inference': 0.04557156562805176, 'postprocess': 0.022344112396240234}, 4916.5625, 75
+2022-01-06 10:17:59.720 | INFO     | __main__:<module>:101 - {'preprocess': 0.04686594009399414, 'inference': 0.045372724533081055, 'postprocess': 0.02284860610961914}, 4916.5625, 75
+2022-01-06 10:17:59.836 | INFO     | __main__:<module>:101 - {'preprocess': 0.045888423919677734, 'inference': 0.04536890983581543, 'postprocess': 0.022734642028808594}, 4916.5625, 75
+2022-01-06 10:17:59.953 | INFO     | __main__:<module>:101 - {'preprocess': 0.0462188720703125, 'inference': 0.0452725887298584, 'postprocess': 0.023120641708374023}, 4916.5625, 75
+2022-01-06 10:18:00.077 | INFO     | __main__:<module>:101 - {'preprocess': 0.051312923431396484, 'inference': 0.04562044143676758, 'postprocess': 0.023708343505859375}, 4916.5625, 73
+2022-01-06 10:18:00.196 | INFO     | __main__:<module>:101 - {'preprocess': 0.04636406898498535, 'inference': 0.04717564582824707, 'postprocess': 0.023652315139770508}, 4916.5625, 73
+2022-01-06 10:18:00.313 | INFO     | __main__:<module>:101 - {'preprocess': 0.04576230049133301, 'inference': 0.04541444778442383, 'postprocess': 0.02408289909362793}, 4916.5625, 73
+2022-01-06 10:18:00.430 | INFO     | __main__:<module>:101 - {'preprocess': 0.04684638977050781, 'inference': 0.04507803916931152, 'postprocess': 0.023693323135375977}, 4916.5625, 73
+2022-01-06 10:18:00.547 | INFO     | __main__:<module>:101 - {'preprocess': 0.045357465744018555, 'inference': 0.04549384117126465, 'postprocess': 0.024026155471801758}, 4916.5625, 73
+2022-01-06 10:18:00.664 | INFO     | __main__:<module>:101 - {'preprocess': 0.045656681060791016, 'inference': 0.04520535469055176, 'postprocess': 0.024016380310058594}, 4916.5625, 73
+2022-01-06 10:18:00.779 | INFO     | __main__:<module>:101 - {'preprocess': 0.045015811920166016, 'inference': 0.04531097412109375, 'postprocess': 0.023534059524536133}, 4916.5625, 73
+2022-01-06 10:18:00.896 | INFO     | __main__:<module>:101 - {'preprocess': 0.04573535919189453, 'inference': 0.04508829116821289, 'postprocess': 0.023791074752807617}, 4916.5625, 73
+2022-01-06 10:18:01.014 | INFO     | __main__:<module>:101 - {'preprocess': 0.04473686218261719, 'inference': 0.045469045639038086, 'postprocess': 0.025795698165893555}, 4916.5625, 72
+2022-01-06 10:18:01.130 | INFO     | __main__:<module>:101 - {'preprocess': 0.04384589195251465, 'inference': 0.0461881160736084, 'postprocess': 0.024243831634521484}, 4916.5625, 72
+2022-01-06 10:18:01.248 | INFO     | __main__:<module>:101 - {'preprocess': 0.04658007621765137, 'inference': 0.045304298400878906, 'postprocess': 0.024216890335083008}, 4916.5625, 72
+2022-01-06 10:18:01.364 | INFO     | __main__:<module>:101 - {'preprocess': 0.045026540756225586, 'inference': 0.045119285583496094, 'postprocess': 0.02395176887512207}, 4916.5625, 72
+2022-01-06 10:18:01.480 | INFO     | __main__:<module>:101 - {'preprocess': 0.044403791427612305, 'inference': 0.04520463943481445, 'postprocess': 0.024156570434570312}, 4916.5625, 72
+2022-01-06 10:18:01.598 | INFO     | __main__:<module>:101 - {'preprocess': 0.044884443283081055, 'inference': 0.04615139961242676, 'postprocess': 0.02508401870727539}, 4916.5625, 72
+2022-01-06 10:18:01.713 | INFO     | __main__:<module>:101 - {'preprocess': 0.044137001037597656, 'inference': 0.04507899284362793, 'postprocess': 0.024457454681396484}, 4916.5625, 72
+2022-01-06 10:18:01.832 | INFO     | __main__:<module>:101 - {'preprocess': 0.04773092269897461, 'inference': 0.04545712471008301, 'postprocess': 0.02391219139099121}, 4916.5625, 72
+2022-01-06 10:18:01.950 | INFO     | __main__:<module>:101 - {'preprocess': 0.0458989143371582, 'inference': 0.04527759552001953, 'postprocess': 0.024106502532958984}, 4916.5625, 72
+2022-01-06 10:18:02.069 | INFO     | __main__:<module>:101 - {'preprocess': 0.04637479782104492, 'inference': 0.0458221435546875, 'postprocess': 0.02464127540588379}, 4916.5625, 73
+2022-01-06 10:18:02.181 | INFO     | __main__:<module>:101 - {'preprocess': 0.04302167892456055, 'inference': 0.04480457305908203, 'postprocess': 0.023077726364135742}, 4916.5625, 73
+2022-01-06 10:18:02.294 | INFO     | __main__:<module>:101 - {'preprocess': 0.04328322410583496, 'inference': 0.04385685920715332, 'postprocess': 0.02300405502319336}, 4916.5625, 73
+2022-01-06 10:18:02.407 | INFO     | __main__:<module>:101 - {'preprocess': 0.04312634468078613, 'inference': 0.04486656188964844, 'postprocess': 0.022565603256225586}, 4916.5625, 73
+2022-01-06 10:18:02.519 | INFO     | __main__:<module>:101 - {'preprocess': 0.04346299171447754, 'inference': 0.04462742805480957, 'postprocess': 0.02277350425720215}, 4916.5625, 73
+2022-01-06 10:18:02.631 | INFO     | __main__:<module>:101 - {'preprocess': 0.04282093048095703, 'inference': 0.0445706844329834, 'postprocess': 0.022574663162231445}, 4916.5625, 73
+2022-01-06 10:18:02.744 | INFO     | __main__:<module>:101 - {'preprocess': 0.0435028076171875, 'inference': 0.044203758239746094, 'postprocess': 0.022701740264892578}, 4916.5625, 73
+2022-01-06 10:18:02.855 | INFO     | __main__:<module>:101 - {'preprocess': 0.04285120964050293, 'inference': 0.044119834899902344, 'postprocess': 0.02295088768005371}, 4916.5625, 73
+2022-01-06 10:18:02.967 | INFO     | __main__:<module>:101 - {'preprocess': 0.043326616287231445, 'inference': 0.045151710510253906, 'postprocess': 0.021123886108398438}, 4916.5625, 73
+2022-01-06 10:18:03.081 | INFO     | __main__:<module>:101 - {'preprocess': 0.04305410385131836, 'inference': 0.04438900947570801, 'postprocess': 0.023825883865356445}, 4916.5625, 77
+2022-01-06 10:18:03.194 | INFO     | __main__:<module>:101 - {'preprocess': 0.04425525665283203, 'inference': 0.04372978210449219, 'postprocess': 0.023075342178344727}, 4916.5625, 77
+2022-01-06 10:18:03.307 | INFO     | __main__:<module>:101 - {'preprocess': 0.04306626319885254, 'inference': 0.043967485427856445, 'postprocess': 0.02442336082458496}, 4916.5625, 77
+2022-01-06 10:18:03.418 | INFO     | __main__:<module>:101 - {'preprocess': 0.04374957084655762, 'inference': 0.04391908645629883, 'postprocess': 0.02120184898376465}, 4916.5625, 77
+2022-01-06 10:18:03.529 | INFO     | __main__:<module>:101 - {'preprocess': 0.04294419288635254, 'inference': 0.04384160041809082, 'postprocess': 0.022656917572021484}, 4916.5625, 77
+2022-01-06 10:18:03.640 | INFO     | __main__:<module>:101 - {'preprocess': 0.04331231117248535, 'inference': 0.04399228096008301, 'postprocess': 0.021206378936767578}, 4916.5625, 77
+2022-01-06 10:18:03.751 | INFO     | __main__:<module>:101 - {'preprocess': 0.04308652877807617, 'inference': 0.04400229454040527, 'postprocess': 0.021209239959716797}, 4916.5625, 77
+2022-01-06 10:18:03.861 | INFO     | __main__:<module>:101 - {'preprocess': 0.04340219497680664, 'inference': 0.0440371036529541, 'postprocess': 0.021129608154296875}, 4916.5625, 77
+2022-01-06 10:18:03.972 | INFO     | __main__:<module>:101 - {'preprocess': 0.04309272766113281, 'inference': 0.04418039321899414, 'postprocess': 0.02129197120666504}, 4916.5625, 77
+2022-01-06 10:18:04.083 | INFO     | __main__:<module>:101 - {'preprocess': 0.043366432189941406, 'inference': 0.04413342475891113, 'postprocess': 0.021507978439331055}, 4916.5625, 77
+2022-01-06 10:18:04.200 | INFO     | __main__:<module>:101 - {'preprocess': 0.0491790771484375, 'inference': 0.04467439651489258, 'postprocess': 0.021532535552978516}, 4916.5625, 77
+2022-01-06 10:18:04.311 | INFO     | __main__:<module>:101 - {'preprocess': 0.0432891845703125, 'inference': 0.04393792152404785, 'postprocess': 0.021442890167236328}, 4916.5625, 77
+2022-01-06 10:18:04.422 | INFO     | __main__:<module>:101 - {'preprocess': 0.043028831481933594, 'inference': 0.04446578025817871, 'postprocess': 0.021202564239501953}, 4916.5625, 77
+2022-01-06 10:18:04.532 | INFO     | __main__:<module>:101 - {'preprocess': 0.043314456939697266, 'inference': 0.04469704627990723, 'postprocess': 0.02105426788330078}, 4916.5625, 77
+2022-01-06 10:18:04.643 | INFO     | __main__:<module>:101 - {'preprocess': 0.042563438415527344, 'inference': 0.04448413848876953, 'postprocess': 0.021172285079956055}, 4916.5625, 77
+2022-01-06 10:18:04.753 | INFO     | __main__:<module>:101 - {'preprocess': 0.043102264404296875, 'inference': 0.043998003005981445, 'postprocess': 0.021183013916015625}, 4916.5625, 77
+2022-01-06 10:18:04.863 | INFO     | __main__:<module>:101 - {'preprocess': 0.04291129112243652, 'inference': 0.0440371036529541, 'postprocess': 0.021196365356445312}, 4916.5625, 77
+2022-01-06 10:18:04.974 | INFO     | __main__:<module>:101 - {'preprocess': 0.04371356964111328, 'inference': 0.04411172866821289, 'postprocess': 0.021091222763061523}, 4916.5625, 77
+2022-01-06 10:18:05.085 | INFO     | __main__:<module>:101 - {'preprocess': 0.04278111457824707, 'inference': 0.044422149658203125, 'postprocess': 0.02208423614501953}, 4916.5625, 78
+2022-01-06 10:18:05.205 | INFO     | __main__:<module>:101 - {'preprocess': 0.04697751998901367, 'inference': 0.04953360557556152, 'postprocess': 0.02148580551147461}, 4916.5625, 78
+2022-01-06 10:18:05.316 | INFO     | __main__:<module>:101 - {'preprocess': 0.042902231216430664, 'inference': 0.04519939422607422, 'postprocess': 0.021361589431762695}, 4916.5625, 78
+2022-01-06 10:18:05.428 | INFO     | __main__:<module>:101 - {'preprocess': 0.04359316825866699, 'inference': 0.04549765586853027, 'postprocess': 0.02109527587890625}, 4916.5625, 78
+2022-01-06 10:18:05.541 | INFO     | __main__:<module>:101 - {'preprocess': 0.0431065559387207, 'inference': 0.04505181312561035, 'postprocess': 0.02266860008239746}, 4916.5625, 78
+2022-01-06 10:18:05.655 | INFO     | __main__:<module>:101 - {'preprocess': 0.04348015785217285, 'inference': 0.044527530670166016, 'postprocess': 0.023710966110229492}, 4916.5625, 78
+2022-01-06 10:18:05.769 | INFO     | __main__:<module>:101 - {'preprocess': 0.042960166931152344, 'inference': 0.04397320747375488, 'postprocess': 0.025086164474487305}, 4916.5625, 78
+2022-01-06 10:18:05.883 | INFO     | __main__:<module>:101 - {'preprocess': 0.04379773139953613, 'inference': 0.04520416259765625, 'postprocess': 0.02383708953857422}, 4916.5625, 78
+2022-01-06 10:18:05.997 | INFO     | __main__:<module>:101 - {'preprocess': 0.04291582107543945, 'inference': 0.04499077796936035, 'postprocess': 0.023741960525512695}, 4916.5625, 78
+2022-01-06 10:18:06.112 | INFO     | __main__:<module>:101 - {'preprocess': 0.04336380958557129, 'inference': 0.045247793197631836, 'postprocess': 0.02447199821472168}, 4916.5625, 78
+2022-01-06 10:18:06.227 | INFO     | __main__:<module>:101 - {'preprocess': 0.043671369552612305, 'inference': 0.0457000732421875, 'postprocess': 0.024097442626953125}, 4916.5625, 78
+2022-01-06 10:18:06.341 | INFO     | __main__:<module>:101 - {'preprocess': 0.04344916343688965, 'inference': 0.04412031173706055, 'postprocess': 0.02395915985107422}, 4916.5625, 78
+2022-01-06 10:18:06.453 | INFO     | __main__:<module>:101 - {'preprocess': 0.04352998733520508, 'inference': 0.04454970359802246, 'postprocess': 0.022295713424682617}, 4916.5625, 78
+2022-01-06 10:18:06.567 | INFO     | __main__:<module>:101 - {'preprocess': 0.04325723648071289, 'inference': 0.04415440559387207, 'postprocess': 0.025043725967407227}, 4916.5625, 78
+2022-01-06 10:18:06.682 | INFO     | __main__:<module>:101 - {'preprocess': 0.04305887222290039, 'inference': 0.044175148010253906, 'postprocess': 0.024871826171875}, 4916.5625, 78
+2022-01-06 10:18:06.795 | INFO     | __main__:<module>:101 - {'preprocess': 0.04340934753417969, 'inference': 0.04414796829223633, 'postprocess': 0.02392125129699707}, 4916.5625, 78
+2022-01-06 10:18:06.908 | INFO     | __main__:<module>:101 - {'preprocess': 0.04310870170593262, 'inference': 0.04512929916381836, 'postprocess': 0.02264261245727539}, 4916.5625, 78
+2022-01-06 10:18:07.021 | INFO     | __main__:<module>:101 - {'preprocess': 0.04366898536682129, 'inference': 0.04506945610046387, 'postprocess': 0.022498130798339844}, 4916.5625, 78
+2022-01-06 10:18:07.134 | INFO     | __main__:<module>:101 - {'preprocess': 0.04273104667663574, 'inference': 0.045319557189941406, 'postprocess': 0.022794485092163086}, 4916.5625, 76
+2022-01-06 10:18:07.248 | INFO     | __main__:<module>:101 - {'preprocess': 0.04343128204345703, 'inference': 0.04544878005981445, 'postprocess': 0.023063182830810547}, 4916.5625, 76
+2022-01-06 10:18:07.358 | INFO     | __main__:<module>:101 - {'preprocess': 0.04288125038146973, 'inference': 0.04386472702026367, 'postprocess': 0.02115941047668457}, 4916.5625, 76
+2022-01-06 10:18:07.472 | INFO     | __main__:<module>:101 - {'preprocess': 0.0450136661529541, 'inference': 0.043975114822387695, 'postprocess': 0.023073196411132812}, 4916.5625, 76
+2022-01-06 10:18:07.583 | INFO     | __main__:<module>:101 - {'preprocess': 0.042990684509277344, 'inference': 0.04383254051208496, 'postprocess': 0.021706104278564453}, 4916.5625, 76
+2022-01-06 10:18:07.695 | INFO     | __main__:<module>:101 - {'preprocess': 0.043798208236694336, 'inference': 0.04387664794921875, 'postprocess': 0.022732019424438477}, 4916.5625, 76
+2022-01-06 10:18:07.807 | INFO     | __main__:<module>:101 - {'preprocess': 0.043180227279663086, 'inference': 0.043964385986328125, 'postprocess': 0.022373437881469727}, 4916.5625, 76
+2022-01-06 10:18:07.918 | INFO     | __main__:<module>:101 - {'preprocess': 0.04319882392883301, 'inference': 0.043924570083618164, 'postprocess': 0.021187543869018555}, 4916.5625, 76
+2022-01-06 10:18:08.028 | INFO     | __main__:<module>:101 - {'preprocess': 0.04298830032348633, 'inference': 0.04393625259399414, 'postprocess': 0.021173715591430664}, 4916.5625, 76
+2022-01-06 10:18:08.142 | INFO     | __main__:<module>:101 - {'preprocess': 0.04372739791870117, 'inference': 0.044035911560058594, 'postprocess': 0.023795604705810547}, 4916.5625, 77
+2022-01-06 10:18:08.255 | INFO     | __main__:<module>:101 - {'preprocess': 0.04313397407531738, 'inference': 0.044603586196899414, 'postprocess': 0.023553848266601562}, 4916.5625, 77
+2022-01-06 10:18:08.366 | INFO     | __main__:<module>:101 - {'preprocess': 0.04364633560180664, 'inference': 0.0436861515045166, 'postprocess': 0.021811246871948242}, 4916.5625, 77
+2022-01-06 10:18:08.477 | INFO     | __main__:<module>:101 - {'preprocess': 0.042882442474365234, 'inference': 0.0437467098236084, 'postprocess': 0.021434545516967773}, 4916.5625, 77
+2022-01-06 10:18:08.588 | INFO     | __main__:<module>:101 - {'preprocess': 0.043715476989746094, 'inference': 0.043944358825683594, 'postprocess': 0.021505117416381836}, 4916.5625, 77
+2022-01-06 10:18:08.698 | INFO     | __main__:<module>:101 - {'preprocess': 0.0433201789855957, 'inference': 0.043862104415893555, 'postprocess': 0.021544933319091797}, 4916.5625, 77
+2022-01-06 10:18:08.810 | INFO     | __main__:<module>:101 - {'preprocess': 0.04390859603881836, 'inference': 0.04398775100708008, 'postprocess': 0.021676301956176758}, 4916.5625, 77
+2022-01-06 10:18:08.920 | INFO     | __main__:<module>:101 - {'preprocess': 0.04308819770812988, 'inference': 0.04402637481689453, 'postprocess': 0.021475791931152344}, 4916.5625, 77
+2022-01-06 10:18:09.032 | INFO     | __main__:<module>:101 - {'preprocess': 0.043923377990722656, 'inference': 0.04414010047912598, 'postprocess': 0.021410465240478516}, 4916.5625, 77
+2022-01-06 10:18:09.143 | INFO     | __main__:<module>:101 - {'preprocess': 0.043213605880737305, 'inference': 0.04390382766723633, 'postprocess': 0.022016048431396484}, 4916.5625, 77
+2022-01-06 10:18:09.256 | INFO     | __main__:<module>:101 - {'preprocess': 0.044396400451660156, 'inference': 0.04480314254760742, 'postprocess': 0.021697998046875}, 4916.5625, 77
+2022-01-06 10:18:09.371 | INFO     | __main__:<module>:101 - {'preprocess': 0.047124624252319336, 'inference': 0.04382777214050293, 'postprocess': 0.021823644638061523}, 4916.5625, 77
+2022-01-06 10:18:09.483 | INFO     | __main__:<module>:101 - {'preprocess': 0.0435791015625, 'inference': 0.043750762939453125, 'postprocess': 0.022820234298706055}, 4916.5625, 77
+2022-01-06 10:18:09.593 | INFO     | __main__:<module>:101 - {'preprocess': 0.043058156967163086, 'inference': 0.043996572494506836, 'postprocess': 0.021491050720214844}, 4916.5625, 77
+2022-01-06 10:18:09.704 | INFO     | __main__:<module>:101 - {'preprocess': 0.0434567928314209, 'inference': 0.043959617614746094, 'postprocess': 0.02159428596496582}, 4916.5625, 77
+2022-01-06 10:18:09.815 | INFO     | __main__:<module>:101 - {'preprocess': 0.04314231872558594, 'inference': 0.04414820671081543, 'postprocess': 0.021599531173706055}, 4916.5625, 77
+2022-01-06 10:18:09.926 | INFO     | __main__:<module>:101 - {'preprocess': 0.04366040229797363, 'inference': 0.04410696029663086, 'postprocess': 0.021721839904785156}, 4916.5625, 77
+2022-01-06 10:18:10.037 | INFO     | __main__:<module>:101 - {'preprocess': 0.04315781593322754, 'inference': 0.04427790641784668, 'postprocess': 0.021423816680908203}, 4916.5625, 77
+2022-01-06 10:18:10.148 | INFO     | __main__:<module>:101 - {'preprocess': 0.04343557357788086, 'inference': 0.04412555694580078, 'postprocess': 0.021593332290649414}, 4916.5625, 78
+2022-01-06 10:18:10.263 | INFO     | __main__:<module>:101 - {'preprocess': 0.044664859771728516, 'inference': 0.04541182518005371, 'postprocess': 0.021904468536376953}, 4916.5625, 78
+2022-01-06 10:18:10.384 | INFO     | __main__:<module>:101 - {'preprocess': 0.051108598709106445, 'inference': 0.04724860191345215, 'postprocess': 0.021788358688354492}, 4916.5625, 78
+2022-01-06 10:18:10.495 | INFO     | __main__:<module>:101 - {'preprocess': 0.04280376434326172, 'inference': 0.044013261795043945, 'postprocess': 0.021713733673095703}, 4916.5625, 78
+2022-01-06 10:18:10.606 | INFO     | __main__:<module>:101 - {'preprocess': 0.0437009334564209, 'inference': 0.04400801658630371, 'postprocess': 0.021482467651367188}, 4916.5625, 78
+2022-01-06 10:18:10.718 | INFO     | __main__:<module>:101 - {'preprocess': 0.042978763580322266, 'inference': 0.043779611587524414, 'postprocess': 0.023052215576171875}, 4916.5625, 78
+2022-01-06 10:18:10.831 | INFO     | __main__:<module>:101 - {'preprocess': 0.04372215270996094, 'inference': 0.044211626052856445, 'postprocess': 0.021474838256835938}, 4916.5625, 78
+2022-01-06 10:18:10.942 | INFO     | __main__:<module>:101 - {'preprocess': 0.0433347225189209, 'inference': 0.04412436485290527, 'postprocess': 0.02127385139465332}, 4916.5625, 78
+2022-01-06 10:18:11.054 | INFO     | __main__:<module>:101 - {'preprocess': 0.043706417083740234, 'inference': 0.04423928260803223, 'postprocess': 0.02132725715637207}, 4916.5625, 78
+2022-01-06 10:18:11.164 | INFO     | __main__:<module>:101 - {'preprocess': 0.04286909103393555, 'inference': 0.04434394836425781, 'postprocess': 0.021493911743164062}, 4916.5625, 77
+2022-01-06 10:18:11.280 | INFO     | __main__:<module>:101 - {'preprocess': 0.04497385025024414, 'inference': 0.04687786102294922, 'postprocess': 0.02173304557800293}, 4916.5625, 77
+2022-01-06 10:18:11.395 | INFO     | __main__:<module>:101 - {'preprocess': 0.04321575164794922, 'inference': 0.04667949676513672, 'postprocess': 0.02308034896850586}, 4916.5625, 77
+2022-01-06 10:18:11.510 | INFO     | __main__:<module>:101 - {'preprocess': 0.04335784912109375, 'inference': 0.044001102447509766, 'postprocess': 0.025910377502441406}, 4916.5625, 77
+2022-01-06 10:18:11.625 | INFO     | __main__:<module>:101 - {'preprocess': 0.04309201240539551, 'inference': 0.04413461685180664, 'postprocess': 0.025719642639160156}, 4916.5625, 77
+2022-01-06 10:18:11.739 | INFO     | __main__:<module>:101 - {'preprocess': 0.04392552375793457, 'inference': 0.04408597946166992, 'postprocess': 0.02431511878967285}, 4916.5625, 77
+2022-01-06 10:18:11.853 | INFO     | __main__:<module>:101 - {'preprocess': 0.043015480041503906, 'inference': 0.04425787925720215, 'postprocess': 0.02434992790222168}, 4916.5625, 77
+2022-01-06 10:18:11.967 | INFO     | __main__:<module>:101 - {'preprocess': 0.04344630241394043, 'inference': 0.0445556640625, 'postprocess': 0.024363040924072266}, 4916.5625, 77
+2022-01-06 10:18:12.081 | INFO     | __main__:<module>:101 - {'preprocess': 0.04287362098693848, 'inference': 0.0448002815246582, 'postprocess': 0.024185895919799805}, 4916.5625, 76
+2022-01-06 10:18:12.195 | INFO     | __main__:<module>:101 - {'preprocess': 0.04345059394836426, 'inference': 0.045319557189941406, 'postprocess': 0.023386478424072266}, 4916.5625, 76
+2022-01-06 10:18:12.311 | INFO     | __main__:<module>:101 - {'preprocess': 0.043265342712402344, 'inference': 0.047132253646850586, 'postprocess': 0.024325132369995117}, 4916.5625, 76
+2022-01-06 10:18:12.428 | INFO     | __main__:<module>:101 - {'preprocess': 0.04372763633728027, 'inference': 0.04675173759460449, 'postprocess': 0.024217605590820312}, 4916.5625, 76
+2022-01-06 10:18:12.541 | INFO     | __main__:<module>:101 - {'preprocess': 0.042870283126831055, 'inference': 0.044974327087402344, 'postprocess': 0.02287745475769043}, 4916.5625, 76
+2022-01-06 10:18:12.654 | INFO     | __main__:<module>:101 - {'preprocess': 0.04350543022155762, 'inference': 0.04517793655395508, 'postprocess': 0.022815942764282227}, 4916.5625, 76
+2022-01-06 10:18:12.767 | INFO     | __main__:<module>:101 - {'preprocess': 0.04285764694213867, 'inference': 0.04411959648132324, 'postprocess': 0.02424144744873047}, 4916.5625, 76
+2022-01-06 10:18:12.880 | INFO     | __main__:<module>:101 - {'preprocess': 0.04361152648925781, 'inference': 0.04571723937988281, 'postprocess': 0.021457910537719727}, 4916.5625, 76
+2022-01-06 10:18:12.992 | INFO     | __main__:<module>:101 - {'preprocess': 0.043105125427246094, 'inference': 0.04553651809692383, 'postprocess': 0.021323442459106445}, 4916.5625, 76
+2022-01-06 10:18:13.104 | INFO     | __main__:<module>:101 - {'preprocess': 0.04332280158996582, 'inference': 0.04576849937438965, 'postprocess': 0.021402597427368164}, 4916.5625, 77
+2022-01-06 10:18:13.217 | INFO     | __main__:<module>:101 - {'preprocess': 0.04254627227783203, 'inference': 0.04528975486755371, 'postprocess': 0.02347397804260254}, 4916.5625, 77
+2022-01-06 10:18:13.332 | INFO     | __main__:<module>:101 - {'preprocess': 0.0448300838470459, 'inference': 0.0450596809387207, 'postprocess': 0.023168563842773438}, 4916.5625, 77
+2022-01-06 10:18:13.447 | INFO     | __main__:<module>:101 - {'preprocess': 0.04273700714111328, 'inference': 0.04561972618103027, 'postprocess': 0.024478673934936523}, 4916.5625, 77
+2022-01-06 10:18:13.560 | INFO     | __main__:<module>:101 - {'preprocess': 0.04348134994506836, 'inference': 0.04393720626831055, 'postprocess': 0.023985862731933594}, 4916.5625, 77
+2022-01-06 10:18:13.673 | INFO     | __main__:<module>:101 - {'preprocess': 0.04285883903503418, 'inference': 0.04389619827270508, 'postprocess': 0.024118900299072266}, 4916.5625, 77
+2022-01-06 10:18:13.787 | INFO     | __main__:<module>:101 - {'preprocess': 0.043427467346191406, 'inference': 0.04433083534240723, 'postprocess': 0.024190187454223633}, 4916.5625, 77
+2022-01-06 10:18:13.900 | INFO     | __main__:<module>:101 - {'preprocess': 0.04305601119995117, 'inference': 0.044359683990478516, 'postprocess': 0.02298712730407715}, 4916.5625, 77
+2022-01-06 10:18:14.012 | INFO     | __main__:<module>:101 - {'preprocess': 0.04335951805114746, 'inference': 0.044145822525024414, 'postprocess': 0.02271747589111328}, 4916.5625, 77
+2022-01-06 10:18:14.125 | INFO     | __main__:<module>:101 - {'preprocess': 0.04299783706665039, 'inference': 0.04424595832824707, 'postprocess': 0.023888111114501953}, 4916.5625, 77
+2022-01-06 10:18:14.240 | INFO     | __main__:<module>:101 - {'preprocess': 0.043328285217285156, 'inference': 0.04434514045715332, 'postprocess': 0.025043010711669922}, 4916.5625, 77
+2022-01-06 10:18:14.355 | INFO     | __main__:<module>:101 - {'preprocess': 0.045064687728881836, 'inference': 0.04420900344848633, 'postprocess': 0.024372100830078125}, 4916.5625, 77
+2022-01-06 10:18:14.469 | INFO     | __main__:<module>:101 - {'preprocess': 0.04333019256591797, 'inference': 0.04443764686584473, 'postprocess': 0.024636507034301758}, 4916.5625, 77
+2022-01-06 10:18:14.583 | INFO     | __main__:<module>:101 - {'preprocess': 0.043282508850097656, 'inference': 0.043924808502197266, 'postprocess': 0.024402856826782227}, 4916.5625, 77
+2022-01-06 10:18:14.696 | INFO     | __main__:<module>:101 - {'preprocess': 0.04351496696472168, 'inference': 0.044033050537109375, 'postprocess': 0.024038314819335938}, 4916.5625, 77
+2022-01-06 10:18:14.810 | INFO     | __main__:<module>:101 - {'preprocess': 0.043280601501464844, 'inference': 0.044127464294433594, 'postprocess': 0.02417159080505371}, 4916.5625, 77
+2022-01-06 10:18:14.924 | INFO     | __main__:<module>:101 - {'preprocess': 0.04368424415588379, 'inference': 0.04401445388793945, 'postprocess': 0.02404332160949707}, 4916.5625, 77
+2022-01-06 10:18:15.036 | INFO     | __main__:<module>:101 - {'preprocess': 0.04289984703063965, 'inference': 0.04388260841369629, 'postprocess': 0.022905349731445312}, 4916.5625, 77
+2022-01-06 10:18:15.149 | INFO     | __main__:<module>:101 - {'preprocess': 0.04341578483581543, 'inference': 0.043962717056274414, 'postprocess': 0.022978544235229492}, 4916.5625, 76
+2022-01-06 10:18:15.261 | INFO     | __main__:<module>:101 - {'preprocess': 0.043082475662231445, 'inference': 0.044286251068115234, 'postprocess': 0.02334761619567871}, 4916.5625, 76
+2022-01-06 10:18:15.377 | INFO     | __main__:<module>:101 - {'preprocess': 0.04465651512145996, 'inference': 0.044005632400512695, 'postprocess': 0.02451038360595703}, 4916.5625, 76
+2022-01-06 10:18:15.493 | INFO     | __main__:<module>:101 - {'preprocess': 0.0430302619934082, 'inference': 0.0441586971282959, 'postprocess': 0.02699112892150879}, 4916.5625, 76
+2022-01-06 10:18:15.610 | INFO     | __main__:<module>:101 - {'preprocess': 0.04393815994262695, 'inference': 0.043668270111083984, 'postprocess': 0.026080608367919922}, 4916.5625, 76
+2022-01-06 10:18:15.725 | INFO     | __main__:<module>:101 - {'preprocess': 0.043128252029418945, 'inference': 0.04367256164550781, 'postprocess': 0.02576732635498047}, 4916.5625, 76
+2022-01-06 10:18:15.839 | INFO     | __main__:<module>:101 - {'preprocess': 0.043228864669799805, 'inference': 0.04374098777770996, 'postprocess': 0.02428746223449707}, 4916.5625, 76
+2022-01-06 10:18:15.953 | INFO     | __main__:<module>:101 - {'preprocess': 0.04285168647766113, 'inference': 0.04374384880065918, 'postprocess': 0.025715351104736328}, 4916.5625, 76
+2022-01-06 10:18:16.066 | INFO     | __main__:<module>:101 - {'preprocess': 0.0433502197265625, 'inference': 0.04382824897766113, 'postprocess': 0.024278879165649414}, 4916.5625, 76
+2022-01-06 10:18:16.179 | INFO     | __main__:<module>:101 - {'preprocess': 0.042928218841552734, 'inference': 0.043822526931762695, 'postprocess': 0.024431705474853516}, 4916.5625, 76
+2022-01-06 10:18:16.294 | INFO     | __main__:<module>:101 - {'preprocess': 0.04372382164001465, 'inference': 0.04427194595336914, 'postprocess': 0.024955272674560547}, 4916.5625, 76
+2022-01-06 10:18:16.409 | INFO     | __main__:<module>:101 - {'preprocess': 0.04305863380432129, 'inference': 0.04369473457336426, 'postprocess': 0.024796009063720703}, 4916.5625, 76
+2022-01-06 10:18:16.527 | INFO     | __main__:<module>:101 - {'preprocess': 0.043591976165771484, 'inference': 0.04370260238647461, 'postprocess': 0.025185108184814453}, 4916.5625, 76
+2022-01-06 10:18:16.644 | INFO     | __main__:<module>:101 - {'preprocess': 0.04420304298400879, 'inference': 0.04376816749572754, 'postprocess': 0.02463698387145996}, 4916.5625, 76
+2022-01-06 10:18:16.759 | INFO     | __main__:<module>:101 - {'preprocess': 0.043591976165771484, 'inference': 0.04376983642578125, 'postprocess': 0.02451300621032715}, 4916.5625, 76
+2022-01-06 10:18:16.875 | INFO     | __main__:<module>:101 - {'preprocess': 0.04302549362182617, 'inference': 0.04375052452087402, 'postprocess': 0.026088953018188477}, 4916.5625, 76
+2022-01-06 10:18:16.991 | INFO     | __main__:<module>:101 - {'preprocess': 0.04348301887512207, 'inference': 0.043860673904418945, 'postprocess': 0.025974273681640625}, 4916.5625, 76
+2022-01-06 10:18:17.106 | INFO     | __main__:<module>:101 - {'preprocess': 0.04309511184692383, 'inference': 0.04384279251098633, 'postprocess': 0.025775909423828125}, 4916.5625, 75
+2022-01-06 10:18:17.221 | INFO     | __main__:<module>:101 - {'preprocess': 0.043526649475097656, 'inference': 0.043790340423583984, 'postprocess': 0.025720596313476562}, 4916.5625, 75
+2022-01-06 10:18:17.339 | INFO     | __main__:<module>:101 - {'preprocess': 0.044088125228881836, 'inference': 0.04634213447570801, 'postprocess': 0.0258634090423584}, 4916.5625, 75
+2022-01-06 10:18:17.454 | INFO     | __main__:<module>:101 - {'preprocess': 0.04359698295593262, 'inference': 0.04385066032409668, 'postprocess': 0.025719642639160156}, 4916.5625, 75
+2022-01-06 10:18:17.571 | INFO     | __main__:<module>:101 - {'preprocess': 0.04315495491027832, 'inference': 0.04414868354797363, 'postprocess': 0.02703404426574707}, 4916.5625, 75
+2022-01-06 10:18:17.688 | INFO     | __main__:<module>:101 - {'preprocess': 0.044450998306274414, 'inference': 0.043669700622558594, 'postprocess': 0.026303768157958984}, 4916.5625, 75
+2022-01-06 10:18:17.803 | INFO     | __main__:<module>:101 - {'preprocess': 0.04304099082946777, 'inference': 0.0438234806060791, 'postprocess': 0.02470088005065918}, 4916.5625, 75
+2022-01-06 10:18:17.919 | INFO     | __main__:<module>:101 - {'preprocess': 0.043451547622680664, 'inference': 0.043798208236694336, 'postprocess': 0.026170015335083008}, 4916.5625, 75
+2022-01-06 10:18:18.036 | INFO     | __main__:<module>:101 - {'preprocess': 0.042967796325683594, 'inference': 0.043761491775512695, 'postprocess': 0.026003599166870117}, 4916.5625, 75
+2022-01-06 10:18:18.150 | INFO     | __main__:<module>:101 - {'preprocess': 0.04361104965209961, 'inference': 0.043868303298950195, 'postprocess': 0.024727821350097656}, 4916.5625, 75
+2022-01-06 10:18:18.265 | INFO     | __main__:<module>:101 - {'preprocess': 0.04311370849609375, 'inference': 0.04387331008911133, 'postprocess': 0.025785207748413086}, 4916.5625, 75
+2022-01-06 10:18:18.387 | INFO     | __main__:<module>:101 - {'preprocess': 0.04906725883483887, 'inference': 0.04391884803771973, 'postprocess': 0.027621984481811523}, 4916.5625, 75
+2022-01-06 10:18:18.502 | INFO     | __main__:<module>:101 - {'preprocess': 0.04315686225891113, 'inference': 0.043974876403808594, 'postprocess': 0.025856733322143555}, 4916.5625, 75
+2022-01-06 10:18:18.619 | INFO     | __main__:<module>:101 - {'preprocess': 0.043526411056518555, 'inference': 0.044387102127075195, 'postprocess': 0.02668595314025879}, 4916.5625, 75
+2022-01-06 10:18:18.734 | INFO     | __main__:<module>:101 - {'preprocess': 0.04303741455078125, 'inference': 0.0436861515045166, 'postprocess': 0.026132822036743164}, 4916.5625, 75
+2022-01-06 10:18:18.848 | INFO     | __main__:<module>:101 - {'preprocess': 0.04376673698425293, 'inference': 0.0438685417175293, 'postprocess': 0.02477288246154785}, 4916.5625, 75
+2022-01-06 10:18:18.963 | INFO     | __main__:<module>:101 - {'preprocess': 0.04296684265136719, 'inference': 0.043756723403930664, 'postprocess': 0.026021480560302734}, 4916.5625, 75
+2022-01-06 10:18:19.078 | INFO     | __main__:<module>:101 - {'preprocess': 0.04367423057556152, 'inference': 0.04373455047607422, 'postprocess': 0.025911569595336914}, 4916.5625, 75
+2022-01-06 10:18:19.190 | INFO     | __main__:<module>:101 - {'preprocess': 0.04322409629821777, 'inference': 0.04397749900817871, 'postprocess': 0.023212909698486328}, 4916.5625, 75
+2022-01-06 10:18:19.304 | INFO     | __main__:<module>:101 - {'preprocess': 0.043747901916503906, 'inference': 0.04398965835571289, 'postprocess': 0.023583650588989258}, 4916.5625, 75
+2022-01-06 10:18:19.417 | INFO     | __main__:<module>:101 - {'preprocess': 0.04328155517578125, 'inference': 0.0439295768737793, 'postprocess': 0.023479938507080078}, 4916.5625, 75
+2022-01-06 10:18:19.530 | INFO     | __main__:<module>:101 - {'preprocess': 0.04376363754272461, 'inference': 0.04423713684082031, 'postprocess': 0.0231778621673584}, 4916.5625, 75
+2022-01-06 10:18:19.643 | INFO     | __main__:<module>:101 - {'preprocess': 0.04289388656616211, 'inference': 0.04405975341796875, 'postprocess': 0.023815393447875977}, 4916.5625, 75
+2022-01-06 10:18:19.758 | INFO     | __main__:<module>:101 - {'preprocess': 0.044255971908569336, 'inference': 0.04398632049560547, 'postprocess': 0.023572683334350586}, 4916.5625, 75
+2022-01-06 10:18:19.870 | INFO     | __main__:<module>:101 - {'preprocess': 0.04297757148742676, 'inference': 0.04388141632080078, 'postprocess': 0.023389101028442383}, 4916.5625, 75
+2022-01-06 10:18:19.983 | INFO     | __main__:<module>:101 - {'preprocess': 0.0436098575592041, 'inference': 0.043828487396240234, 'postprocess': 0.02319049835205078}, 4916.5625, 75
+2022-01-06 10:18:20.095 | INFO     | __main__:<module>:101 - {'preprocess': 0.04324674606323242, 'inference': 0.04378032684326172, 'postprocess': 0.02345728874206543}, 4916.5625, 75
+2022-01-06 10:18:20.210 | INFO     | __main__:<module>:101 - {'preprocess': 0.04375004768371582, 'inference': 0.04373931884765625, 'postprocess': 0.025843381881713867}, 4916.5625, 76
+2022-01-06 10:18:20.327 | INFO     | __main__:<module>:101 - {'preprocess': 0.043081045150756836, 'inference': 0.04379630088806152, 'postprocess': 0.027695417404174805}, 4916.5625, 76
+2022-01-06 10:18:20.441 | INFO     | __main__:<module>:101 - {'preprocess': 0.04439210891723633, 'inference': 0.044062137603759766, 'postprocess': 0.023296117782592773}, 4916.5625, 76
+2022-01-06 10:18:20.554 | INFO     | __main__:<module>:101 - {'preprocess': 0.043251752853393555, 'inference': 0.04396510124206543, 'postprocess': 0.0243988037109375}, 4916.5625, 76
+2022-01-06 10:18:20.674 | INFO     | __main__:<module>:101 - {'preprocess': 0.043723106384277344, 'inference': 0.04376530647277832, 'postprocess': 0.025484800338745117}, 4916.5625, 76
+2022-01-06 10:18:20.787 | INFO     | __main__:<module>:101 - {'preprocess': 0.04336690902709961, 'inference': 0.043732404708862305, 'postprocess': 0.0238037109375}, 4916.5625, 76
+2022-01-06 10:18:20.900 | INFO     | __main__:<module>:101 - {'preprocess': 0.043799400329589844, 'inference': 0.04405045509338379, 'postprocess': 0.02342963218688965}, 4916.5625, 76
+2022-01-06 10:18:21.012 | INFO     | __main__:<module>:101 - {'preprocess': 0.043166160583496094, 'inference': 0.0438535213470459, 'postprocess': 0.023144960403442383}, 4916.5625, 76
+2022-01-06 10:18:21.126 | INFO     | __main__:<module>:101 - {'preprocess': 0.043776512145996094, 'inference': 0.04404330253601074, 'postprocess': 0.023529767990112305}, 4916.5625, 75
+2022-01-06 10:18:21.238 | INFO     | __main__:<module>:101 - {'preprocess': 0.042816162109375, 'inference': 0.044007062911987305, 'postprocess': 0.023304462432861328}, 4916.5625, 75
+2022-01-06 10:18:21.352 | INFO     | __main__:<module>:101 - {'preprocess': 0.04356694221496582, 'inference': 0.04531574249267578, 'postprocess': 0.0237581729888916}, 4916.5625, 75
+2022-01-06 10:18:21.465 | INFO     | __main__:<module>:101 - {'preprocess': 0.04320931434631348, 'inference': 0.043929100036621094, 'postprocess': 0.023688554763793945}, 4916.5625, 75
+2022-01-06 10:18:21.578 | INFO     | __main__:<module>:101 - {'preprocess': 0.043721675872802734, 'inference': 0.04395794868469238, 'postprocess': 0.023235797882080078}, 4916.5625, 75
+2022-01-06 10:18:21.692 | INFO     | __main__:<module>:101 - {'preprocess': 0.043556928634643555, 'inference': 0.04399394989013672, 'postprocess': 0.023764371871948242}, 4916.5625, 75
+2022-01-06 10:18:21.808 | INFO     | __main__:<module>:101 - {'preprocess': 0.045723676681518555, 'inference': 0.04397320747375488, 'postprocess': 0.023501157760620117}, 4916.5625, 75
+2022-01-06 10:18:21.920 | INFO     | __main__:<module>:101 - {'preprocess': 0.04302716255187988, 'inference': 0.04390835762023926, 'postprocess': 0.0232694149017334}, 4916.5625, 75
+2022-01-06 10:18:22.033 | INFO     | __main__:<module>:101 - {'preprocess': 0.04367518424987793, 'inference': 0.04385185241699219, 'postprocess': 0.023302316665649414}, 4916.5625, 75
+2022-01-06 10:18:22.145 | INFO     | __main__:<module>:101 - {'preprocess': 0.042990922927856445, 'inference': 0.04416513442993164, 'postprocess': 0.023090362548828125}, 4916.5625, 78
+2022-01-06 10:18:22.259 | INFO     | __main__:<module>:101 - {'preprocess': 0.04385256767272949, 'inference': 0.04407787322998047, 'postprocess': 0.023398160934448242}, 4916.5625, 78
+2022-01-06 10:18:22.374 | INFO     | __main__:<module>:101 - {'preprocess': 0.043448686599731445, 'inference': 0.045716047286987305, 'postprocess': 0.023833751678466797}, 4916.5625, 78
+2022-01-06 10:18:22.488 | INFO     | __main__:<module>:101 - {'preprocess': 0.04392504692077637, 'inference': 0.044011831283569336, 'postprocess': 0.023753643035888672}, 4916.5625, 78
+2022-01-06 10:18:22.600 | INFO     | __main__:<module>:101 - {'preprocess': 0.04306840896606445, 'inference': 0.04394125938415527, 'postprocess': 0.023562908172607422}, 4916.5625, 78
+2022-01-06 10:18:22.714 | INFO     | __main__:<module>:101 - {'preprocess': 0.04391646385192871, 'inference': 0.04416823387145996, 'postprocess': 0.023478984832763672}, 4916.5625, 78
+2022-01-06 10:18:22.831 | INFO     | __main__:<module>:101 - {'preprocess': 0.04726910591125488, 'inference': 0.04419970512390137, 'postprocess': 0.023348331451416016}, 4916.5625, 78
+2022-01-06 10:18:22.945 | INFO     | __main__:<module>:101 - {'preprocess': 0.043586015701293945, 'inference': 0.04427647590637207, 'postprocess': 0.024464845657348633}, 4916.5625, 78
+2022-01-06 10:18:23.058 | INFO     | __main__:<module>:101 - {'preprocess': 0.043013572692871094, 'inference': 0.044785261154174805, 'postprocess': 0.022745370864868164}, 4916.5625, 78
+2022-01-06 10:18:23.172 | INFO     | __main__:<module>:101 - {'preprocess': 0.04373025894165039, 'inference': 0.044010162353515625, 'postprocess': 0.024492263793945312}, 4916.5625, 76
+2022-01-06 10:18:23.285 | INFO     | __main__:<module>:101 - {'preprocess': 0.04319190979003906, 'inference': 0.045067787170410156, 'postprocess': 0.02291727066040039}, 4916.5625, 76
+2022-01-06 10:18:23.401 | INFO     | __main__:<module>:101 - {'preprocess': 0.04573225975036621, 'inference': 0.04540276527404785, 'postprocess': 0.023152828216552734}, 4916.5625, 76
+2022-01-06 10:18:23.513 | INFO     | __main__:<module>:101 - {'preprocess': 0.04303455352783203, 'inference': 0.044832468032836914, 'postprocess': 0.02170586585998535}, 4916.5625, 76
+2022-01-06 10:18:23.626 | INFO     | __main__:<module>:101 - {'preprocess': 0.04376530647277832, 'inference': 0.0455472469329834, 'postprocess': 0.0212094783782959}, 4916.5625, 76
+2022-01-06 10:18:23.738 | INFO     | __main__:<module>:101 - {'preprocess': 0.04288029670715332, 'inference': 0.04487037658691406, 'postprocess': 0.022808551788330078}, 4916.5625, 76
+2022-01-06 10:18:23.860 | INFO     | __main__:<module>:101 - {'preprocess': 0.05101346969604492, 'inference': 0.045493364334106445, 'postprocess': 0.02300238609313965}, 4916.5625, 76
+2022-01-06 10:18:23.974 | INFO     | __main__:<module>:101 - {'preprocess': 0.04378008842468262, 'inference': 0.04573941230773926, 'postprocess': 0.022991180419921875}, 4916.5625, 76
+2022-01-06 10:18:24.088 | INFO     | __main__:<module>:101 - {'preprocess': 0.045645713806152344, 'inference': 0.045603275299072266, 'postprocess': 0.021108388900756836}, 4916.5625, 76
+2022-01-06 10:18:24.204 | INFO     | __main__:<module>:101 - {'preprocess': 0.04317426681518555, 'inference': 0.04626965522766113, 'postprocess': 0.02442145347595215}, 4916.5625, 76
+2022-01-06 10:18:24.320 | INFO     | __main__:<module>:101 - {'preprocess': 0.04338788986206055, 'inference': 0.046302080154418945, 'postprocess': 0.02422332763671875}, 4916.5625, 76
+2022-01-06 10:18:24.438 | INFO     | __main__:<module>:101 - {'preprocess': 0.043976545333862305, 'inference': 0.04601883888244629, 'postprocess': 0.02567601203918457}, 4916.5625, 76
+2022-01-06 10:18:24.551 | INFO     | __main__:<module>:101 - {'preprocess': 0.04325389862060547, 'inference': 0.045389413833618164, 'postprocess': 0.02285313606262207}, 4916.5625, 76
+2022-01-06 10:18:24.664 | INFO     | __main__:<module>:101 - {'preprocess': 0.04268479347229004, 'inference': 0.04532456398010254, 'postprocess': 0.022917509078979492}, 4916.5625, 76
+2022-01-06 10:18:24.778 | INFO     | __main__:<module>:101 - {'preprocess': 0.043292999267578125, 'inference': 0.04571127891540527, 'postprocess': 0.02279829978942871}, 4916.5625, 76
+2022-01-06 10:18:24.899 | INFO     | __main__:<module>:101 - {'preprocess': 0.04712343215942383, 'inference': 0.04555988311767578, 'postprocess': 0.025500059127807617}, 4916.5625, 76
+2022-01-06 10:18:25.014 | INFO     | __main__:<module>:101 - {'preprocess': 0.045186519622802734, 'inference': 0.045484066009521484, 'postprocess': 0.022485971450805664}, 4916.5625, 76
+2022-01-06 10:18:25.130 | INFO     | __main__:<module>:101 - {'preprocess': 0.042774200439453125, 'inference': 0.04568815231323242, 'postprocess': 0.025934934616088867}, 4916.5625, 76
+2022-01-06 10:18:25.246 | INFO     | __main__:<module>:101 - {'preprocess': 0.04312634468078613, 'inference': 0.04603457450866699, 'postprocess': 0.02531123161315918}, 4916.5625, 78
+2022-01-06 10:18:25.363 | INFO     | __main__:<module>:101 - {'preprocess': 0.04284334182739258, 'inference': 0.04738616943359375, 'postprocess': 0.024380922317504883}, 4916.5625, 78
+2022-01-06 10:18:25.479 | INFO     | __main__:<module>:101 - {'preprocess': 0.04405808448791504, 'inference': 0.04644203186035156, 'postprocess': 0.024352312088012695}, 4916.5625, 78
+2022-01-06 10:18:25.594 | INFO     | __main__:<module>:101 - {'preprocess': 0.04275822639465332, 'inference': 0.04536628723144531, 'postprocess': 0.02423381805419922}, 4916.5625, 78
+2022-01-06 10:18:25.709 | INFO     | __main__:<module>:101 - {'preprocess': 0.04362154006958008, 'inference': 0.045744895935058594, 'postprocess': 0.023998737335205078}, 4916.5625, 78
+2022-01-06 10:18:25.825 | INFO     | __main__:<module>:101 - {'preprocess': 0.0430903434753418, 'inference': 0.045133352279663086, 'postprocess': 0.025707483291625977}, 4916.5625, 78
+2022-01-06 10:18:25.942 | INFO     | __main__:<module>:101 - {'preprocess': 0.044189453125, 'inference': 0.046061038970947266, 'postprocess': 0.02404952049255371}, 4916.5625, 78
+2022-01-06 10:18:26.058 | INFO     | __main__:<module>:101 - {'preprocess': 0.04309797286987305, 'inference': 0.045571327209472656, 'postprocess': 0.025466203689575195}, 4916.5625, 78
+2022-01-06 10:18:26.174 | INFO     | __main__:<module>:101 - {'preprocess': 0.043298959732055664, 'inference': 0.04566502571105957, 'postprocess': 0.025247573852539062}, 4916.5625, 75
+2022-01-06 10:18:26.290 | INFO     | __main__:<module>:101 - {'preprocess': 0.04282569885253906, 'inference': 0.045438528060913086, 'postprocess': 0.025471210479736328}, 4916.5625, 75
+2022-01-06 10:18:26.407 | INFO     | __main__:<module>:101 - {'preprocess': 0.045033931732177734, 'inference': 0.04650235176086426, 'postprocess': 0.02415013313293457}, 4916.5625, 75
+2022-01-06 10:18:26.526 | INFO     | __main__:<module>:101 - {'preprocess': 0.04554915428161621, 'inference': 0.04558968544006348, 'postprocess': 0.025640010833740234}, 4916.5625, 75
+2022-01-06 10:18:26.642 | INFO     | __main__:<module>:101 - {'preprocess': 0.0430600643157959, 'inference': 0.04566550254821777, 'postprocess': 0.025426626205444336}, 4916.5625, 75
+2022-01-06 10:18:26.756 | INFO     | __main__:<module>:101 - {'preprocess': 0.04417228698730469, 'inference': 0.0451207160949707, 'postprocess': 0.02260303497314453}, 4916.5625, 75
+2022-01-06 10:18:26.872 | INFO     | __main__:<module>:101 - {'preprocess': 0.044905900955200195, 'inference': 0.04558300971984863, 'postprocess': 0.023516178131103516}, 4916.5625, 75
+2022-01-06 10:18:26.986 | INFO     | __main__:<module>:101 - {'preprocess': 0.04323554039001465, 'inference': 0.045122385025024414, 'postprocess': 0.024324893951416016}, 4916.5625, 75
+2022-01-06 10:18:27.099 | INFO     | __main__:<module>:101 - {'preprocess': 0.04306173324584961, 'inference': 0.045263051986694336, 'postprocess': 0.022784709930419922}, 4916.5625, 75
+2022-01-06 10:18:27.212 | INFO     | __main__:<module>:101 - {'preprocess': 0.04274439811706543, 'inference': 0.045281410217285156, 'postprocess': 0.022705554962158203}, 4916.5625, 76
+2022-01-06 10:18:27.325 | INFO     | __main__:<module>:101 - {'preprocess': 0.04325699806213379, 'inference': 0.045166015625, 'postprocess': 0.022672414779663086}, 4916.5625, 76
+2022-01-06 10:18:27.441 | INFO     | __main__:<module>:101 - {'preprocess': 0.04592084884643555, 'inference': 0.04546070098876953, 'postprocess': 0.02289557456970215}, 4916.5625, 76
+2022-01-06 10:18:27.557 | INFO     | __main__:<module>:101 - {'preprocess': 0.043466806411743164, 'inference': 0.04538917541503906, 'postprocess': 0.024208784103393555}, 4916.5625, 76
+2022-01-06 10:18:27.671 | INFO     | __main__:<module>:101 - {'preprocess': 0.042743682861328125, 'inference': 0.04518723487854004, 'postprocess': 0.024262666702270508}, 4916.5625, 76
+2022-01-06 10:18:27.785 | INFO     | __main__:<module>:101 - {'preprocess': 0.04326629638671875, 'inference': 0.045248985290527344, 'postprocess': 0.024108409881591797}, 4916.5625, 76
+2022-01-06 10:18:27.902 | INFO     | __main__:<module>:101 - {'preprocess': 0.04294729232788086, 'inference': 0.044481515884399414, 'postprocess': 0.027045726776123047}, 4916.5625, 76
+2022-01-06 10:18:28.017 | INFO     | __main__:<module>:101 - {'preprocess': 0.04356265068054199, 'inference': 0.04400062561035156, 'postprocess': 0.02600884437561035}, 4916.5625, 76
+2022-01-06 10:18:28.132 | INFO     | __main__:<module>:101 - {'preprocess': 0.04275345802307129, 'inference': 0.04407382011413574, 'postprocess': 0.025835514068603516}, 4916.5625, 76
+2022-01-06 10:18:28.248 | INFO     | __main__:<module>:101 - {'preprocess': 0.0432586669921875, 'inference': 0.04407238960266113, 'postprocess': 0.02698373794555664}, 4916.5625, 77
+2022-01-06 10:18:28.363 | INFO     | __main__:<module>:101 - {'preprocess': 0.04295992851257324, 'inference': 0.044194698333740234, 'postprocess': 0.02527785301208496}, 4916.5625, 77
+2022-01-06 10:18:28.478 | INFO     | __main__:<module>:101 - {'preprocess': 0.043621063232421875, 'inference': 0.04392552375793457, 'postprocess': 0.026466846466064453}, 4916.5625, 77
+2022-01-06 10:18:28.593 | INFO     | __main__:<module>:101 - {'preprocess': 0.04288077354431152, 'inference': 0.04398822784423828, 'postprocess': 0.02611565589904785}, 4916.5625, 77
+2022-01-06 10:18:28.708 | INFO     | __main__:<module>:101 - {'preprocess': 0.0433650016784668, 'inference': 0.04398918151855469, 'postprocess': 0.025879621505737305}, 4916.5625, 77
+2022-01-06 10:18:28.824 | INFO     | __main__:<module>:101 - {'preprocess': 0.04316210746765137, 'inference': 0.0442197322845459, 'postprocess': 0.026105165481567383}, 4916.5625, 77
+2022-01-06 10:18:28.940 | INFO     | __main__:<module>:101 - {'preprocess': 0.0434260368347168, 'inference': 0.04428243637084961, 'postprocess': 0.026702404022216797}, 4916.5625, 77
+2022-01-06 10:18:29.055 | INFO     | __main__:<module>:101 - {'preprocess': 0.043028831481933594, 'inference': 0.0439143180847168, 'postprocess': 0.026141643524169922}, 4916.5625, 77
+2022-01-06 10:18:29.171 | INFO     | __main__:<module>:101 - {'preprocess': 0.043822526931762695, 'inference': 0.0440821647644043, 'postprocess': 0.0259091854095459}, 4916.5625, 74
+2022-01-06 10:18:29.287 | INFO     | __main__:<module>:101 - {'preprocess': 0.043326616287231445, 'inference': 0.044085025787353516, 'postprocess': 0.026124954223632812}, 4916.5625, 74
+2022-01-06 10:18:29.404 | INFO     | __main__:<module>:101 - {'preprocess': 0.04345417022705078, 'inference': 0.04550909996032715, 'postprocess': 0.0260770320892334}, 4916.5625, 74
+2022-01-06 10:18:29.520 | INFO     | __main__:<module>:101 - {'preprocess': 0.04294180870056152, 'inference': 0.04404163360595703, 'postprocess': 0.02770066261291504}, 4916.5625, 74
+2022-01-06 10:18:29.637 | INFO     | __main__:<module>:101 - {'preprocess': 0.04339194297790527, 'inference': 0.04404473304748535, 'postprocess': 0.027558565139770508}, 4916.5625, 74
+2022-01-06 10:18:29.754 | INFO     | __main__:<module>:101 - {'preprocess': 0.0428767204284668, 'inference': 0.04431486129760742, 'postprocess': 0.027029037475585938}, 4916.5625, 74
+2022-01-06 10:18:29.870 | INFO     | __main__:<module>:101 - {'preprocess': 0.043710947036743164, 'inference': 0.043938636779785156, 'postprocess': 0.026882410049438477}, 4916.5625, 74
+2022-01-06 10:18:29.987 | INFO     | __main__:<module>:101 - {'preprocess': 0.04287290573120117, 'inference': 0.04428505897521973, 'postprocess': 0.027525663375854492}, 4916.5625, 74
+2022-01-06 10:18:30.103 | INFO     | __main__:<module>:101 - {'preprocess': 0.043900251388549805, 'inference': 0.043604135513305664, 'postprocess': 0.02749156951904297}, 4916.5625, 74
+2022-01-06 10:18:30.221 | INFO     | __main__:<module>:101 - {'preprocess': 0.0437321662902832, 'inference': 0.0440981388092041, 'postprocess': 0.027380943298339844}, 4916.5625, 75
+2022-01-06 10:18:30.338 | INFO     | __main__:<module>:101 - {'preprocess': 0.044039011001586914, 'inference': 0.04381132125854492, 'postprocess': 0.027276992797851562}, 4916.5625, 75
+2022-01-06 10:18:30.456 | INFO     | __main__:<module>:101 - {'preprocess': 0.04533195495605469, 'inference': 0.04381442070007324, 'postprocess': 0.027640104293823242}, 4916.5625, 75
+2022-01-06 10:18:30.576 | INFO     | __main__:<module>:101 - {'preprocess': 0.046553850173950195, 'inference': 0.04394054412841797, 'postprocess': 0.027320384979248047}, 4916.5625, 75
+2022-01-06 10:18:30.692 | INFO     | __main__:<module>:101 - {'preprocess': 0.042870521545410156, 'inference': 0.044074296951293945, 'postprocess': 0.027003049850463867}, 4916.5625, 75
+2022-01-06 10:18:30.810 | INFO     | __main__:<module>:101 - {'preprocess': 0.04351806640625, 'inference': 0.04434990882873535, 'postprocess': 0.027212858200073242}, 4916.5625, 75
+2022-01-06 10:18:30.924 | INFO     | __main__:<module>:101 - {'preprocess': 0.04332923889160156, 'inference': 0.04399394989013672, 'postprocess': 0.02445054054260254}, 4916.5625, 75
+2022-01-06 10:18:31.042 | INFO     | __main__:<module>:101 - {'preprocess': 0.04384112358093262, 'inference': 0.04633641242980957, 'postprocess': 0.026480913162231445}, 4916.5625, 75
+2022-01-06 10:18:31.157 | INFO     | __main__:<module>:101 - {'preprocess': 0.04301571846008301, 'inference': 0.04388785362243652, 'postprocess': 0.026001691818237305}, 4916.5625, 75
+2022-01-06 10:18:31.274 | INFO     | __main__:<module>:101 - {'preprocess': 0.04388999938964844, 'inference': 0.04416227340698242, 'postprocess': 0.02733755111694336}, 4916.5625, 74
+2022-01-06 10:18:31.392 | INFO     | __main__:<module>:101 - {'preprocess': 0.043195486068725586, 'inference': 0.044034481048583984, 'postprocess': 0.028326749801635742}, 4916.5625, 74
+2022-01-06 10:18:31.507 | INFO     | __main__:<module>:101 - {'preprocess': 0.04369544982910156, 'inference': 0.043912410736083984, 'postprocess': 0.026031494140625}, 4916.5625, 74
+2022-01-06 10:18:31.623 | INFO     | __main__:<module>:101 - {'preprocess': 0.04517221450805664, 'inference': 0.04405617713928223, 'postprocess': 0.024550914764404297}, 4916.5625, 74
+2022-01-06 10:18:31.737 | INFO     | __main__:<module>:101 - {'preprocess': 0.04348397254943848, 'inference': 0.04384970664978027, 'postprocess': 0.024329185485839844}, 4916.5625, 74
+2022-01-06 10:18:31.852 | INFO     | __main__:<module>:101 - {'preprocess': 0.04283857345581055, 'inference': 0.04405403137207031, 'postprocess': 0.02559947967529297}, 4916.5625, 74
+2022-01-06 10:18:31.967 | INFO     | __main__:<module>:101 - {'preprocess': 0.043523311614990234, 'inference': 0.04396367073059082, 'postprocess': 0.0259091854095459}, 4916.5625, 74
+2022-01-06 10:18:32.088 | INFO     | __main__:<module>:101 - {'preprocess': 0.04634976387023926, 'inference': 0.0461118221282959, 'postprocess': 0.026057004928588867}, 4916.5625, 74
+2022-01-06 10:18:32.202 | INFO     | __main__:<module>:101 - {'preprocess': 0.04372978210449219, 'inference': 0.04392671585083008, 'postprocess': 0.024663209915161133}, 4916.5625, 75
+2022-01-06 10:18:32.316 | INFO     | __main__:<module>:101 - {'preprocess': 0.043077945709228516, 'inference': 0.0442500114440918, 'postprocess': 0.02466273307800293}, 4916.5625, 75
+2022-01-06 10:18:32.434 | INFO     | __main__:<module>:101 - {'preprocess': 0.04372096061706543, 'inference': 0.04596376419067383, 'postprocess': 0.025764942169189453}, 4916.5625, 75
+2022-01-06 10:18:32.548 | INFO     | __main__:<module>:101 - {'preprocess': 0.04297471046447754, 'inference': 0.04409217834472656, 'postprocess': 0.025101900100708008}, 4916.5625, 75
+2022-01-06 10:18:32.664 | INFO     | __main__:<module>:101 - {'preprocess': 0.0467526912689209, 'inference': 0.04405355453491211, 'postprocess': 0.023527145385742188}, 4916.5625, 75
+2022-01-06 10:18:32.777 | INFO     | __main__:<module>:101 - {'preprocess': 0.04317903518676758, 'inference': 0.04422140121459961, 'postprocess': 0.023320913314819336}, 4916.5625, 75
+2022-01-06 10:18:32.891 | INFO     | __main__:<module>:101 - {'preprocess': 0.04405689239501953, 'inference': 0.04406404495239258, 'postprocess': 0.024283885955810547}, 4916.5625, 75
+2022-01-06 10:18:33.005 | INFO     | __main__:<module>:101 - {'preprocess': 0.04307293891906738, 'inference': 0.04417562484741211, 'postprocess': 0.02431511878967285}, 4916.5625, 75
+2022-01-06 10:18:33.126 | INFO     | __main__:<module>:101 - {'preprocess': 0.0485987663269043, 'inference': 0.046022891998291016, 'postprocess': 0.024796247482299805}, 4916.5625, 75
+2022-01-06 10:18:33.240 | INFO     | __main__:<module>:101 - {'preprocess': 0.042900800704956055, 'inference': 0.044060468673706055, 'postprocess': 0.02461838722229004}, 4916.5625, 76
+2022-01-06 10:18:33.354 | INFO     | __main__:<module>:101 - {'preprocess': 0.04363727569580078, 'inference': 0.04429221153259277, 'postprocess': 0.024273157119750977}, 4916.5625, 76
+2022-01-06 10:18:33.470 | INFO     | __main__:<module>:101 - {'preprocess': 0.04570436477661133, 'inference': 0.04510831832885742, 'postprocess': 0.02329564094543457}, 4916.5625, 76
+2022-01-06 10:18:33.584 | INFO     | __main__:<module>:101 - {'preprocess': 0.04349946975708008, 'inference': 0.04584527015686035, 'postprocess': 0.02317357063293457}, 4916.5625, 76
+2022-01-06 10:18:33.698 | INFO     | __main__:<module>:101 - {'preprocess': 0.043313026428222656, 'inference': 0.04413175582885742, 'postprocess': 0.024537086486816406}, 4916.5625, 76
+2022-01-06 10:18:33.811 | INFO     | __main__:<module>:101 - {'preprocess': 0.04372119903564453, 'inference': 0.04420137405395508, 'postprocess': 0.023069381713867188}, 4916.5625, 76
+2022-01-06 10:18:33.924 | INFO     | __main__:<module>:101 - {'preprocess': 0.043215036392211914, 'inference': 0.04464530944824219, 'postprocess': 0.02298736572265625}, 4916.5625, 76
+2022-01-06 10:18:34.038 | INFO     | __main__:<module>:101 - {'preprocess': 0.04366779327392578, 'inference': 0.044159650802612305, 'postprocess': 0.024095535278320312}, 4916.5625, 76
+2022-01-06 10:18:34.161 | INFO     | __main__:<module>:101 - {'preprocess': 0.047065019607543945, 'inference': 0.049314260482788086, 'postprocess': 0.02462148666381836}, 4916.5625, 76
+2022-01-06 10:18:34.276 | INFO     | __main__:<module>:101 - {'preprocess': 0.043300628662109375, 'inference': 0.0453791618347168, 'postprocess': 0.024417877197265625}, 4916.5625, 76
+2022-01-06 10:18:34.390 | INFO     | __main__:<module>:101 - {'preprocess': 0.04298901557922363, 'inference': 0.04542398452758789, 'postprocess': 0.024511098861694336}, 4916.5625, 76
+2022-01-06 10:18:34.505 | INFO     | __main__:<module>:101 - {'preprocess': 0.04357576370239258, 'inference': 0.04474186897277832, 'postprocess': 0.02459263801574707}, 4916.5625, 76
+2022-01-06 10:18:34.620 | INFO     | __main__:<module>:101 - {'preprocess': 0.04292035102844238, 'inference': 0.045484304428100586, 'postprocess': 0.024374723434448242}, 4916.5625, 76
+2022-01-06 10:18:34.734 | INFO     | __main__:<module>:101 - {'preprocess': 0.043271541595458984, 'inference': 0.043973684310913086, 'postprocess': 0.02453017234802246}, 4916.5625, 76
+2022-01-06 10:18:34.848 | INFO     | __main__:<module>:101 - {'preprocess': 0.04305577278137207, 'inference': 0.044527292251586914, 'postprocess': 0.024599075317382812}, 4916.5625, 76
+2022-01-06 10:18:34.963 | INFO     | __main__:<module>:101 - {'preprocess': 0.04367399215698242, 'inference': 0.04453754425048828, 'postprocess': 0.02442169189453125}, 4916.5625, 76
+2022-01-06 10:18:35.077 | INFO     | __main__:<module>:101 - {'preprocess': 0.04315829277038574, 'inference': 0.044541358947753906, 'postprocess': 0.024544239044189453}, 4916.5625, 76
+2022-01-06 10:18:35.201 | INFO     | __main__:<module>:101 - {'preprocess': 0.04930853843688965, 'inference': 0.04834294319152832, 'postprocess': 0.024408340454101562}, 4916.5625, 76
+2022-01-06 10:18:35.316 | INFO     | __main__:<module>:101 - {'preprocess': 0.04270005226135254, 'inference': 0.045571088790893555, 'postprocess': 0.02475881576538086}, 4916.5625, 77
+2022-01-06 10:18:35.433 | INFO     | __main__:<module>:101 - {'preprocess': 0.04381990432739258, 'inference': 0.0471034049987793, 'postprocess': 0.024416685104370117}, 4916.5625, 77
+2022-01-06 10:18:35.547 | INFO     | __main__:<module>:101 - {'preprocess': 0.04295802116394043, 'inference': 0.045041799545288086, 'postprocess': 0.024358272552490234}, 4916.5625, 77
+2022-01-06 10:18:35.667 | INFO     | __main__:<module>:101 - {'preprocess': 0.047267913818359375, 'inference': 0.04594922065734863, 'postprocess': 0.024809837341308594}, 4916.5625, 77
+2022-01-06 10:18:35.782 | INFO     | __main__:<module>:101 - {'preprocess': 0.04290127754211426, 'inference': 0.046015024185180664, 'postprocess': 0.024257183074951172}, 4916.5625, 77
+2022-01-06 10:18:35.897 | INFO     | __main__:<module>:101 - {'preprocess': 0.04336857795715332, 'inference': 0.04588890075683594, 'postprocess': 0.024177074432373047}, 4916.5625, 77
+2022-01-06 10:18:36.012 | INFO     | __main__:<module>:101 - {'preprocess': 0.043768882751464844, 'inference': 0.045639753341674805, 'postprocess': 0.022980928421020508}, 4916.5625, 77
+2022-01-06 10:18:36.124 | INFO     | __main__:<module>:101 - {'preprocess': 0.043517351150512695, 'inference': 0.04430580139160156, 'postprocess': 0.02288031578063965}, 4916.5625, 77
+2022-01-06 10:18:36.125 | INFO     | __main__:<module>:104 - -------------------------------------------------------
+2022-01-06 10:18:36.125 | INFO     | __main__:<module>:106 - Tensort, 15x5, yolov5n, (640, 640), 500frames average time.
+2022-01-06 10:18:36.125 | INFO     | __main__:<module>:108 - pre_multi: False
+2022-01-06 10:18:36.125 | INFO     | __main__:<module>:109 - infer_multi: False
+2022-01-06 10:18:36.125 | INFO     | __main__:<module>:110 - post_multi: False
+2022-01-06 10:18:36.125 | INFO     | __main__:<module>:111 - Average preprocess: 0.04570581012940311s
+2022-01-06 10:18:36.125 | INFO     | __main__:<module>:112 - Average inference: 0.04674732541463461s
+2022-01-06 10:18:36.125 | INFO     | __main__:<module>:113 - Average postprocess: 0.023430367071465796s
+2022-01-06 10:18:36.125 | INFO     | __main__:<module>:114 - Average memory: 4916.5625MB
+2022-01-06 10:18:36.125 | INFO     | __main__:<module>:115 - Average utilize: 73.85943775100401%
+2022-01-06 10:18:36.125 | INFO     | __main__:<module>:116 - Max utilize: 78%

@@ -1,0 +1,34 @@
+model1:
+  engine_file: /home/laughing/yolov5/runs/train/exp/weights/best15.engine
+  conf_thres: 0.4
+  iou_thres: 0.4
+  filter: null
+  names: ./weights/trt/prune.yaml
+
+model2:
+  engine_file: /home/laughing/yolov5/runs/train/exp/weights/best15.engine
+  conf_thres: 0.4
+  iou_thres: 0.4
+  filter: null
+  names: ./weights/trt/prune.yaml
+
+model3:
+  engine_file: /home/laughing/yolov5/runs/train/exp/weights/best15.engine
+  conf_thres: 0.4
+  iou_thres: 0.4
+  filter: null
+  names: ./weights/trt/prune.yaml
+
+model4:
+  engine_file: /home/laughing/yolov5/runs/train/exp/weights/best15.engine
+  conf_thres: 0.4
+  iou_thres: 0.4
+  filter: null
+  names: ./weights/trt/prune.yaml
+
+model5:
+  engine_file: /home/laughing/yolov5/runs/train/exp/weights/best15.engine
+  conf_thres: 0.4
+  iou_thres: 0.4
+  filter: null
+  names: ./weights/trt/prune.yaml

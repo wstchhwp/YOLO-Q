@@ -6,35 +6,35 @@ model1:
   filter: null
   names: ./weights/trt/yolov5n.yaml
 
-model2:
-  engine_file: /home/laughing/yolov5/tensorrtx/buildn/yolov5n.engine
-  lib_file: /home/laughing/yolov5/tensorrtx/buildn/libmyplugins.so
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/yolov5n.yaml
-
-model3:
-  engine_file: /home/laughing/yolov5/tensorrtx/buildn/yolov5n.engine
-  lib_file: /home/laughing/yolov5/tensorrtx/buildn/libmyplugins.so
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/yolov5n.yaml
-
-model4:
-  engine_file: /home/laughing/yolov5/tensorrtx/buildn/yolov5n.engine
-  lib_file: /home/laughing/yolov5/tensorrtx/buildn/libmyplugins.so
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/yolov5n.yaml
-
-model5:
-  engine_file: /home/laughing/yolov5/tensorrtx/buildn/yolov5n.engine
-  lib_file: /home/laughing/yolov5/tensorrtx/buildn/libmyplugins.so
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/yolov5n.yaml
-
+# model2:
+#   engine_file: /home/laughing/yolov5/tensorrtx/buildn/yolov5n.engine
+#   lib_file: /home/laughing/yolov5/tensorrtx/buildn/libmyplugins.so
+#   conf_thres: 0.4
+#   iou_thres: 0.4
+#   filter: null
+#   names: ./weights/trt/yolov5n.yaml
+#
+# model3:
+#   engine_file: /home/laughing/yolov5/tensorrtx/buildn/yolov5n.engine
+#   lib_file: /home/laughing/yolov5/tensorrtx/buildn/libmyplugins.so
+#   conf_thres: 0.4
+#   iou_thres: 0.4
+#   filter: null
+#   names: ./weights/trt/yolov5n.yaml
+#
+# model4:
+#   engine_file: /home/laughing/yolov5/tensorrtx/buildn/yolov5n.engine
+#   lib_file: /home/laughing/yolov5/tensorrtx/buildn/libmyplugins.so
+#   conf_thres: 0.4
+#   iou_thres: 0.4
+#   filter: null
+#   names: ./weights/trt/yolov5n.yaml
+#
+# model5:
+#   engine_file: /home/laughing/yolov5/tensorrtx/buildn/yolov5n.engine
+#   lib_file: /home/laughing/yolov5/tensorrtx/buildn/libmyplugins.so
+#   conf_thres: 0.4
+#   iou_thres: 0.4
+#   filter: null
+#   names: ./weights/trt/yolov5n.yaml
+#

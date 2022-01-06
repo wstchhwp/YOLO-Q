@@ -53,6 +53,14 @@ def xywh2xyxy(x):
     y[:, 3] = x[:, 1] + x[:, 3] / 2  # bottom right y
     return y
 
+def xywh2xyxy_(x):
+    # Convert nx4 boxes from [x, y, w, h] to [x1, y1, x2, y2] where xy1=top-left, xy2=bottom-right
+    x[:, 0] = x[:, 0] - x[:, 2] / 2  # top left x
+    x[:, 1] = x[:, 1] - x[:, 3] / 2  # top left y
+    x[:, 2] = x[:, 0] + x[:, 2]  # bottom right x
+    x[:, 3] = x[:, 1] + x[:, 3]  # bottom right y
+    return x
+
 
 def xywhn2xyxy(x, w=640, h=640, padw=0, padh=0):
     # Convert nx4 boxes from [x, y, w, h] normalized to [x1, y1, x2, y2] where xy1=top-left, xy2=bottom-right

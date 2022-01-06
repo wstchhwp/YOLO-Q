@@ -9,15 +9,25 @@ from loguru import logger
 import time
 
 global_settings = {
-    "./configs/config_trt_onnx.yaml": {"batch": 1, "model": "s", "size": (640, 640)},
+    "./configs/from_onnx/config_trt_onnx_n.yaml": {"batch": 1, "model": "n", "size": (384, 640)},
+    "./configs/from_onnx/config_trt_onnx_s.yaml": {"batch": 1, "model": "s", "size": (384, 640)},
+    "./configs/from_onnx/config_trt_onnx_n15.yaml": {"batch": 15, "model": "n", "size": (384, 640)},
+    "./configs/from_onnx/config_trt_onnx_s15.yaml": {"batch": 15, "model": "s", "size": (384, 640)},
+
+    "./configs/prune_test/config_trt_onnx_n_prune.yaml": {"batch": 1, "model": "s", "size": (384, 640)},
+    "./configs/prune_test/config_trt_onnx_n15_prune.yaml": {"batch": 15, "model": "s", "size": (384, 640)},
+    "./configs/prune_test/config_trt_onnx_n_ori.yaml": {"batch": 1, "model": "s", "size": (384, 640)},
+    "./configs/prune_test/config_trt_onnx_n15_ori.yaml": {"batch": 15, "model": "s", "size": (384, 640)},
 }
 
 if __name__ == "__main__":
-    pre_multi = False  # 多线程速度较慢
+    pre_multi = True  # 多线程速度较慢
     infer_multi = False  # 多线程速度较慢
-    post_multi = False  # 多线程速度较慢
+    post_multi = True  # 多线程速度较慢
 
-    cfg_path = "./configs/config_trt_onnx.yaml"
+    show = False
+
+    cfg_path = "./configs/prune_test/config_trt_onnx_n_prune.yaml"
     test_frames = 500
     setting = global_settings[cfg_path]
 
@@ -62,13 +72,12 @@ if __name__ == "__main__":
         if not ret:
             break
         outputs = predictor.inference([frame for _ in range(test_batch)])
-        for i, v in enumerate(vis):
-            v.draw_imgs(frame, outputs[i])
-        cv2.imshow('p', frame)
-        if cv2.waitKey(1) == ord('q'):
-            break
-        # te = time.time()
-        # print(f"frame {frame_num} time: {te - ts}")
+        if show:
+            for i, v in enumerate(vis):
+                v.draw_imgs(frame, outputs[i])
+            cv2.imshow('p', frame)
+            if cv2.waitKey(1) == ord('q'):
+                break
         memory = gpu_mem_usage()
         utilize = gpu_use()
         logger.info(f"{predictor.times}, {memory}, {utilize}")
@@ -81,14 +90,14 @@ if __name__ == "__main__":
     logger.info(f"pre_multi: {pre_multi}")
     logger.info(f"infer_multi: {infer_multi}")
     logger.info(f"post_multi: {post_multi}")
-    logger.info(f"Average preprocess: {meter['preprocess'].avg}s")
-    logger.info(f"Average inference: {meter['inference'].avg}s")
-    logger.info(f"Average postprocess: {meter['postprocess'].avg}s")
-    logger.info(f"Average memory: {meter['memory'].avg}MB")
-    logger.info(f"Average utilize: {meter['utilize'].avg}%")
-    logger.info(f"Max utilize: {meter['utilize'].max}%")
+    logger.info(f"Average preprocess: {round(meter['preprocess'].avg, 1)}ms")
+    logger.info(f"Average inference: {round(meter['inference'].avg, 1)}ms")
+    logger.info(f"Average postprocess: {round(meter['postprocess'].avg, 1)}ms")
+    logger.info(f"Average Total: {round(meter['total'].avg, 1)}ms")
+    logger.info(f"Average memory: {round(meter['memory'].avg)}MB")
+    logger.info(f"Average utilize: {round(meter['utilize'].avg, 1)}%")
+    logger.info(f"Max utilize: {round(meter['utilize'].max, 1)}%")
 
-    ctx.pop()
 
 # multi stream one thread
 # Average preprocess: 0.027459805749027604s

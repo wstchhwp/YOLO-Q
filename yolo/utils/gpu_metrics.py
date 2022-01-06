@@ -11,7 +11,7 @@ def gpu_mem_usage(pytorch=False):
         mem_usage_bytes = torch.cuda.max_memory_allocated()
     else:
         mem_usage_bytes = pynvml.nvmlDeviceGetMemoryInfo(handle).used
-    return mem_usage_bytes / (1024 * 1024)
+    return round(mem_usage_bytes / (1024 * 1024))
 
 def gpu_use():
-    return pynvml.nvmlDeviceGetUtilizationRates(handle).gpu
+    return round(pynvml.nvmlDeviceGetUtilizationRates(handle).gpu)
