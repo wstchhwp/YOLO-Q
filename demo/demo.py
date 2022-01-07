@@ -5,17 +5,37 @@ from yolo.utils.metrics import MeterBuffer
 from yolo.utils.gpu_metrics import gpu_mem_usage, gpu_use
 from loguru import logger
 import cv2
+import argparse
 import time
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        description="Demo of yolov5(torch).",
+    )
+    parser.add_argument(
+        "--cfg-path",
+        default="./configs/config.yaml",
+        type=str,
+        help="Path to .yml config file.",
+    )
+    parser.add_argument(
+        "--show", action='store_true', help="Model intput shape."
+    )
+    return parser.parse_args()
 
 if __name__ == "__main__":
     # logger.add("torch15.log", format="{message}")
     # logger.add("torch1.log", format="{message}")
+    args = parse_args()
 
     pre_multi = True    # 多线程速度较快
     infer_multi = True  # 路数较少时，多线程速度较快
     post_multi = True   # 多线程速度较快
 
-    model = build_from_configs(cfg_path='./configs/config.yaml')
+    show = args.show
+
+    model = build_from_configs(cfg_path=args.cfg_path)
     predictor = Predictor(
         img_hw=(640, 640),
         models=model,
@@ -47,11 +67,12 @@ if __name__ == "__main__":
         if not ret:
             break
         outputs = predictor.inference([frame for _ in range(1)])
-        for i, v in enumerate(vis):
-            v.draw_imgs(frame, outputs[i])
-        cv2.imshow('p', frame)
-        if cv2.waitKey(1) == ord('q'):
-            break
+        if show:
+            for i, v in enumerate(vis):
+                v.draw_imgs(frame, outputs[i])
+            cv2.imshow('p', frame)
+            if cv2.waitKey(1) == ord('q'):
+                break
         memory = gpu_mem_usage()
         utilize = gpu_use()
         logger.info(f"{predictor.times}, {memory}, {utilize}")

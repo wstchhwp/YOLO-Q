@@ -1,6 +1,6 @@
 from ..data.datasets import letterbox
 from ..utils.boxes import scale_coords
-from ..process.post import non_max_suppression
+from ..process import nms
 from ..utils.general import to_2tuple
 from ..utils.torch_utils import select_device
 from ..utils.timer import Timer, time_sync
@@ -188,7 +188,7 @@ class Predictor(object):
         conf_thres = model.conf_thres
         iou_thres = model.iou_thres
         classes = model.filter
-        outputs = non_max_suppression(
+        outputs = nms[model.model_type](
             preds, conf_thres, iou_thres, classes=classes, agnostic=False
         )
         for i, det in enumerate(outputs):  # detections per image

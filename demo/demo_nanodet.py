@@ -4,62 +4,27 @@ from yolo.api.visualization import Visualizer
 from yolo.utils.metrics import MeterBuffer
 from yolo.utils.gpu_metrics import gpu_mem_usage, gpu_use
 import cv2
+import argparse
 import pycuda.driver as cuda
 from loguru import logger
 import time
-import argparse
 
 global_settings = {
-    "./configs/from_onnx/config_trt_onnx_n.yaml": {
+    "./configs/nanodet/nanodet-m_416.yaml": {
         "batch": 1,
-        "model": "n",
-        "size": (384, 640),
-    },
-    "./configs/from_onnx/config_trt_onnx_s.yaml": {
-        "batch": 1,
-        "model": "s",
-        "size": (384, 640),
-    },
-    "./configs/from_onnx/config_trt_onnx_n15.yaml": {
-        "batch": 15,
-        "model": "n",
-        "size": (384, 640),
-    },
-    "./configs/from_onnx/config_trt_onnx_s15.yaml": {
-        "batch": 15,
-        "model": "s",
-        "size": (384, 640),
-    },
-    "./configs/prune_test/config_trt_onnx_n_prune.yaml": {
-        "batch": 1,
-        "model": "s",
-        "size": (384, 640),
-    },
-    "./configs/prune_test/config_trt_onnx_n15_prune.yaml": {
-        "batch": 15,
-        "model": "s",
-        "size": (384, 640),
-    },
-    "./configs/prune_test/config_trt_onnx_n_ori.yaml": {
-        "batch": 1,
-        "model": "s",
-        "size": (384, 640),
-    },
-    "./configs/prune_test/config_trt_onnx_n15_ori.yaml": {
-        "batch": 15,
-        "model": "s",
-        "size": (384, 640),
+        "model": "m_416",
+        "size": (416, 416),
     },
 }
 
 def parse_args():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-        description="Demo of yolov5(tensorrt from onnx).",
+        description="Demo of nanodet-plus(tensorrt).",
     )
     parser.add_argument(
         "--cfg-path",
-        default="./configs/from_onnx/config_trt_onnx_n.yaml",
+        default="./configs/nanodet/nanodet-m_416.yaml",
         type=str,
         help="Path to .yml config file.",
     )
@@ -67,6 +32,7 @@ def parse_args():
         "--show", action='store_true', help="Model intput shape."
     )
     return parser.parse_args()
+
 
 if __name__ == "__main__":
     args = parse_args()
@@ -94,7 +60,7 @@ if __name__ == "__main__":
         img_hw=test_size,
         models=model,
         device=0,
-        auto=True,
+        auto=False,
         pre_multi=pre_multi,
         infer_multi=infer_multi,
         post_multi=post_multi,
@@ -135,7 +101,7 @@ if __name__ == "__main__":
 
     logger.info("-------------------------------------------------------")
     logger.info(
-        f"Tensort, {test_batch}x5, yolov5{test_model}, {test_size}, {test_frames}frames average time."
+        f"Tensort, {test_batch}x5, nanodet-plus-{test_model}, {test_size}, {test_frames}frames average time."
     )
     logger.info(f"pre_multi: {pre_multi}")
     logger.info(f"infer_multi: {infer_multi}")

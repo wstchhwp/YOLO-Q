@@ -7,6 +7,7 @@ import cv2
 import pycuda.driver as cuda
 from loguru import logger
 import time
+import argparse
 
 global_settings = {
     './configs/config_trt.yaml': {
@@ -31,6 +32,22 @@ global_settings = {
     },
 }
 
+def parse_args():
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        description="Demo of yolov5(tensorrt from tensorrtx).",
+    )
+    parser.add_argument(
+        "--cfg-path",
+        default="./configs/config_trt.yaml",
+        type=str,
+        help="Path to .yml config file.",
+    )
+    parser.add_argument(
+        "--show", action='store_true', help="Model intput shape."
+    )
+    return parser.parse_args()
+
 if __name__ == "__main__":
 
     device = "0"
@@ -38,12 +55,15 @@ if __name__ == "__main__":
     ctx = cuda.Device(int(device)).make_context()
     stream = cuda.Stream()
     # stream = None
+    args = parse_args()
 
     pre_multi = False  # 多线程速度较慢
     infer_multi = False  # 多线程速度较慢
     post_multi = False  # 多线程速度较慢
 
-    cfg_path = './configs/config_trt.yaml'
+    show = args.show
+
+    cfg_path = args.cfg_path
     test_frames = 500
     setting = global_settings[cfg_path]
 
@@ -89,11 +109,12 @@ if __name__ == "__main__":
         if not ret:
             break
         outputs = predictor.inference([frame for _ in range(test_batch)])
-        # for i, v in enumerate(vis):
-        #     v.draw_imgs(frame, outputs[i])
-        # cv2.imshow('p', frame)
-        # if cv2.waitKey(1) == ord('q'):
-        #     break
+        if show:
+            for i, v in enumerate(vis):
+                v.draw_imgs(frame, outputs[i])
+            cv2.imshow('p', frame)
+            if cv2.waitKey(1) == ord('q'):
+                break
         memory = gpu_mem_usage()
         utilize = gpu_use()
         logger.info(f"{predictor.times}, {memory}, {utilize}")

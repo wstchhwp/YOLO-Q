@@ -46,6 +46,7 @@ def nanodet_norm(images):
     """
     images = images / 255.0
     images = _normalize(images, *NANODET_NORM)
+    return images
 
 
 normalize = {"yolov5": yolov5_norm, "yolox": yolox_norm, "nanodet": nanodet_norm}

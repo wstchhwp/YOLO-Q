@@ -1,0 +1,39 @@
+model1:
+  model_type: nanodet
+  engine_file: /home/laughing/nanodet/nanodet.engine
+  conf_thres: 0.4
+  iou_thres: 0.4
+  filter: null
+  names: ./weights/trt/nanodet.yaml
+
+model2:
+  model_type: nanodet
+  engine_file: /home/laughing/nanodet/nanodet.engine
+  conf_thres: 0.4
+  iou_thres: 0.4
+  filter: null
+  names: ./weights/trt/nanodet.yaml
+
+model3:
+  model_type: nanodet
+  engine_file: /home/laughing/nanodet/nanodet.engine
+  conf_thres: 0.4
+  iou_thres: 0.4
+  filter: null
+  names: ./weights/trt/nanodet.yaml
+
+model4:
+  model_type: nanodet
+  engine_file: /home/laughing/nanodet/nanodet.engine
+  conf_thres: 0.4
+  iou_thres: 0.4
+  filter: null
+  names: ./weights/trt/nanodet.yaml
+
+model5:
+  model_type: nanodet
+  engine_file: /home/laughing/nanodet/nanodet.engine
+  conf_thres: 0.4
+  iou_thres: 0.4
+  filter: null
+  names: ./weights/trt/nanodet.yaml
