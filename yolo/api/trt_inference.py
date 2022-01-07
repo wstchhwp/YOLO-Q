@@ -1,6 +1,7 @@
 from ..trt import to_device, alloc_inputs
 from ..utils.boxes import nms_numpy, xywh2xyxy, scale_coords
 from ..utils.timer import Timer
+from ..process import normalize
 from .inference import Predictor
 import torch
 from multiprocessing.pool import ThreadPool
@@ -139,13 +140,13 @@ class TRTPredictorx(Predictor):  # `x` means repo `tensorrtx`
         imgs = to_device(
             imgs, self.host_inputs, self.cuda_inputs, self.stream, split=False
         )
-        self.times['preprocess'] = round(timer.since_start() * 1000, 1)
+        self.times["preprocess"] = round(timer.since_start() * 1000, 1)
 
         preds = forward(imgs)
-        self.times['inference'] = round(timer.since_last_check() * 1000, 1)
+        self.times["inference"] = round(timer.since_last_check() * 1000, 1)
         outputs = postprocess(preds)
-        self.times['postprocess'] = round(timer.since_last_check() * 1000, 1)
-        self.times['total'] = round(timer.since_start() * 1000, 1)
+        self.times["postprocess"] = round(timer.since_last_check() * 1000, 1)
+        self.times["total"] = round(timer.since_start() * 1000, 1)
 
         return outputs
 
@@ -179,5 +180,6 @@ class TRTPredictor(Predictor):
             outputs (List[torch.Tensor]): List[num_boxes, classes+5] x B
         """
         model = self.models if model is None else model
-        preds = model(images / 255.)
+        images = normalize[model.model_type](images)
+        preds = model(images)
         return preds

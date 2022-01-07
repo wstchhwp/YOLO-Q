@@ -31,6 +31,7 @@ def build_trt_from_configs(cfg_path):
             cfg=v.names,
             engine_file=v.engine_file,
         )
+        setattr(model, 'model_type', v.model_type)
         setattr(model, "conf_thres", v.conf_thres)
         setattr(model, "iou_thres", v.iou_thres)
         setattr(model, "filter", v.filter)

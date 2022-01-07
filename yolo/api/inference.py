@@ -1,8 +1,10 @@
 from ..data.datasets import letterbox
-from ..utils.boxes import non_max_suppression, scale_coords
+from ..utils.boxes import scale_coords
+from ..process.post import non_max_suppression
 from ..utils.general import to_2tuple
 from ..utils.torch_utils import select_device
 from ..utils.timer import Timer, time_sync
+from ..process import normalize
 from multiprocessing.pool import ThreadPool
 from typing import Optional
 import os
@@ -24,15 +26,18 @@ class Predictor(object):
             (like div 255.), example: 'yolox' or ['yolov5', 'yolox'].
         half (bool, optional): Whether use fp16 to inference.
     """
-    def __init__(self,
-                 img_hw,
-                 models,
-                 device,
-                 half=True,
-                 auto=True,
-                 pre_multi=False,
-                 infer_multi=False,
-                 post_multi=False):
+
+    def __init__(
+        self,
+        img_hw,
+        models,
+        device,
+        half=True,
+        auto=True,
+        pre_multi=False,
+        infer_multi=False,
+        post_multi=False,
+    ):
         super(Predictor, self).__init__()
         img_hw = to_2tuple(img_hw) if isinstance(img_hw, int) else img_hw
 
@@ -41,7 +46,7 @@ class Predictor(object):
         self.models = models
         self.device = select_device(device)
         self.half = half
-        self.auto=auto
+        self.auto = auto
         self.multi_model = True if isinstance(models, list) else False
         self.times = {}
 
@@ -80,10 +85,12 @@ class Predictor(object):
             img_raw = cv2.imread(image)
         else:
             img_raw = image
-        resized_img, _, _ = letterbox(img_raw,
-                                      new_shape=self.img_hw,
-                                      auto=self.auto,
-                                      center_padding=center_padding)
+        resized_img, _, _ = letterbox(
+            img_raw,
+            new_shape=self.img_hw,
+            auto=self.auto,
+            center_padding=center_padding,
+        )
         if self.auto:
             self.img_hw = resized_img.shape[:2]
         # cv2.imshow('x', resized_img)
@@ -110,8 +117,7 @@ class Predictor(object):
         if self.pre_multi:
             # --------------multi threading-----------
             def single_pre(image):
-                return self.preprocess_one_img(image,
-                                               center_padding=center_padding)
+                return self.preprocess_one_img(image, center_padding=center_padding)
 
             p = ThreadPool()
             resized_imgs = p.map(single_pre, images)
@@ -120,15 +126,14 @@ class Predictor(object):
             # --------------single threading-----------
             resized_imgs = []
             for image in images:
-                img = self.preprocess_one_img(image,
-                                              center_padding=center_padding)
+                img = self.preprocess_one_img(image, center_padding=center_padding)
                 resized_imgs.append(img)
         imgs = np.concatenate(resized_imgs, axis=0)
         return imgs
 
-    def inference_one_model(self,
-                            images: torch.Tensor,
-                            model: Optional[nn.Module] = None):
+    def inference_one_model(
+        self, images: torch.Tensor, model: Optional[nn.Module] = None
+    ):
         """Inference single model.
 
         Args:
@@ -138,8 +143,8 @@ class Predictor(object):
         """
         # TODO
         model = self.models if model is None else model
-        if model.model_type == "yolov5":
-            images = images / 255.0
+        # normalize on gpu may be faster, cause copy int8 from cpu to gpu is faster.
+        images = normalize[model.model_type](images)
         preds = model(images)
         if model.model_type == "yolov5":
             preds = preds[0]
@@ -183,17 +188,14 @@ class Predictor(object):
         conf_thres = model.conf_thres
         iou_thres = model.iou_thres
         classes = model.filter
-        outputs = non_max_suppression(preds,
-                                      conf_thres,
-                                      iou_thres,
-                                      classes=classes,
-                                      agnostic=False)
+        outputs = non_max_suppression(
+            preds, conf_thres, iou_thres, classes=classes, agnostic=False
+        )
         for i, det in enumerate(outputs):  # detections per image
             if det is None or len(det) == 0:
                 continue
             # TODO, suppert center_padding only.
-            det[:, :4] = scale_coords(self.img_hw, det[:, :4],
-                                      self.ori_hw[i]).round()
+            det[:, :4] = scale_coords(self.img_hw, det[:, :4], self.ori_hw[i]).round()
         # TODO
         if not self.multi_model:  # 表示只有一个模型
             self.ori_hw.clear()
@@ -206,7 +208,7 @@ class Predictor(object):
             outputs (List[torch.Tensor]): List[B, num_boxes, classes+5].
             models (List[nn.Module]): Models.
         Return:
-            outputs (List[List[torch.Tensor]]): List[List[torch.Tensor(num_boxes, 6)]*B]*num_models, 
+            outputs (List[List[torch.Tensor]]): List[List[torch.Tensor(num_boxes, 6)]*B]*num_models,
                 results after nms and scale_coords.
         """
 
@@ -223,8 +225,7 @@ class Predictor(object):
         else:
             # --------------single threading-----------
             for i in range(len(outputs)):
-                outputs[i] = self.postprocess_one_model(
-                    outputs[i], self.models[i])
+                outputs[i] = self.postprocess_one_model(outputs[i], self.models[i])
         # TODO
         self.ori_hw.clear()
         return outputs
@@ -237,23 +238,30 @@ class Predictor(object):
         Return:
             see function `inference_single_model` and `inference_multi_model`.
         """
-        preprocess = self.preprocess_multi_img if isinstance(
-            images, list) else self.preprocess_one_img
-        forward = (self.inference_multi_model
-                   if self.multi_model else self.inference_one_model)
-        postprocess = (self.postprocess_multi_model
-                       if self.multi_model else self.postprocess_one_model)
+        preprocess = (
+            self.preprocess_multi_img
+            if isinstance(images, list)
+            else self.preprocess_one_img
+        )
+        forward = (
+            self.inference_multi_model if self.multi_model else self.inference_one_model
+        )
+        postprocess = (
+            self.postprocess_multi_model
+            if self.multi_model
+            else self.postprocess_one_model
+        )
 
         timer = Timer(cuda_sync=True)
         imgs = preprocess(images)
         imgs = torch.from_numpy(imgs).to(self.device)
         imgs = imgs.half() if self.half else imgs.float()  # uint8 to fp16/32
-        self.times['preprocess'] = round(timer.since_start() * 1000, 1)
+        self.times["preprocess"] = round(timer.since_start() * 1000, 1)
 
         preds = forward(imgs)
-        self.times['inference'] = round(timer.since_last_check() * 1000, 1)
+        self.times["inference"] = round(timer.since_last_check() * 1000, 1)
         outputs = postprocess(preds)
-        self.times['postprocess'] = round(timer.since_last_check() * 1000, 1)
-        self.times['total'] = round(timer.since_start() * 1000, 1)
+        self.times["postprocess"] = round(timer.since_last_check() * 1000, 1)
+        self.times["total"] = round(timer.since_start() * 1000, 1)
 
         return outputs

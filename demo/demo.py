@@ -47,15 +47,11 @@ if __name__ == "__main__":
         if not ret:
             break
         outputs = predictor.inference([frame for _ in range(1)])
-        # outputs = predictor.inference(frame)
-        # for i, v in enumerate(vis):
-        #     v.draw_imgs(frame, outputs[i])
-        # cv2.imshow('p', frame)
-        # # cv2.imshow('p1', frame.copy())
-        # if cv2.waitKey(1) == ord('q'):
-        #     break
-        # et = time.time()
-        # print(f'frame {frame_num} total time:', et - st)
+        for i, v in enumerate(vis):
+            v.draw_imgs(frame, outputs[i])
+        cv2.imshow('p', frame)
+        if cv2.waitKey(1) == ord('q'):
+            break
         memory = gpu_mem_usage()
         utilize = gpu_use()
         logger.info(f"{predictor.times}, {memory}, {utilize}")

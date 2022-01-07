@@ -5,7 +5,8 @@ from .layers.yolo_pafpn import YOLOPAFPN
 from ..utils.torch_utils import select_device
 from ..utils.plots import plot_one_box
 from ..data.datasets import letterbox
-from ..utils.boxes import non_max_suppression, scale_coords
+from ..process.post import non_max_suppression 
+from ..utils.boxes import scale_coords
 import torch
 import torch.nn as nn
 import random

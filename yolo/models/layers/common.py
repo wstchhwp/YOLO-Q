@@ -19,8 +19,9 @@ from torch.cuda import amp
 
 from ...data.datasets import exif_transpose, letterbox
 from ...utils.general import colorstr, increment_path, make_divisible 
-from ...utils.boxes import non_max_suppression, save_one_box, \
+from ...utils.boxes import save_one_box, \
     scale_coords, xyxy2xywh
+from ...process.post import non_max_suppression
 from ...utils.plots import Annotator, colors
 from ...utils.torch_utils import time_sync
 

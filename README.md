@@ -1,15 +1,24 @@
-# yolo
-A inference framework that support multi models of `yolo5`(torch and tensorrt) and `yolox`(torch).
+# YOLO
+A inference framework that support multi models of `yolo5`(torch and tensorrt), `yolox`(torch) and `nanodet`(tensorrt).
 
-- [ ] preprocessing with right and bottom padding.
-- [ ] reference yolov5 class `AutoShape`, `Detections` and `Annotator`
+## Requirement
+- Tensorrt >= 8
+- Torch >= 1.7.1
+
+## Support
+- [X] yolov5(torch, tensorrtx, tensorrt)
+- [X] yolox(torch)
+- [X] nanodet(tensorrt)
+
+## TODO
+- [ ] ~~preprocessing with right and bottom padding.~~
+- [ ] ~~reference yolov5 class `AutoShape`, `Detections` and `Annotator`~~
 - [X] same interface of `yolov5` and `yolox`.
 - [X] **add time**
 - [ ] add log
-- [ ] add `auto` to config
+- [ ] ~~add `auto` to config~~
 - [ ] better visualization
 - [ ] clean up
-- [ ] inference
 - [ ] return the output with dict type
 - [ ] device
 

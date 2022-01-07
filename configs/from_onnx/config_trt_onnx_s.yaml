@@ -1,4 +1,5 @@
 model1:
+  model_type: yolov5
   engine_file: /home/laughing/yolov5/weights/engine/yolov5s.engine
   conf_thres: 0.4
   iou_thres: 0.4
@@ -6,6 +7,7 @@ model1:
   names: ./weights/trt/yolov5s.yaml
 
 model2:
+  model_type: yolov5
   engine_file: /home/laughing/yolov5/weights/engine/yolov5s.engine
   conf_thres: 0.4
   iou_thres: 0.4
@@ -13,6 +15,7 @@ model2:
   names: ./weights/trt/yolov5s.yaml
 
 model3:
+  model_type: yolov5
   engine_file: /home/laughing/yolov5/weights/engine/yolov5s.engine
   conf_thres: 0.4
   iou_thres: 0.4
@@ -20,6 +23,7 @@ model3:
   names: ./weights/trt/yolov5s.yaml
 
 model4:
+  model_type: yolov5
   engine_file: /home/laughing/yolov5/weights/engine/yolov5s.engine
   conf_thres: 0.4
   iou_thres: 0.4
@@ -27,6 +31,7 @@ model4:
   names: ./weights/trt/yolov5s.yaml
 
 model5:
+  model_type: yolov5
   engine_file: /home/laughing/yolov5/weights/engine/yolov5s.engine
   conf_thres: 0.4
   iou_thres: 0.4

@@ -25,9 +25,9 @@ if __name__ == "__main__":
     infer_multi = False  # 多线程速度较慢
     post_multi = True  # 多线程速度较慢
 
-    show = False
+    show = True
 
-    cfg_path = "./configs/prune_test/config_trt_onnx_n_prune.yaml"
+    cfg_path = "./configs/from_onnx/config_trt_onnx_n.yaml"
     test_frames = 500
     setting = global_settings[cfg_path]
 

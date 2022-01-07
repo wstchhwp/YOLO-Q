@@ -2,11 +2,15 @@ from collections import OrderedDict, namedtuple
 from ..utils.torch_utils import select_device
 import torch
 import numpy as np
-import tensorrt as trt  # https://developer.nvidia.com/nvidia-tensorrt-download
+import tensorrt as trt
 
 
 class TRT_Model:
     def __init__(self, engine_file_path, device=0) -> None:
+        """Tensorrt engine inference. 
+        Input ndoe:`images`.
+        Output ndoe:`output`.
+        """
         self.device = select_device(device)
         Binding = namedtuple('Binding', ('name', 'dtype', 'shape', 'data', 'ptr'))
         logger = trt.Logger(trt.Logger.INFO)
