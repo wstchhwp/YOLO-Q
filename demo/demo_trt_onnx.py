@@ -6,7 +6,7 @@ from yolo.utils.gpu_metrics import gpu_mem_usage, gpu_use
 import cv2
 import pycuda.driver as cuda
 from loguru import logger
-import time
+from tqdm import tqdm
 import argparse
 
 global_settings = {
@@ -71,13 +71,14 @@ def parse_args():
 if __name__ == "__main__":
     args = parse_args()
 
-    pre_multi = True  # 多线程速度较慢
+    pre_multi = False  # batch-size较大时设置为True会有提速
     infer_multi = False  # 多线程速度较慢
-    post_multi = True  # 多线程速度较慢
+    post_multi = False  # 多线程速度较慢
 
     show = args.show
 
     cfg_path = args.cfg_path
+    warmup_frames = 100
     test_frames = 500
     setting = global_settings[cfg_path]
 
@@ -109,19 +110,14 @@ if __name__ == "__main__":
 
     meter = MeterBuffer(window_size=500)
 
-    cap = cv2.VideoCapture("/d/projects/workCode/WorkCode/guiyang_test/test_videos/playphone.mp4")
-    frame_num = 1
-    while cap.isOpened():
-        ts = time.time()
-        frame_num += 1
-        # if frame_num % 2 == 0:
-        #     continue
-        if frame_num == test_frames + 100:  # 100 for warmup
-            break
+    cap = cv2.VideoCapture("/e/1.avi")
+    frames = warmup_frames + test_frames
+    pbar = tqdm(range(frames), total=frames)
+    for frame_num in pbar:
         ret, frame = cap.read()
         if not ret:
             break
-        outputs = predictor.inference([frame for _ in range(test_batch)])
+        outputs = predictor.inference([frame for _ in range(test_batch)], post=False)
         if show:
             for i, v in enumerate(vis):
                 v.draw_imgs(frame, outputs[i])
@@ -130,7 +126,8 @@ if __name__ == "__main__":
                 break
         memory = gpu_mem_usage()
         utilize = gpu_use()
-        logger.info(f"{predictor.times}, {memory}, {utilize}")
+        pbar.desc = f"{predictor.times}, {memory}, {utilize}"
+        # logger.info(f"{predictor.times}, {memory}, {utilize}")
         meter.update(memory=memory, utilize=utilize, **predictor.times)
 
     logger.info("-------------------------------------------------------")

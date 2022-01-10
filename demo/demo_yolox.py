@@ -1,73 +1,100 @@
-from yolo.models import build_from_configs
-from yolo.api.inference import Predictor
+from yolo.trt import build_trt_from_configs
+from yolo.api.trt_inference import TRTPredictor
 from yolo.api.visualization import Visualizer
 from yolo.utils.metrics import MeterBuffer
 from yolo.utils.gpu_metrics import gpu_mem_usage, gpu_use
-from loguru import logger
-from tqdm import tqdm
 import cv2
 import argparse
-import time
+import pycuda.driver as cuda
+from tqdm import tqdm
+from loguru import logger
+
+global_settings = {
+    "./configs/yolox/nano.yaml": {
+        "batch": 1,
+        "model": "nano",
+        "size": (384, 640),
+    },
+    "./configs/yolox/nano15.yaml": {
+        "batch": 15,
+        "model": "nano",
+        "size": (384, 640),
+    },
+}
+
 
 def parse_args():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-        description="Demo of yolov5(torch).",
+        description="Demo of yolox(tensorrt).",
     )
     parser.add_argument(
         "--cfg-path",
-        default="./configs/config.yaml",
+        default="./configs/yolox/nano.yaml",
         type=str,
         help="Path to .yml config file.",
     )
-    parser.add_argument(
-        "--show", action='store_true', help="Model intput shape."
-    )
+    parser.add_argument("--show", action="store_true", help="Model intput shape.")
     return parser.parse_args()
 
+
 if __name__ == "__main__":
-    # logger.add("torch15.log", format="{message}")
-    # logger.add("torch1.log", format="{message}")
     args = parse_args()
 
-    pre_multi = True    # 多线程速度较快
-    infer_multi = True  # 路数较少时，多线程速度较快
-    post_multi = True   # 多线程速度较快
+    pre_multi = False  # 多线程速度较慢
+    infer_multi = False  # 多线程速度较慢
+    post_multi = False  # 多线程速度较慢
 
-    warmup_frames = 100
-    test_frames = 500
     show = args.show
 
-    model = build_from_configs(cfg_path=args.cfg_path)
-    predictor = Predictor(
-        img_hw=(640, 640),
+    cfg_path = args.cfg_path
+    warmup_frames = 100
+    test_frames = 500
+    setting = global_settings[cfg_path]
+
+    test_batch = setting["batch"]
+    test_model = setting["model"]
+    test_size = setting["size"]
+
+    # logger.add("trt15.log", format="{message}")
+    # logger.add("trt1.log", format="{message}")
+    # logger.add("trt15.log")
+
+    model = build_trt_from_configs(cfg_path=cfg_path)
+    predictor = TRTPredictor(
+        img_hw=test_size,
         models=model,
-        device="0",
-        half=True,
+        device=0,
+        auto=False,
         pre_multi=pre_multi,
-        infer_multi=infer_multi, 
+        infer_multi=infer_multi,
         post_multi=post_multi,
     )
+
     if predictor.multi_model:
         vis = [Visualizer(names=model.names) for model in predictor.models]
     else:
         vis = [Visualizer(names=predictor.models.names)]
+        # vis.draw_imgs(img, outputs[i])
+    # vis = Visualizer(names=model[1].names)
 
-    meter = MeterBuffer(window_size=100)
+    meter = MeterBuffer(window_size=500)
 
     cap = cv2.VideoCapture("/e/1.avi")
     frames = warmup_frames + test_frames
     pbar = tqdm(range(frames), total=frames)
     for frame_num in pbar:
+        # if frame_num % 2 == 0:
+        #     continue
         ret, frame = cap.read()
         if not ret:
             break
-        outputs = predictor.inference([frame for _ in range(1)])
+        outputs = predictor.inference([frame for _ in range(test_batch)], post=False)
         if show:
             for i, v in enumerate(vis):
                 v.draw_imgs(frame, outputs[i])
-            cv2.imshow('p', frame)
-            if cv2.waitKey(1) == ord('q'):
+            cv2.imshow("p", frame)
+            if cv2.waitKey(1) == ord("q"):
                 break
         memory = gpu_mem_usage()
         utilize = gpu_use()
@@ -76,8 +103,9 @@ if __name__ == "__main__":
         meter.update(memory=memory, utilize=utilize, **predictor.times)
 
     logger.info("-------------------------------------------------------")
-    # logger.info("Torch, 15x5, yolov5n, 640x384, 200frames average time.")
-    logger.info("Torch, 1x5, yolov5n, 640x384, 100/500frames average time.")
+    logger.info(
+        f"Tensort, {test_batch}x5, yolox-{test_model}, {test_size}, {test_frames}frames average time."
+    )
     logger.info(f"pre_multi: {pre_multi}")
     logger.info(f"infer_multi: {infer_multi}")
     logger.info(f"post_multi: {post_multi}")
@@ -88,21 +116,3 @@ if __name__ == "__main__":
     logger.info(f"Average memory: {round(meter['memory'].avg)}MB")
     logger.info(f"Average utilize: {round(meter['utilize'].avg, 1)}%")
     logger.info(f"Max utilize: {round(meter['utilize'].max, 1)}%")
-
-# -----------5000 frames-----------
-# -----------two models------------
-# single thread total time: 85.99742603302002
-# multi thread total time: 66.30611062049866
-
-# -----------three models------------
-# single thread total time: 117.53678607940674
-# multi thread total time: 78.62954616546631
-
-# -----------three models, two pic------------
-# single thread total time: 136.21081161499023
-# multi thread total time: 107.52954616546631
-
-# -----------1000 frames-----------
-# -----------four model, two pic-----------
-# single thread total time: 43.65745544433594
-# multi thread total time: 32.65745544433594

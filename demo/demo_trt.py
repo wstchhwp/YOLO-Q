@@ -6,7 +6,7 @@ from yolo.utils.gpu_metrics import gpu_mem_usage, gpu_use
 import cv2
 import pycuda.driver as cuda
 from loguru import logger
-import time
+from tqdm import tqdm
 import argparse
 
 global_settings = {
@@ -64,6 +64,7 @@ if __name__ == "__main__":
     show = args.show
 
     cfg_path = args.cfg_path
+    warmup_frames = 100
     test_frames = 500
     setting = global_settings[cfg_path]
 
@@ -96,15 +97,10 @@ if __name__ == "__main__":
 
     meter = MeterBuffer(window_size=500)
 
-    cap = cv2.VideoCapture('/e/1.avi')
-    frame_num = 1
-    while cap.isOpened():
-        ts = time.time()
-        frame_num += 1
-        # if frame_num % 2 == 0:
-        #     continue
-        if frame_num == test_frames + 100:  # 100 for warmup
-            break
+    cap = cv2.VideoCapture("/e/1.avi")
+    frames = warmup_frames + test_frames
+    pbar = tqdm(range(frames), total=frames)
+    for frame_num in pbar:
         ret, frame = cap.read()
         if not ret:
             break
@@ -117,6 +113,7 @@ if __name__ == "__main__":
                 break
         memory = gpu_mem_usage()
         utilize = gpu_use()
+        pbar.desc = f"{predictor.times}, {memory}, {utilize}"
         logger.info(f"{predictor.times}, {memory}, {utilize}")
         meter.update(memory=memory, utilize=utilize, **predictor.times)
 

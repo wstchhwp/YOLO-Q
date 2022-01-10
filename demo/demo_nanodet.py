@@ -7,7 +7,7 @@ import cv2
 import argparse
 import pycuda.driver as cuda
 from loguru import logger
-import time
+from tqdm import tqdm
 
 global_settings = {
     "./configs/nanodet/nanodet-m_416.yaml": {
@@ -47,13 +47,14 @@ def parse_args():
 if __name__ == "__main__":
     args = parse_args()
 
-    pre_multi = True  # 多线程速度较慢
+    pre_multi = False  # 多线程速度较慢
     infer_multi = False  # 多线程速度较慢
-    post_multi = True  # 多线程速度较慢
+    post_multi = False  # 多线程速度较慢
 
     show = args.show
 
     cfg_path = args.cfg_path
+    warmup_frames = 100
     test_frames = 500
     setting = global_settings[cfg_path]
 
@@ -86,18 +87,13 @@ if __name__ == "__main__":
     meter = MeterBuffer(window_size=500)
 
     cap = cv2.VideoCapture("/e/1.avi")
-    frame_num = 1
-    while cap.isOpened():
-        ts = time.time()
-        frame_num += 1
-        # if frame_num % 2 == 0:
-        #     continue
-        if frame_num == test_frames + 100:  # 100 for warmup
-            break
+    frames = warmup_frames + test_frames
+    pbar = tqdm(range(frames), total=frames)
+    for frame_num in pbar:
         ret, frame = cap.read()
         if not ret:
             break
-        outputs = predictor.inference([frame for _ in range(test_batch)])
+        outputs = predictor.inference([frame for _ in range(test_batch)], post=False)
         if show:
             for i, v in enumerate(vis):
                 v.draw_imgs(frame, outputs[i])
@@ -106,7 +102,8 @@ if __name__ == "__main__":
                 break
         memory = gpu_mem_usage()
         utilize = gpu_use()
-        logger.info(f"{predictor.times}, {memory}, {utilize}")
+        pbar.desc = f"{predictor.times}, {memory}, {utilize}"
+        # logger.info(f"{predictor.times}, {memory}, {utilize}")
         meter.update(memory=memory, utilize=utilize, **predictor.times)
 
     logger.info("-------------------------------------------------------")
@@ -123,64 +120,3 @@ if __name__ == "__main__":
     logger.info(f"Average memory: {round(meter['memory'].avg)}MB")
     logger.info(f"Average utilize: {round(meter['utilize'].avg, 1)}%")
     logger.info(f"Max utilize: {round(meter['utilize'].max, 1)}%")
-
-
-# multi stream one thread
-# Average preprocess: 0.027459805749027604s
-# Average inference: 0.029808317801081032s
-# Average postprocess: 0.023598009323978042s
-# Average memory: 2369.6875MB
-# Average utilize: 36.43574297188755%
-# Max utilize: 40%
-
-# multi stream multi thread
-# Average preprocess: 0.0272097893986836s
-# Average inference: 0.027776270506372415s
-# Average postprocess: 0.023574815696501827s
-# Average memory: 2356.715612449799MB
-# Average utilize: 35.06024096385542%
-# Max utilize: 38%
-
-# one stream one thread
-# Average preprocess: 0.027554046198067415s
-# Average inference: 0.02978426720722612s
-# Average postprocess: 0.02378575820999452s
-# Average memory: 2369.6875MB
-# Average utilize: 36.238955823293175%
-# Max utilize: 40%
-
-# ------------1x5-----------
-# multi stream one thread
-# Average preprocess: 0.001693828996405544s
-# Average inference: 0.0054869872020430355s
-# Average postprocess: 0.0017274603786238704s
-# Average memory: 1847.6875MB
-# Average utilize: 45.69477911646587%
-# Max utilize: 55%
-
-# multi stream multi thread
-# Average preprocess: 0.0018568163415993073s
-# Average inference: 0.0054639515627818895s
-# Average postprocess: 0.0024826655904930757s
-# Average memory: 1847.6875MB
-# Average utilize: 36.74497991967871%
-# Max utilize: 45%
-
-
-# -----------5000 frames-----------
-# -----------two models------------
-# single thread total time: 85.99742603302002
-# multi thread total time: 66.30611062049866
-
-# -----------three models------------
-# single thread total time: 117.53678607940674
-# multi thread total time: 78.62954616546631
-
-# -----------three models, two pic------------
-# single thread total time: 136.21081161499023
-# multi thread total time: 107.52954616546631
-
-# -----------1000 frames-----------
-# -----------four model, two pic-----------
-# single thread total time: 43.65745544433594
-# multi thread total time: 32.65745544433594
