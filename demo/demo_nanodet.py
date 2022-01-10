@@ -15,6 +15,16 @@ global_settings = {
         "model": "m_416",
         "size": (416, 416),
     },
+    "./configs/nanodet/nanodet-m_640.yaml": {
+        "batch": 1,
+        "model": "m_416",
+        "size": (384, 640),
+    },
+    "./configs/nanodet/nanodet-m_640-15.yaml": {
+        "batch": 15,
+        "model": "m_416",
+        "size": (384, 640),
+    },
 }
 
 def parse_args():
@@ -82,7 +92,7 @@ if __name__ == "__main__":
         frame_num += 1
         # if frame_num % 2 == 0:
         #     continue
-        if frame_num == test_frames:
+        if frame_num == test_frames + 100:  # 100 for warmup
             break
         ret, frame = cap.read()
         if not ret:

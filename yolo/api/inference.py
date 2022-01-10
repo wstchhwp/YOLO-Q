@@ -230,11 +230,12 @@ class Predictor(object):
         self.ori_hw.clear()
         return outputs
 
-    def inference(self, images):
+    def inference(self, images, post=True):
         """Inference.
 
         Args:
             images (numpy.ndarray | List[numpy.ndarray]): Input images.
+            post (Bool): Whether to do postprocess, may be useful for some test situation.
         Return:
             see function `inference_single_model` and `inference_multi_model`.
         """
@@ -260,8 +261,9 @@ class Predictor(object):
 
         preds = forward(imgs)
         self.times["inference"] = round(timer.since_last_check() * 1000, 1)
-        outputs = postprocess(preds)
+        if post:
+            outputs = postprocess(preds)
         self.times["postprocess"] = round(timer.since_last_check() * 1000, 1)
         self.times["total"] = round(timer.since_start() * 1000, 1)
 
-        return outputs
+        return outputs if post else preds

@@ -32,22 +32,22 @@ global_settings = {
     },
     "./configs/prune_test/config_trt_onnx_n_prune.yaml": {
         "batch": 1,
-        "model": "s",
+        "model": "n",
         "size": (384, 640),
     },
     "./configs/prune_test/config_trt_onnx_n15_prune.yaml": {
         "batch": 15,
-        "model": "s",
+        "model": "n",
         "size": (384, 640),
     },
     "./configs/prune_test/config_trt_onnx_n_ori.yaml": {
         "batch": 1,
-        "model": "s",
+        "model": "n",
         "size": (384, 640),
     },
     "./configs/prune_test/config_trt_onnx_n15_ori.yaml": {
         "batch": 15,
-        "model": "s",
+        "model": "n",
         "size": (384, 640),
     },
 }
@@ -109,14 +109,14 @@ if __name__ == "__main__":
 
     meter = MeterBuffer(window_size=500)
 
-    cap = cv2.VideoCapture("/e/1.avi")
+    cap = cv2.VideoCapture("/d/projects/workCode/WorkCode/guiyang_test/test_videos/playphone.mp4")
     frame_num = 1
     while cap.isOpened():
         ts = time.time()
         frame_num += 1
         # if frame_num % 2 == 0:
         #     continue
-        if frame_num == test_frames:
+        if frame_num == test_frames + 100:  # 100 for warmup
             break
         ret, frame = cap.read()
         if not ret:

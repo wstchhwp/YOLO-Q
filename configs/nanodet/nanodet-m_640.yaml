@@ -1,6 +1,6 @@
 model1:
   model_type: nanodet
-  engine_file: /home/laughing/nanodet/weights/nanodet416-1.engine
+  engine_file: /home/laughing/nanodet/weights/nanodet640x384-1.engine
   conf_thres: 0.4
   iou_thres: 0.4
   filter: null
@@ -8,7 +8,7 @@ model1:
 
 model2:
   model_type: nanodet
-  engine_file: /home/laughing/nanodet/weights/nanodet416-1.engine
+  engine_file: /home/laughing/nanodet/weights/nanodet640x384-1.engine
   conf_thres: 0.4
   iou_thres: 0.4
   filter: null
@@ -16,7 +16,7 @@ model2:
 
 model3:
   model_type: nanodet
-  engine_file: /home/laughing/nanodet/weights/nanodet416-1.engine
+  engine_file: /home/laughing/nanodet/weights/nanodet640x384-1.engine
   conf_thres: 0.4
   iou_thres: 0.4
   filter: null
@@ -24,7 +24,7 @@ model3:
 
 model4:
   model_type: nanodet
-  engine_file: /home/laughing/nanodet/weights/nanodet416-1.engine
+  engine_file: /home/laughing/nanodet/weights/nanodet640x384-1.engine
   conf_thres: 0.4
   iou_thres: 0.4
   filter: null
@@ -32,7 +32,7 @@ model4:
 
 model5:
   model_type: nanodet
-  engine_file: /home/laughing/nanodet/weights/nanodet416-1.engine
+  engine_file: /home/laughing/nanodet/weights/nanodet640x384-1.engine
   conf_thres: 0.4
   iou_thres: 0.4
   filter: null

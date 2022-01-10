@@ -103,7 +103,7 @@ if __name__ == "__main__":
         frame_num += 1
         # if frame_num % 2 == 0:
         #     continue
-        if frame_num == test_frames:
+        if frame_num == test_frames + 100:  # 100 for warmup
             break
         ret, frame = cap.read()
         if not ret:
