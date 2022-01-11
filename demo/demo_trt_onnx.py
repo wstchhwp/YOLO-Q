@@ -15,6 +15,11 @@ global_settings = {
         "model": "n",
         "size": (384, 640),
     },
+    "./configs/from_onnx/config_trt_onnx_416n.yaml": {
+        "batch": 1,
+        "model": "n",
+        "size": (256, 416),
+    },
     "./configs/from_onnx/config_trt_onnx_s.yaml": {
         "batch": 1,
         "model": "s",
@@ -24,6 +29,11 @@ global_settings = {
         "batch": 15,
         "model": "n",
         "size": (384, 640),
+    },
+    "./configs/from_onnx/config_trt_onnx_416n15.yaml": {
+        "batch": 15,
+        "model": "n",
+        "size": (256, 416),
     },
     "./configs/from_onnx/config_trt_onnx_s15.yaml": {
         "batch": 15,
