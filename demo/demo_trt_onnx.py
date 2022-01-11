@@ -60,6 +60,13 @@ global_settings = {
         "model": "n",
         "size": (384, 640),
     },
+
+    # test
+    "./configs/test/yolo-fastestv2.yaml": {
+        "batch": 1,
+        "model": "n",
+        "size": (384, 640),
+    },
 }
 
 def parse_args():
@@ -130,7 +137,7 @@ if __name__ == "__main__":
         outputs = predictor.inference([frame for _ in range(test_batch)], post=False)
         if show:
             for i, v in enumerate(vis):
-                v.draw_imgs(frame, outputs[i])
+                v.draw_imgs(frame, outputs[i], vis_confs=0.2)
             cv2.imshow("p", frame)
             if cv2.waitKey(1) == ord("q"):
                 break

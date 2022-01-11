@@ -1,5 +1,5 @@
 # YOLO
-A inference framework that support multi models of `yolo5`(torch and tensorrt), `yolox`(torch and tensorrt) and `nanodet`(tensorrt).
+A inference framework that support multi models of `yolo5`(torch and tensorrt), `yolox`(torch and tensorrt), `nanodet`(tensorrt), `yolo-fastestV2`(tensorrt).
 
 ## Requirement
 - Tensorrt >= 8
@@ -44,8 +44,14 @@ A inference framework that support multi models of `yolo5`(torch and tensorrt), 
   * yolox
   ```shell
   git clone https://github.com/Laughing-q/YOLOX-Q.git
-  python tools/export_onnx.py -f exp_file -c model_ckpt --imgsz h w --half
+  python tools/export_onnx.py -f exp_file -c model_ckpt --imgsz h w [--half]
   python tools/export_trt.py --onnx-path onnx_file [--half]
+  ```
+  * yolo-fastestV2
+  ```shell
+  git clone https://github.com/Laughing-q/Yolo-FastestV2.git
+  python pytorch2onnx.py --data data_file --weights model_ckpt --output output_file --imgsz h w [--half]
+  python export_trt.py --onnx-path onnx_file [--half]
   ```
 
 - Demo
@@ -113,6 +119,11 @@ A inference framework that support multi models of `yolo5`(torch and tensorrt), 
       names: ./weights/trt/yolov5n.yaml
     ```
   - See `demo/` for more details.
+
+## Tips
+- The official weights of `yolo-fastestV2` and `nanodet-plus` trained with stretched(do not keep aspect ratio) images.
+- The weights of `nanodet-plus` is compatible with stretching and kepping ratio images.
+- The weights of `yolo-fastestV2` support stretching image only, or the prefermance will decline.
 
 ## Reference
 - [https://github.com/ultralytics/yolov5](https://github.com/ultralytics/yolov5)

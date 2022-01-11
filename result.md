@@ -37,16 +37,16 @@ TODO
     | Tensorrt            | 8.2.1.8        | 8.2.1.8            | 8.2.1.8        | 8.2.1.8        |
 
   * batch=5x1
-    | Model               | yolov5n       | yolov5n       | yolox-nano    | yolox-tiny    | nanodet-plus-m_416 | nanodet-plus-m_416 |
-    |---------------------|---------------|---------------|---------------|---------------|--------------------|--------------------|
-    | Input-size          | 5x1x3x640x384 | 5x1x3x416x256 | 5x1x3x640x384 | 5x1x3x640x384 | 5x1x3x640x384      | 5x1x3x416x416      |
-    | Average preprocess  | 0.8ms         | 0.8ms         | 0.8ms         | 0.8ms         | 0.8ms              | 0.6ms              |
-    | Average inference   | 3.9ms         | **3.1ms**     | 4.5ms         | 6.1ms         | 7.0(6.3)ms         | 6.3(5.5)ms         |
-    | Average postprocess | 0.0ms         | 0.0ms         | 0.0ms         | 0.0ms         | 0.0ms              | 0.0ms              |
-    | Average memory      | 1371MB        | **1351MB**    | 1359MB        | 1439MB        | 1387MB             | 1359MB             |
-    | Average utilize     | 52.7%         | **47.7%**     | 58.4%         | 65.2%         | 65.2%              | 60.1%              |
-    | Max utilize         | 61%           | **56%**       | 65%           | 69%           | 68%                | 67%                |
-    | Tensorrt            | 8.2.1.8       | 8.2.1.8       | 8.2.1.8       | 8.2.1.8       | 8.2.1.8            | 8.2.1.8            |
+    | Model               | yolov5n       | yolov5n       | yolox-nano    | yolox-tiny    | nanodet-plus-m_416 | nanodet-plus-m_416 | yolo-fastest  |
+    |---------------------|---------------|---------------|---------------|---------------|--------------------|--------------------|---------------|
+    | Input-size          | 5x1x3x640x384 | 5x1x3x416x256 | 5x1x3x640x384 | 5x1x3x640x384 | 5x1x3x640x384      | 5x1x3x416x416      | 5x1x3x640x384 |
+    | Average preprocess  | 0.8ms         | 0.8ms         | 0.8ms         | 0.8ms         | 0.8ms              | 0.6ms              | 0.8ms         |
+    | Average inference   | 3.9ms         | **3.1ms**     | 4.5ms         | 6.1ms         | 7.0(6.3)ms         | 6.3(5.5)ms         | 3.8ms         |
+    | Average postprocess | 0.0ms         | 0.0ms         | 0.0ms         | 0.0ms         | 0.0ms              | 0.0ms              | 0.0ms         |
+    | Average memory      | 1371MB        | **1351MB**    | 1359MB        | 1439MB        | 1387MB             | 1359MB             | 1366MB        |
+    | Average utilize     | 52.7%         | **47.7%**     | 58.4%         | 65.2%         | 65.2%              | 60.1%              | ***49.9%*     |
+    | Max utilize         | 61%           | 56%           | 65%           | 69%           | 68%                | 67%                | **55%**       |
+    | Tensorrt            | 8.2.1.8       | 8.2.1.8       | 8.2.1.8       | 8.2.1.8       | 8.2.1.8            | 8.2.1.8            | 8.2.1.8       |
   * 这两个模型都是采用torch -> onnx -> engine的方式转tensorrt.
   * `Input-size` = `num_camera` × `batch-size` × `w` × `h`.
   * 去除了postprocess, 是为了排除其他的影响来测试gpu利用率，因为该代码库也采用gpu做postprocess.

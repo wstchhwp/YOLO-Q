@@ -55,21 +55,6 @@ class Predictor(object):
         self.infer_multi = infer_multi
         self.post_multi = post_multi
 
-        # self._is_yolov5(model_type)
-
-    def _is_yolov5(self, model_type):
-        if self.multi_model:
-            if isinstance(model_type, str):
-                model_type = list(repeat(model_type, len(self.models)))
-            assert len(self.models) == len(model_type)
-            # TODO
-            for m in model_type:
-                assert m in ["yolov5", "yolox"]
-            self.yolov5 = [m is not "yolox" for m in model_type]
-        else:
-            assert model_type in ["yolov5", "yolox"]
-            self.yolov5 = model_type is not "yolox"
-
     def preprocess_one_img(self, image, center_padding=True):
         """Preprocess one image.
 
@@ -89,6 +74,7 @@ class Predictor(object):
             img_raw,
             new_shape=self.img_hw,
             auto=self.auto,
+            scaleFill=False,
             center_padding=center_padding,
         )
         if self.auto:
@@ -197,7 +183,9 @@ class Predictor(object):
             if det is None or len(det) == 0:
                 continue
             # TODO, suppert center_padding only.
-            det[:, :4] = scale_coords(self.img_hw, det[:, :4], self.ori_hw[i]).round()
+            det[:, :4] = scale_coords(
+                self.img_hw, det[:, :4], self.ori_hw[i], scale_fill=False
+            ).round()
         # TODO
         if not self.multi_model:  # 表示只有一个模型
             self.ori_hw.clear()
@@ -258,7 +246,9 @@ class Predictor(object):
         timer = Timer(cuda_sync=True)
         imgs = preprocess(images)
         imgs = torch.from_numpy(imgs).to(self.device)
-        imgs = imgs.half() if self.half else imgs.float()  # uint8 to fp16/32
+        # cause some `normalize` operation maybe out of index,
+        # so put it to func `inference_one_model.`
+        # imgs = imgs.half() if self.half else imgs.float()  # uint8 to fp16/32
         self.times["preprocess"] = round(timer.since_start() * 1000, 1)
 
         preds = forward(imgs)
