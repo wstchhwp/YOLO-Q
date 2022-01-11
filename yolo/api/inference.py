@@ -144,6 +144,8 @@ class Predictor(object):
         # TODO
         model = self.models if model is None else model
         # normalize on gpu may be faster, cause copy int8 from cpu to gpu is faster.
+        # `normalize` here is for support different models in one config file.
+        # this may add a bit of time cost on `inference time`.
         images = normalize[model.model_type](images)
         preds = model(images)
         if model.model_type == "yolov5":

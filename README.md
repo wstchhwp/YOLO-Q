@@ -44,7 +44,7 @@ A inference framework that support multi models of `yolo5`(torch and tensorrt), 
   * yolox
   ```shell
   git clone https://github.com/Laughing-q/YOLOX-Q.git
-  python tools/export_onnx.py -f ./exps/default/nano.py -c ./weights/yolox_nano.pth --imgsz h w --half
+  python tools/export_onnx.py -f exp_file -c model_ckpt --imgsz h w --half
   python tools/export_trt.py --onnx-path onnx_file [--half]
   ```
 

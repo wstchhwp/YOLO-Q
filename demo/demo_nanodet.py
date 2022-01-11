@@ -51,6 +51,7 @@ if __name__ == "__main__":
     infer_multi = False  # 多线程速度较慢
     post_multi = False  # 多线程速度较慢
 
+    device = 0
     show = args.show
 
     cfg_path = args.cfg_path
@@ -70,7 +71,7 @@ if __name__ == "__main__":
     predictor = TRTPredictor(
         img_hw=test_size,
         models=model,
-        device=0,
+        device=device,
         auto=False,
         pre_multi=pre_multi,
         infer_multi=infer_multi,

@@ -180,6 +180,9 @@ class TRTPredictor(Predictor):
             outputs (List[torch.Tensor]): List[num_boxes, classes+5] x B
         """
         model = self.models if model is None else model
+        # normalize on gpu may be faster, cause copy int8 from cpu to gpu is faster.
+        # `normalize` here is for support different models in one config file.
+        # this may add a bit of time cost on `inference time`.
         images = normalize[model.model_type](images)
         preds = model(images)
         return preds

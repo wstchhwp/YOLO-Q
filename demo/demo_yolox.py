@@ -15,6 +15,11 @@ global_settings = {
         "model": "nano",
         "size": (384, 640),
     },
+    "./configs/yolox/tiny.yaml": {
+        "batch": 1,
+        "model": "tiny",
+        "size": (384, 640),
+    },
     "./configs/yolox/nano15.yaml": {
         "batch": 15,
         "model": "nano",
