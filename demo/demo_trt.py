@@ -44,7 +44,10 @@ def parse_args():
         help="Path to .yml config file.",
     )
     parser.add_argument(
-        "--show", action='store_true', help="Model intput shape."
+        "--post", action='store_true', help="Whether do nms."
+    )
+    parser.add_argument(
+        "--show", action='store_true', help="Whether to visualize and show frame."
     )
     return parser.parse_args()
 
@@ -62,6 +65,9 @@ if __name__ == "__main__":
     post_multi = False  # 多线程速度较慢
 
     show = args.show
+    post = args.post
+    if show:
+        assert post, "You should set `post`=True."
 
     cfg_path = args.cfg_path
     warmup_frames = 100
@@ -104,7 +110,7 @@ if __name__ == "__main__":
         ret, frame = cap.read()
         if not ret:
             break
-        outputs = predictor.inference([frame for _ in range(test_batch)])
+        outputs = predictor.inference([frame for _ in range(test_batch)], post=post)
         if show:
             for i, v in enumerate(vis):
                 v.draw_imgs(frame, outputs[i])

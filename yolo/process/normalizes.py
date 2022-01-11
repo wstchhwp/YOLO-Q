@@ -49,4 +49,9 @@ def nanodet_norm(images):
     return images
 
 
-normalize = {"yolov5": yolov5_norm, "yolox": yolox_norm, "nanodet": nanodet_norm}
+normalize = {
+    "yolov5": yolov5_norm,
+    "yolox": yolox_norm,
+    "nanodet": nanodet_norm,
+    "yolo-fastestv2": yolov5_norm,
+}

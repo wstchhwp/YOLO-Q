@@ -21,7 +21,10 @@ def parse_args():
         help="Path to .yml config file.",
     )
     parser.add_argument(
-        "--show", action='store_true', help="Model intput shape."
+        "--post", action='store_true', help="Whether do nms."
+    )
+    parser.add_argument(
+        "--show", action='store_true', help="Whether to visualize and show frame."
     )
     return parser.parse_args()
 
@@ -36,7 +39,11 @@ if __name__ == "__main__":
 
     warmup_frames = 100
     test_frames = 500
+
     show = args.show
+    post = args.post
+    if show:
+        assert post, "You should set `post`=True."
 
     model = build_from_configs(cfg_path=args.cfg_path)
     predictor = Predictor(
@@ -62,7 +69,7 @@ if __name__ == "__main__":
         ret, frame = cap.read()
         if not ret:
             break
-        outputs = predictor.inference([frame for _ in range(1)])
+        outputs = predictor.inference([frame for _ in range(1)], post=post)
         if show:
             for i, v in enumerate(vis):
                 v.draw_imgs(frame, outputs[i])

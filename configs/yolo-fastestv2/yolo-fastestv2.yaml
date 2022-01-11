@@ -1,0 +1,39 @@
+model1:
+  model_type: yolo-fastestv2 
+  engine_file: /d/projects/Yolo-FastestV2/yolo-fastestv2.engine
+  conf_thres: 0.2
+  iou_thres: 0.4
+  filter: null
+  names: ./weights/trt/yolov5n.yaml
+
+model2:
+  model_type: yolo-fastestv2 
+  engine_file: /d/projects/Yolo-FastestV2/yolo-fastestv2.engine
+  conf_thres: 0.2
+  iou_thres: 0.4
+  filter: null
+  names: ./weights/trt/yolov5n.yaml
+
+model3:
+  model_type: yolo-fastestv2 
+  engine_file: /d/projects/Yolo-FastestV2/yolo-fastestv2.engine
+  conf_thres: 0.2
+  iou_thres: 0.4
+  filter: null
+  names: ./weights/trt/yolov5n.yaml
+
+model4:
+  model_type: yolo-fastestv2 
+  engine_file: /d/projects/Yolo-FastestV2/yolo-fastestv2.engine
+  conf_thres: 0.2
+  iou_thres: 0.4
+  filter: null
+  names: ./weights/trt/yolov5n.yaml
+
+model5:
+  model_type: yolo-fastestv2 
+  engine_file: /d/projects/Yolo-FastestV2/yolo-fastestv2.engine
+  conf_thres: 0.2
+  iou_thres: 0.4
+  filter: null
+  names: ./weights/trt/yolov5n.yaml

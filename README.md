@@ -1,4 +1,4 @@
-# YOLO
+# YOLO🚀
 A inference framework that support multi models of `yolo5`(torch and tensorrt), `yolox`(torch and tensorrt), `nanodet`(tensorrt), `yolo-fastestV2`(tensorrt).
 
 ## Requirement
@@ -82,7 +82,7 @@ A inference framework that support multi models of `yolo5`(torch and tensorrt), 
       conf_thres: 0.4
       iou_thres: 0.4
       filter: null
-      names: ./weights/trt/yolov5n.yaml
+      names: name.yaml
 
     model2:
       engine_file: yolov5n.engine
@@ -90,7 +90,7 @@ A inference framework that support multi models of `yolo5`(torch and tensorrt), 
       conf_thres: 0.4
       iou_thres: 0.4
       filter: null
-      names: ./weights/trt/yolov5n.yaml
+      names: name.yaml
     ```
     * tensorrt version(onnx -> tensorrt)
     ```vim
@@ -100,7 +100,7 @@ A inference framework that support multi models of `yolo5`(torch and tensorrt), 
       conf_thres: 0.4
       iou_thres: 0.4
       filter: null
-      names: ./weights/trt/yolov5n.yaml
+      names: name.yaml
 
     model2:
       model_type: yolox
@@ -108,7 +108,7 @@ A inference framework that support multi models of `yolo5`(torch and tensorrt), 
       conf_thres: 0.4
       iou_thres: 0.4
       filter: null
-      names: ./weights/trt/yolov5n.yaml
+      names: name.yaml
 
     model3:
       model_type: nanodet
@@ -116,7 +116,15 @@ A inference framework that support multi models of `yolo5`(torch and tensorrt), 
       conf_thres: 0.4
       iou_thres: 0.4
       filter: null
-      names: ./weights/trt/yolov5n.yaml
+      names: name.yaml
+
+    model4:
+      model_type: yolo-fastestV2
+      engine_file: nanodet-plus.engine
+      conf_thres: 0.4
+      iou_thres: 0.4
+      filter: null
+      names: name.yaml
     ```
   - See `demo/` for more details.
 

@@ -212,4 +212,5 @@ nms = {
     "yolov5": non_max_suppression,
     "yolox": non_max_suppression,
     "nanodet": nanodet_nms,
+    "yolo-fastestv2": non_max_suppression,
 }
