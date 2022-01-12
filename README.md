@@ -1,6 +1,6 @@
 # YOLO🚀
-A inference framework that support multi models of `yolo5`(torch and tensorrt), `yolox`(torch and tensorrt), 
-`nanodet`(tensorrt), `yolo-fastestV2`(tensorrt) and `yolov5-lite`(tensorrt.
+🔥🔥🔥A inference framework that support multi models of `yolo5`(torch and tensorrt), `yolox`(torch and tensorrt), 
+`nanodet`(tensorrt), `yolo-fastestV2`(tensorrt) and `yolov5-lite`(tensorrt).
 
 <p align="center"> <img src='assert/teaser.jpg' align="center"> </p>
 
