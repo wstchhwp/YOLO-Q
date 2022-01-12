@@ -10,68 +10,88 @@ from tqdm import tqdm
 import argparse
 
 global_settings = {
+    # yolov5
     "./configs/from_onnx/config_trt_onnx_n.yaml": {
         "batch": 1,
-        "model": "n",
+        "model": "yolov5n",
         "size": (384, 640),
     },
     "./configs/from_onnx/config_trt_onnx_416n.yaml": {
         "batch": 1,
-        "model": "n",
+        "model": "yolov5n",
         "size": (256, 416),
     },
     "./configs/from_onnx/config_trt_onnx_s.yaml": {
         "batch": 1,
-        "model": "s",
+        "model": "yolov5s",
         "size": (384, 640),
     },
     "./configs/from_onnx/config_trt_onnx_n15.yaml": {
         "batch": 15,
-        "model": "n",
+        "model": "yolov5n",
         "size": (384, 640),
     },
     "./configs/from_onnx/config_trt_onnx_416n15.yaml": {
         "batch": 15,
-        "model": "n",
+        "model": "yolov5n",
         "size": (256, 416),
     },
     "./configs/from_onnx/config_trt_onnx_s15.yaml": {
         "batch": 15,
-        "model": "s",
+        "model": "yolov5s",
         "size": (384, 640),
     },
+
+    # prune model(yolov5n)
     "./configs/prune_test/config_trt_onnx_n_prune.yaml": {
         "batch": 1,
-        "model": "n",
+        "model": "prune-yolov5n",
         "size": (384, 640),
     },
     "./configs/prune_test/config_trt_onnx_n15_prune.yaml": {
         "batch": 15,
-        "model": "n",
+        "model": "prune-yolov5n",
         "size": (384, 640),
     },
     "./configs/prune_test/config_trt_onnx_n_ori.yaml": {
         "batch": 1,
-        "model": "n",
+        "model": "ori-yolov5n",
         "size": (384, 640),
     },
     "./configs/prune_test/config_trt_onnx_n15_ori.yaml": {
         "batch": 15,
-        "model": "n",
+        "model": "ori-yolov5n",
         "size": (384, 640),
     },
 
     # test
     "./configs/yolo-fastestv2/yolo-fastestv2.yaml": {
         "batch": 1,
-        "model": "n",
+        "model": "yolo-fastestv2",
         "size": (384, 640),
     },
 
     # all
     "./configs/test/all_trt.yaml": {
         "batch": 1,
-        "model": "n",
+        "model": "all",
+        "size": (384, 640),
+    },
+
+    # yolov5-lite
+    "./configs/yolov5-lite/s.yaml": {
+        "batch": 1,
+        "model": "yolov5-lite-s",
+        "size": (384, 640),
+    },
+    "./configs/yolov5-lite/c.yaml": {
+        "batch": 1,
+        "model": "yolov5-lite-c",
+        "size": (384, 640),
+    },
+    "./configs/yolov5-lite/g.yaml": {
+        "batch": 1,
+        "model": "yolov5-lite-g",
         "size": (384, 640),
     },
 }
@@ -162,7 +182,7 @@ if __name__ == "__main__":
 
     logger.info("-------------------------------------------------------")
     logger.info(
-        f"Tensort, {test_batch}x5, yolov5{test_model}, {test_size}, {test_frames}frames average time."
+        f"Tensort, {test_batch}x5, {test_model}, {test_size}, {test_frames}frames average time."
     )
     logger.info(f"pre_multi: {pre_multi}")
     logger.info(f"infer_multi: {infer_multi}")

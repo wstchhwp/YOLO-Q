@@ -210,6 +210,7 @@ def non_max_suppression(
 
 nms = {
     "yolov5": non_max_suppression,
+    "yolov5-lite": non_max_suppression,
     "yolox": non_max_suppression,
     "nanodet": nanodet_nms,
     "yolo-fastestv2": non_max_suppression,

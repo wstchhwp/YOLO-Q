@@ -1,9 +1,11 @@
 # YOLO🚀
-A inference framework that support multi models of `yolo5`(torch and tensorrt), `yolox`(torch and tensorrt), `nanodet`(tensorrt), `yolo-fastestV2`(tensorrt).
+A inference framework that support multi models of `yolo5`(torch and tensorrt), `yolox`(torch and tensorrt), 
+`nanodet`(tensorrt), `yolo-fastestV2`(tensorrt) and `yolov5-lite`(tensorrt.
 
 ## Support
 - [X] yolov5(torch, tensorrtx, tensorrt)
-- [X] yolox(torch)
+- [X] yolox(torch, tensorrt)
+- [X] yolov5-lite(tensorrt)
 - [X] nanodet(tensorrt)
 
 ## TODO
@@ -60,6 +62,12 @@ python tools/export_trt.py --onnx-path onnx_file [--half]
 git clone https://github.com/Laughing-q/Yolo-FastestV2.git
 python pytorch2onnx.py --data data_file --weights model_ckpt --output output_file --imgsz h w [--half]
 python export_trt.py --onnx-path onnx_file [--half]
+```
+* yolov5-lite
+```shell
+git clone https://github.com/Laughing-q/YOLOv5-Lite.git
+# support yolov5-lite-s and yolov5-lite-g
+python export.py --weights pt_file --include=engine --device 0 --imgsz h w [--half]
 ```
 
 
@@ -146,6 +154,9 @@ python export_trt.py --onnx-path onnx_file [--half]
 - The official weights of `yolo-fastestV2` and `nanodet-plus` trained with stretched(do not keep aspect ratio) images.
 - The weights of `nanodet-plus` is compatible with stretching and kepping ratio images.
 - The weights of `yolo-fastestV2` support stretching image only, or the prefermance will decline.
+- I can't export `yolov5-lite-c` to engine file normally in my environment(cuda10.2, there is a issue about `cublas`), 
+`trtexec --onnx=*.onnx --saveEngine=*.engine --tacticSources=-cublasLt,+cublas --workspace=2048 --fp16` command can generate an engine file, 
+but can't get any detections.
 
 ## Reference
 - [https://github.com/ultralytics/yolov5](https://github.com/ultralytics/yolov5)

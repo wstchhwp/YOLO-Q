@@ -1,0 +1,39 @@
+model1:
+  model_type: yolov5-lite
+  engine_file: /d/projects/YOLOv5-Lite/weights/v5lite-c.engine
+  conf_thres: 0.4
+  iou_thres: 0.4
+  filter: null
+  names: ./weights/trt/yolov5-lite.yaml
+
+model2:
+  model_type: yolov5-lite
+  engine_file: /d/projects/YOLOv5-Lite/weights/v5lite-c.engine
+  conf_thres: 0.4
+  iou_thres: 0.4
+  filter: null
+  names: ./weights/trt/yolov5-lite.yaml
+
+model3:
+  model_type: yolov5-lite
+  engine_file: /d/projects/YOLOv5-Lite/weights/v5lite-c.engine
+  conf_thres: 0.4
+  iou_thres: 0.4
+  filter: null
+  names: ./weights/trt/yolov5-lite.yaml
+
+model4:
+  model_type: yolov5-lite
+  engine_file: /d/projects/YOLOv5-Lite/weights/v5lite-c.engine
+  conf_thres: 0.4
+  iou_thres: 0.4
+  filter: null
+  names: ./weights/trt/yolov5-lite.yaml
+
+model5:
+  model_type: yolov5-lite
+  engine_file: /d/projects/YOLOv5-Lite/weights/v5lite-c.engine
+  conf_thres: 0.4
+  iou_thres: 0.4
+  filter: null
+  names: ./weights/trt/yolov5-lite.yaml

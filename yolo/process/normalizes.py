@@ -54,4 +54,5 @@ normalize = {
     "yolox": yolox_norm,
     "nanodet": nanodet_norm,
     "yolo-fastestv2": yolov5_norm,
+    "yolov5-lite": yolov5_norm,
 }
