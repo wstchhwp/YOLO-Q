@@ -6,3 +6,4 @@ __pycache__/
 configs/test/
 *.egg
 *.egg-info
+!assert/teaser.jpg
