@@ -5,6 +5,7 @@ import cv2
 import time
 from threading import Thread
 import os.path as osp
+
 # from yolo.utils.general import clean_str
 # from yolo.utils.check import check_requirements
 from ..utils.general import clean_str
@@ -32,8 +33,10 @@ VID_FORMATS = [
     "mkv",
 ]  # acceptable video suffixes
 
+
 class ReadStreams:
-    """Read Streams, modified from yolov5"""
+    """Read Streams, modified from yolov5, support multi streams reading, but support one streams saving for now."""
+
     def __init__(self, sources="streams.txt", img_size=640, stride=32, auto=True):
         self.mode = "stream"
         self.img_size = img_size
@@ -48,6 +51,7 @@ class ReadStreams:
             sources = [sources]
 
         n = len(sources)
+        self.vid_path, self.vid_writer = [None] * n, [None] * n
         self.imgs, self.fps, self.frames, self.threads = (
             [None] * n,
             [0] * n,
@@ -131,8 +135,19 @@ class ReadStreams:
     def __len__(self):
         return len(self.sources)  # 1E12 frames = 32 streams at 30 FPS for 30 years
 
+    def save(self, save_path, image, i=0):
+        if self.vid_path[i] != save_path:  # new video
+            fps, w, h = 30, image.shape[1], image.shape[0]
+            save_path += ".mp4"
+            self.vid_writer[i] = cv2.VideoWriter(
+                save_path, cv2.VideoWriter_fourcc(*"mp4v"), int(self.fps[i]), (w, h)
+            )
+        self.vid_writer[i].write(image)
+
+
 class ReadVideosAndImages:
     """Read Videos and Images, modified from yolov5"""
+
     def __init__(self, source: str):
         p = str(Path(source).resolve())  # os-agnostic absolute path
         if "*" in p:
@@ -149,6 +164,7 @@ class ReadVideosAndImages:
         videos = [x for x in files if x.split(".")[-1].lower() in VID_FORMATS]
         ni, nv = len(images), len(videos)
 
+        self.vid_path, self.vid_writer = None, None
         self.files = images + videos
         self.nf = ni + nv  # number of files
         self.video_flag = [False] * ni + [True] * nv
@@ -201,6 +217,22 @@ class ReadVideosAndImages:
         self.cap = cv2.VideoCapture(path)
         self.frames = int(self.cap.get(cv2.CAP_PROP_FRAME_COUNT))
 
+    def save(self, save_path, image):
+        if self.mode == "image":
+            cv2.imwrite(save_path, image)
+        else:  # 'video' or 'stream'
+            if self.vid_path != save_path:  # new video
+                self.vid_path = save_path
+                if isinstance(self.vid_writer, cv2.VideoWriter):
+                    self.vid_writer.release()  # release previous video writer
+                fps = self.cap.get(cv2.CAP_PROP_FPS)
+                w = int(self.cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+                h = int(self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+                self.vid_writer = cv2.VideoWriter(
+                    save_path, cv2.VideoWriter_fourcc(*"mp4v"), fps, (w, h)
+                )
+            self.vid_writer.write(image)
+
     def __len__(self):
         return self.nf  # number of files
 
@@ -208,14 +240,15 @@ class ReadVideosAndImages:
 def create_reader(source: str):
     """This is for data(video, webcam, image, image_path) reading in inference."""
     is_file = Path(source).suffix[1:] in (IMG_FORMATS + VID_FORMATS)
-    is_url = source.lower().startswith(('rtsp://', 'rtmp://', 'http://', 'https://'))
-    webcam = source.isnumeric() or source.endswith('.txt') or (is_url and not is_file)
+    is_url = source.lower().startswith(("rtsp://", "rtmp://", "http://", "https://"))
+    webcam = source.isnumeric() or source.endswith(".txt") or (is_url and not is_file)
     return ReadStreams(source) if webcam else ReadVideosAndImages(source)
 
+
 if __name__ == "__main__":
-    test = create_reader(source='/d/九江/playphone/20211223/imgs')
+    test = create_reader(source="/d/九江/playphone/20211223/imgs")
     for img, p, s in test:
         print(s, p)
-        cv2.imshow('p', img)
-        if cv2.waitKey(1) == ord('q'):
+        cv2.imshow("p", img)
+        if cv2.waitKey(1) == ord("q"):
             break
