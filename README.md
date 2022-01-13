@@ -11,14 +11,11 @@
 - [X] nanodet(tensorrt)
 
 ## TODO
-- [ ] ~~preprocessing with right and bottom padding.~~
-- [ ] ~~reference yolov5 class `AutoShape`, `Detections` and `Annotator`~~
 - [X] same interface of `yolov5` and `yolox`.
 - [X] **add time**
+- [ ] better multi-threading
 - [ ] add log
-- [ ] ~~add `auto` to config~~
-- [ ] better visualization
-- [ ] clean up
+- [ ] add `save` function in data reader.
 - [ ] return the output with dict type
 - [ ] device
 

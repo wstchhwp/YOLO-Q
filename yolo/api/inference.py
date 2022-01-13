@@ -48,12 +48,15 @@ class Predictor(object):
         self.half = half
         self.auto = auto
         self.multi_model = True if isinstance(models, list) else False
-        self.times = {}
 
         # multi threading
         self.pre_multi = pre_multi
         self.infer_multi = infer_multi
         self.post_multi = post_multi
+
+        # times
+        self.timer = Timer(start=False, cuda_sync=True, round=1, unit='ms')
+        self.times = {}
 
     def preprocess_one_img(self, image, center_padding=True):
         """Preprocess one image.
@@ -245,19 +248,19 @@ class Predictor(object):
             else self.postprocess_one_model
         )
 
-        timer = Timer(cuda_sync=True)
+        self.timer.start(reset=True)
         imgs = preprocess(images)
         imgs = torch.from_numpy(imgs).to(self.device)
         # cause some `normalize` operation maybe out of index,
         # so put it to func `inference_one_model.`
         # imgs = imgs.half() if self.half else imgs.float()  # uint8 to fp16/32
-        self.times["preprocess"] = round(timer.since_start() * 1000, 1)
+        self.times["preprocess"] = self.timer.since_last_check()
 
         preds = forward(imgs)
-        self.times["inference"] = round(timer.since_last_check() * 1000, 1)
+        self.times["inference"] = self.timer.since_last_check()
         if post:
             outputs = postprocess(preds)
-        self.times["postprocess"] = round(timer.since_last_check() * 1000, 1)
-        self.times["total"] = round(timer.since_start() * 1000, 1)
+        self.times["postprocess"] = self.timer.since_last_check()
+        self.times["total"] = self.timer.since_start()
 
         return outputs if post else preds

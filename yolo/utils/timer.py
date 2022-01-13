@@ -5,14 +5,15 @@ from time import sleep
 import torch
 import functools
 
+
 def time_sync():
     # pytorch-accurate time
     if torch.cuda.is_available():
         torch.cuda.synchronize()
     return time()
 
-class TimerError(Exception):
 
+class TimerError(Exception):
     def __init__(self, message):
         self.message = message
         super(TimerError, self).__init__(message)
@@ -44,9 +45,15 @@ class Timer:
     1.000
     """
 
-    def __init__(self, start=True, print_tmpl=None, cuda_sync=False):
+    def __init__(
+        self, start=True, print_tmpl=None, cuda_sync=False, round=None, unit="s"
+    ):
+        assert unit in ['s', 'ms']
+        assert round is None or isinstance(round, int)
         self._is_running = False
-        self.print_tmpl = print_tmpl if print_tmpl else '{:.3f}'
+        self.round = round
+        self.unit = unit
+        self.print_tmpl = print_tmpl if print_tmpl else "{:.3f}"
         self.time = time_sync if cuda_sync else time
         if start:
             self.start()
@@ -64,11 +71,12 @@ class Timer:
         print(self.print_tmpl.format(self.since_last_check()))
         self._is_running = False
 
-    def start(self):
+    def start(self, reset=False):
         """Start the timer."""
         if not self._is_running:
             self._t_start = self.time()
             self._is_running = True
+        self._t_start = self.time() if reset else self._t_start
         self._t_last = self.time()
 
     def since_start(self):
@@ -77,9 +85,14 @@ class Timer:
         Returns (float): Time in seconds.
         """
         if not self._is_running:
-            raise TimerError('timer is not running')
+            raise TimerError("timer is not running")
         self._t_last = self.time()
-        return self._t_last - self._t_start
+        dur = self._t_last - self._t_start
+        if self.unit == 'ms':
+            dur = dur * 1000
+        if self.round is not None:
+            dur = round(dur, self.round)
+        return dur
 
     def since_last_check(self):
         """Time since the last checking.
@@ -90,8 +103,12 @@ class Timer:
         Returns (float): Time in seconds.
         """
         if not self._is_running:
-            raise TimerError('timer is not running')
+            raise TimerError("timer is not running")
         dur = self.time() - self._t_last
+        if self.unit == 'ms':
+            dur = dur * 1000
+        if self.round is not None:
+            dur = round(dur, self.round)
         self._t_last = self.time()
         return dur
 
@@ -127,17 +144,22 @@ def check_time(timer_id):
     else:
         return _g_timers[timer_id].since_last_check()
 
+
 def timer(cuda_sync=False):
     def out_func(old_func):
         time = Timer(start=False, cuda_sync=cuda_sync)
+
         @functools.wraps(old_func)
         def new_func(*args, **kwargs):
             time.start()
             output = old_func(*args, **kwargs)
             print(f"timer: using {time.since_start()} s")
             return output
+
         return new_func
+
     return out_func
+
 
 if __name__ == "__main__":
     timer = Timer()

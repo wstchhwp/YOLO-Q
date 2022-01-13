@@ -28,13 +28,16 @@ class TRTPredictorx(Predictor):  # `x` means repo `tensorrtx`
         self.ori_hw = []
         self.models = models
         self.multi_model = True if isinstance(models, list) else False
-        self.times = {}
         self.auto = auto
 
         # multi threading
         self.pre_multi = pre_multi
         self.infer_multi = infer_multi
         self.post_multi = post_multi
+
+        # times
+        self.timer = Timer(start=False, cuda_sync=False, round=1, unit='ms')
+        self.times = {}
         # TODO
         self.sign = 1
 
@@ -134,19 +137,19 @@ class TRTPredictorx(Predictor):  # `x` means repo `tensorrtx`
             else self.postprocess_one_model
         )
 
-        timer = Timer(cuda_sync=False)
+        self.timer.start(reset=True)
         imgs = preprocess(images)
         imgs = imgs.astype(np.float32) / 255.0
         imgs = to_device(
             imgs, self.host_inputs, self.cuda_inputs, self.stream, split=False
         )
-        self.times["preprocess"] = round(timer.since_start() * 1000, 1)
+        self.times["preprocess"] = self.timer.since_last_check()
 
         preds = forward(imgs)
-        self.times["inference"] = round(timer.since_last_check() * 1000, 1)
+        self.times["inference"] = self.timer.since_last_check()
         outputs = postprocess(preds)
-        self.times["postprocess"] = round(timer.since_last_check() * 1000, 1)
-        self.times["total"] = round(timer.since_start() * 1000, 1)
+        self.times["postprocess"] = self.timer.since_last_check()
+        self.times["total"] = self.timer.since_start()
 
         return outputs
 
