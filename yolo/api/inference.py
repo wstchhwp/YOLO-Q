@@ -133,6 +133,8 @@ class Predictor(object):
         # `normalize` here is for support different models in one config file.
         # this may add a bit of time cost on `inference time`.
         images = normalize[model.model_type](images)
+        images = images.half() if self.half else images.float()  # uint8 to fp16/32
+
         preds = model(images)
         if model.model_type == "yolov5":
             preds = preds[0]
