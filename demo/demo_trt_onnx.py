@@ -4,7 +4,6 @@ from yolo.api.visualization import Visualizer
 from yolo.utils.metrics import MeterBuffer
 from yolo.utils.gpu_metrics import gpu_mem_usage, gpu_use
 import cv2
-import pycuda.driver as cuda
 from loguru import logger
 from tqdm import tqdm
 import argparse
@@ -75,6 +74,12 @@ global_settings = {
     "./configs/test/all_trt.yaml": {
         "batch": 1,
         "model": "all",
+        "size": (384, 640),
+    },
+
+    "./configs/test/ex.yaml": {
+        "batch": 1,
+        "model": "yolov5n",
         "size": (384, 640),
     },
 
@@ -160,7 +165,7 @@ if __name__ == "__main__":
 
     meter = MeterBuffer(window_size=500)
 
-    cap = cv2.VideoCapture("/e/1.avi")
+    cap = cv2.VideoCapture("/home/laughing/Videos/2021香港小姐競選決賽｜表演嘉賓｜張學友 Gin Lee 獻唱經典金曲｜Gin Lee更與學友合唱《日出時讓街燈安睡》-YlB-Y9bssdM.mkv")
     frames = warmup_frames + test_frames
     pbar = tqdm(range(frames), total=frames)
     for frame_num in pbar:
