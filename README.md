@@ -15,7 +15,7 @@
 - [X] **add time**
 - [ ] better multi-threading
 - [ ] add log
-- [ ] add `save` function in data reader.
+- [X] add `save` function in data reader.
 - [ ] return the output with dict type
 - [ ] device
 - [ ] add hydra
