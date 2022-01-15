@@ -60,10 +60,10 @@ def build_yolox(cfg, weight_path, device, half=True):
             model.half()
     return model
 
-def build_from_configs(cfg_path):
-    with open(cfg_path, 'r') as f:
-        # config = yaml.safe_load(f)
-        config =OmegaConf.load(f)
+def build_from_configs(config):
+    if isinstance(config, str):
+        with open(config, "r") as f:
+            config = OmegaConf.load(f)
 
     model_list = []
     for _, v in config.items():

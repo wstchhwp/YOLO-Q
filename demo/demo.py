@@ -45,7 +45,7 @@ if __name__ == "__main__":
     if show:
         assert post, "You should set `post`=True."
 
-    model = build_from_configs(cfg_path=args.cfg_path)
+    model = build_from_configs(config=args.cfg_path)
     predictor = Predictor(
         img_hw=(640, 640),
         models=model,

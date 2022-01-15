@@ -82,7 +82,7 @@ if __name__ == "__main__":
     # logger.add("trt1.log", format="{message}")
     # logger.add("trt15.log")
 
-    model = build_from_configs(cfg_path=cfg_path,
+    model = build_from_configs(config=cfg_path,
                                ctx=ctx,
                                stream=stream)
     predictor = TRTPredictorx(

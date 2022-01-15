@@ -23,8 +23,9 @@ def build_trt(cfg, engine_file):
 
 # TODO
 def build_trt_from_configs(config):
-    # with open(cfg_path, "r") as f:
-    #     config = OmegaConf.load(f)
+    if isinstance(config, str):
+        with open(config, "r") as f:
+            config = OmegaConf.load(f)
     model_list = []
     for _, v in config.items():
         model = build_trt(
@@ -42,10 +43,10 @@ def build_trt_from_configs(config):
         return model_list[0]
 
 
-def build_from_configs(cfg_path, ctx, stream):
-    with open(cfg_path, "r") as f:
-        # config = yaml.safe_load(f)
-        config = OmegaConf.load(f)
+def build_from_configs(config, ctx, stream):
+    if isinstance(config, str):
+        with open(config, "r") as f:
+            config = OmegaConf.load(f)
 
     model_list = []
     for _, v in config.items():
