@@ -1,6 +1,6 @@
 settings:
   batch_size: 1
-  test_title: ori-yolov5n
+  test_title: yolov5n
   input_hw: [384, 640]
   half: True
   auto: False
@@ -8,43 +8,43 @@ settings:
   infer_multi: False
   post_multi: False
 
-models:
+models: 
   model1:
     model_type: yolov5
-    engine_file: /home/laughing/yolov5/runs/train/exp/weights/best.engine
+    engine_file: /home/laughing/yolov5/weights/engine/yolov5n.engine
     conf_thres: 0.4
     iou_thres: 0.4
     filter: null
-    names: ./weights/trt/prune.yaml
+    names: ./weights/trt/yolov5n.yaml
 
   model2:
     model_type: yolov5
-    engine_file: /home/laughing/yolov5/runs/train/exp/weights/best.engine
+    engine_file: /home/laughing/yolov5/weights/engine/yolov5n.engine
     conf_thres: 0.4
     iou_thres: 0.4
     filter: null
-    names: ./weights/trt/prune.yaml
+    names: ./weights/trt/yolov5n.yaml
 
   model3:
     model_type: yolov5
-    engine_file: /home/laughing/yolov5/runs/train/exp/weights/best.engine
+    engine_file: /home/laughing/yolov5/weights/engine/yolov5n.engine
     conf_thres: 0.4
     iou_thres: 0.4
     filter: null
-    names: ./weights/trt/prune.yaml
+    names: ./weights/trt/yolov5n.yaml
 
   model4:
     model_type: yolov5
-    engine_file: /home/laughing/yolov5/runs/train/exp/weights/best.engine
+    engine_file: /home/laughing/yolov5/weights/engine/yolov5n.engine
     conf_thres: 0.4
     iou_thres: 0.4
     filter: null
-    names: ./weights/trt/prune.yaml
+    names: ./weights/trt/yolov5n.yaml
 
   model5:
     model_type: yolov5
-    engine_file: /home/laughing/yolov5/runs/train/exp/weights/best.engine
+    engine_file: /home/laughing/yolov5/weights/engine/yolov5n.engine
     conf_thres: 0.4
     iou_thres: 0.4
     filter: null
-    names: ./weights/trt/prune.yaml
+    names: ./weights/trt/yolov5n.yaml

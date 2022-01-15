@@ -1,39 +1,50 @@
-model1:
-  model_type: nanodet
-  engine_file: /home/laughing/nanodet/weights/nanodet640x384-1.engine
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/nanodet.yaml
+settings:
+  batch_size: 1
+  test_title: nanodet-plus-m_416
+  input_hw: [384, 640]
+  half: True
+  auto: False
+  pre_multi: False
+  infer_multi: False
+  post_multi: False
 
-model2:
-  model_type: nanodet
-  engine_file: /home/laughing/nanodet/weights/nanodet640x384-1.engine
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/nanodet.yaml
+models:
+  model1:
+    model_type: nanodet
+    engine_file: /home/laughing/nanodet/weights/nanodet640x384-1.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/nanodet.yaml
 
-model3:
-  model_type: nanodet
-  engine_file: /home/laughing/nanodet/weights/nanodet640x384-1.engine
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/nanodet.yaml
+  model2:
+    model_type: nanodet
+    engine_file: /home/laughing/nanodet/weights/nanodet640x384-1.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/nanodet.yaml
 
-model4:
-  model_type: nanodet
-  engine_file: /home/laughing/nanodet/weights/nanodet640x384-1.engine
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/nanodet.yaml
+  model3:
+    model_type: nanodet
+    engine_file: /home/laughing/nanodet/weights/nanodet640x384-1.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/nanodet.yaml
 
-model5:
-  model_type: nanodet
-  engine_file: /home/laughing/nanodet/weights/nanodet640x384-1.engine
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/nanodet.yaml
+  model4:
+    model_type: nanodet
+    engine_file: /home/laughing/nanodet/weights/nanodet640x384-1.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/nanodet.yaml
+
+  model5:
+    model_type: nanodet
+    engine_file: /home/laughing/nanodet/weights/nanodet640x384-1.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/nanodet.yaml

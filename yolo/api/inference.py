@@ -53,10 +53,18 @@ class Predictor(object):
         self.pre_multi = pre_multi
         self.infer_multi = infer_multi
         self.post_multi = post_multi
+        self._create_thread()
 
         # times
-        self.timer = Timer(start=False, cuda_sync=True, round=1, unit='ms')
+        self.timer = Timer(start=False, cuda_sync=True, round=1, unit="ms")
         self.times = {}
+
+    def _create_thread(self):
+        self.p = (
+            ThreadPool()
+            if self.pre_multi or self.infer_multi or self.post_multi
+            else None
+        )
 
     def preprocess_one_img(self, image, center_padding=True):
         """Preprocess one image.
@@ -108,9 +116,9 @@ class Predictor(object):
             def single_pre(image):
                 return self.preprocess_one_img(image, center_padding=center_padding)
 
-            p = ThreadPool()
-            resized_imgs = p.map(single_pre, images)
-            p.close()
+            # p = ThreadPool()
+            resized_imgs = self.p.map(single_pre, images)
+            # p.close()
         else:
             # --------------single threading-----------
             resized_imgs = []
@@ -157,9 +165,9 @@ class Predictor(object):
             def single_infer(model):
                 return self.inference_one_model(images, model)
 
-            p = ThreadPool()
-            total_outputs = p.map(single_infer, self.models)
-            p.close()
+            # p = ThreadPool()
+            total_outputs = self.p.map(single_infer, self.models)
+            # p.close()
         else:
             # --------------single threading-----------
             total_outputs = []
@@ -214,9 +222,9 @@ class Predictor(object):
                 model = self.models[i]
                 outputs[i] = self.postprocess_one_model(output, model)
 
-            p = ThreadPool()
-            p.map(single_post, range(len(self.models)))
-            p.close()
+            # p = ThreadPool()
+            self.p.map(single_post, range(len(self.models)))
+            # p.close()
         else:
             # --------------single threading-----------
             for i in range(len(outputs)):

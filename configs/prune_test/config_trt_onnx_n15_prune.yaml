@@ -1,39 +1,50 @@
-model1:
-  model_type: yolov5
-  engine_file: /home/laughing/yolov5/weights/engine/pruned_auto_n15.engine
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/prune.yaml
+settings:
+  batch_size: 15
+  test_title: prune-yolov5n
+  input_hw: [384, 640]
+  half: True
+  auto: False
+  pre_multi: True
+  infer_multi: False
+  post_multi: False
 
-model2:
-  model_type: yolov5
-  engine_file: /home/laughing/yolov5/weights/engine/pruned_auto_n15.engine
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/prune.yaml
+models:
+  model1:
+    model_type: yolov5
+    engine_file: /home/laughing/yolov5/weights/engine/pruned_auto_n15.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/prune.yaml
 
-model3:
-  model_type: yolov5
-  engine_file: /home/laughing/yolov5/weights/engine/pruned_auto_n15.engine
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/prune.yaml
+  model2:
+    model_type: yolov5
+    engine_file: /home/laughing/yolov5/weights/engine/pruned_auto_n15.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/prune.yaml
 
-model4:
-  model_type: yolov5
-  engine_file: /home/laughing/yolov5/weights/engine/pruned_auto_n15.engine
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/prune.yaml
+  model3:
+    model_type: yolov5
+    engine_file: /home/laughing/yolov5/weights/engine/pruned_auto_n15.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/prune.yaml
 
-model5:
-  model_type: yolov5
-  engine_file: /home/laughing/yolov5/weights/engine/pruned_auto_n15.engine
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/prune.yaml
+  model4:
+    model_type: yolov5
+    engine_file: /home/laughing/yolov5/weights/engine/pruned_auto_n15.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/prune.yaml
+
+  model5:
+    model_type: yolov5
+    engine_file: /home/laughing/yolov5/weights/engine/pruned_auto_n15.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/prune.yaml

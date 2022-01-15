@@ -1,39 +1,50 @@
-model1:
-  model_type: yolo-fastestv2 
-  engine_file: /d/projects/Yolo-FastestV2/yolo-fastestv2.engine
-  conf_thres: 0.2
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/yolov5n.yaml
+settings:
+  batch_size: 1
+  test_title: yolo-fastestv2
+  input_hw: [384, 640]
+  half: True
+  auto: False
+  pre_multi: False
+  infer_multi: False
+  post_multi: False
 
-model2:
-  model_type: yolo-fastestv2 
-  engine_file: /d/projects/Yolo-FastestV2/yolo-fastestv2.engine
-  conf_thres: 0.2
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/yolov5n.yaml
+models:
+  model1:
+    model_type: yolo-fastestv2 
+    engine_file: /d/projects/Yolo-FastestV2/yolo-fastestv2.engine
+    conf_thres: 0.2
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/yolov5n.yaml
 
-model3:
-  model_type: yolo-fastestv2 
-  engine_file: /d/projects/Yolo-FastestV2/yolo-fastestv2.engine
-  conf_thres: 0.2
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/yolov5n.yaml
+  model2:
+    model_type: yolo-fastestv2 
+    engine_file: /d/projects/Yolo-FastestV2/yolo-fastestv2.engine
+    conf_thres: 0.2
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/yolov5n.yaml
 
-model4:
-  model_type: yolo-fastestv2 
-  engine_file: /d/projects/Yolo-FastestV2/yolo-fastestv2.engine
-  conf_thres: 0.2
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/yolov5n.yaml
+  model3:
+    model_type: yolo-fastestv2 
+    engine_file: /d/projects/Yolo-FastestV2/yolo-fastestv2.engine
+    conf_thres: 0.2
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/yolov5n.yaml
 
-model5:
-  model_type: yolo-fastestv2 
-  engine_file: /d/projects/Yolo-FastestV2/yolo-fastestv2.engine
-  conf_thres: 0.2
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/yolov5n.yaml
+  model4:
+    model_type: yolo-fastestv2 
+    engine_file: /d/projects/Yolo-FastestV2/yolo-fastestv2.engine
+    conf_thres: 0.2
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/yolov5n.yaml
+
+  model5:
+    model_type: yolo-fastestv2 
+    engine_file: /d/projects/Yolo-FastestV2/yolo-fastestv2.engine
+    conf_thres: 0.2
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/yolov5n.yaml

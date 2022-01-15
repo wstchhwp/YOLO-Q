@@ -34,12 +34,20 @@ class TRTPredictorx(Predictor):  # `x` means repo `tensorrtx`
         self.pre_multi = pre_multi
         self.infer_multi = infer_multi
         self.post_multi = post_multi
+        self._create_thread()
 
         # times
         self.timer = Timer(start=False, cuda_sync=False, round=1, unit='ms')
         self.times = {}
         # TODO
         self.sign = 1
+
+    def _create_thread(self):
+        self.p = (
+            ThreadPool()
+            if self.pre_multi or self.infer_multi or self.post_multi
+            else None
+        )
 
     def preprocess(self, images):
         if isinstance(images, list):
@@ -80,9 +88,9 @@ class TRTPredictorx(Predictor):  # `x` means repo `tensorrtx`
             def single_infer(model):
                 return self.inference_one_model(images, model)
 
-            p = ThreadPool()
-            total_outputs = p.map(single_infer, self.models)
-            p.close()
+            # p = ThreadPool()
+            total_outputs = self.p.map(single_infer, self.models)
+            # p.close()
         else:
             total_outputs = []
             for _, model in enumerate(self.models):

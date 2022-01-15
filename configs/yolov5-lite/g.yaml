@@ -1,39 +1,50 @@
-model1:
-  model_type: yolov5-lite
-  engine_file: /d/projects/YOLOv5-Lite/weights/v5lite-g.engine
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/yolov5-lite.yaml
+settings:
+  batch_size: 1
+  test_title: yolov5-lite-g
+  input_hw: [384, 640]
+  half: True
+  auto: False
+  pre_multi: False
+  infer_multi: False
+  post_multi: False
 
-model2:
-  model_type: yolov5-lite
-  engine_file: /d/projects/YOLOv5-Lite/weights/v5lite-g.engine
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/yolov5-lite.yaml
+models:
+  model1:
+    model_type: yolov5-lite
+    engine_file: /d/projects/YOLOv5-Lite/weights/v5lite-g.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/yolov5-lite.yaml
 
-model3:
-  model_type: yolov5-lite
-  engine_file: /d/projects/YOLOv5-Lite/weights/v5lite-g.engine
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/yolov5-lite.yaml
+  model2:
+    model_type: yolov5-lite
+    engine_file: /d/projects/YOLOv5-Lite/weights/v5lite-g.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/yolov5-lite.yaml
 
-model4:
-  model_type: yolov5-lite
-  engine_file: /d/projects/YOLOv5-Lite/weights/v5lite-g.engine
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/yolov5-lite.yaml
+  model3:
+    model_type: yolov5-lite
+    engine_file: /d/projects/YOLOv5-Lite/weights/v5lite-g.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/yolov5-lite.yaml
 
-model5:
-  model_type: yolov5-lite
-  engine_file: /d/projects/YOLOv5-Lite/weights/v5lite-g.engine
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/yolov5-lite.yaml
+  model4:
+    model_type: yolov5-lite
+    engine_file: /d/projects/YOLOv5-Lite/weights/v5lite-g.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/yolov5-lite.yaml
+
+  model5:
+    model_type: yolov5-lite
+    engine_file: /d/projects/YOLOv5-Lite/weights/v5lite-g.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/yolov5-lite.yaml

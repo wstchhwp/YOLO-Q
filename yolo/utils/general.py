@@ -22,6 +22,7 @@ import numpy as np
 import pandas as pd
 import torch
 import yaml
+from omegaconf import OmegaConf
 
 from .downloads import gsutil_getsize
 from .metrics import fitness
@@ -243,6 +244,12 @@ def increment_path(path, exist_ok=False, sep='', mkdir=False):
     if not dir.exists() and mkdir:
         dir.mkdir(parents=True, exist_ok=True)  # make directory
     return path
+
+def parse_config(cfg_path):
+    with open(cfg_path, "r") as f:
+        # config = yaml.safe_load(f)
+        config = OmegaConf.load(f)
+    return config.models, config.settings
 
 def _ntuple(n):
     def parse(x):

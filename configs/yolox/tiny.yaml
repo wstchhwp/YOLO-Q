@@ -1,39 +1,50 @@
-model1:
-  model_type: yolox
-  engine_file: /d/projects/YOLOX-Q/weights/yolox-tiny.engine
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/yolox.yaml
+settings:
+  batch_size: 1
+  test_title: yolox-tiny
+  input_hw: [384, 640]
+  half: True
+  auto: False
+  pre_multi: True
+  infer_multi: False
+  post_multi: False
 
-model2:
-  model_type: yolox
-  engine_file: /d/projects/YOLOX-Q/weights/yolox-tiny.engine
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/yolox.yaml
+models:
+  model1:
+    model_type: yolox
+    engine_file: /d/projects/YOLOX-Q/weights/yolox-tiny.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/yolox.yaml
 
-model3:
-  model_type: yolox
-  engine_file: /d/projects/YOLOX-Q/weights/yolox-tiny.engine
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/yolox.yaml
+  model2:
+    model_type: yolox
+    engine_file: /d/projects/YOLOX-Q/weights/yolox-tiny.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/yolox.yaml
 
-model4:
-  model_type: yolox
-  engine_file: /d/projects/YOLOX-Q/weights/yolox-tiny.engine
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/yolox.yaml
+  model3:
+    model_type: yolox
+    engine_file: /d/projects/YOLOX-Q/weights/yolox-tiny.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/yolox.yaml
 
-model5:
-  model_type: yolox
-  engine_file: /d/projects/YOLOX-Q/weights/yolox-tiny.engine
-  conf_thres: 0.4
-  iou_thres: 0.4
-  filter: null
-  names: ./weights/trt/yolox.yaml
+  model4:
+    model_type: yolox
+    engine_file: /d/projects/YOLOX-Q/weights/yolox-tiny.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/yolox.yaml
+
+  model5:
+    model_type: yolox
+    engine_file: /d/projects/YOLOX-Q/weights/yolox-tiny.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/yolox.yaml
