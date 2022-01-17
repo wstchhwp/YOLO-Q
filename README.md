@@ -14,6 +14,7 @@
 - [X] same interface of `yolov5` and `yolox`.
 - [X] **add time**
 - [ ] better multi-threading
+- [ ] add Counter
 - [ ] add log
 - [X] add `save` function in data reader.
 - [ ] return the output with dict type
