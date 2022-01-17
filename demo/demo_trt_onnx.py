@@ -76,7 +76,7 @@ if __name__ == "__main__":
 
     meter = MeterBuffer(window_size=500)
 
-    cap = cv2.VideoCapture("/home/laughing/Videos/2021香港小姐競選決賽｜表演嘉賓｜張學友 Gin Lee 獻唱經典金曲｜Gin Lee更與學友合唱《日出時讓街燈安睡》-YlB-Y9bssdM.mkv")
+    cap = cv2.VideoCapture("/e/1.avi")
     frames = warmup_frames + test_frames
     pbar = tqdm(range(frames), total=frames)
     for frame_num in pbar:

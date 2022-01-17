@@ -1,3 +1,5 @@
+## Model Testing
+
 - `yolov5n`
   * 640x384比640x640少很多资源占用，速度更快
   * 以下为两个进程跑15x5的结果(也就是30x5)
@@ -22,9 +24,9 @@
     | Max utilize         | 82%     | **79%**    |
     | Tensorrt            | 7.1.3.4 | 8.2.1.8    |
 
-TODO
+
 - `yolov5n` vs `nanodet-plus-m_416` vs `yolox-nano`
-  * batch=5x15
+  * num_camera x batch=5x15
     | Model               | yolov5n        | nanodet-plus-m_416 | yolox-nano     | yolov5n        |
     |---------------------|----------------|--------------------|----------------|----------------|
     | Input-size          | 5x15x3x640x384 | 5x15x3x640x384     | 5x15x3x640x384 | 5x15x3x416x256 |
@@ -36,7 +38,7 @@ TODO
     | Max utilize         | 73%            | 80%                | 73%            | **65%**        |
     | Tensorrt            | 8.2.1.8        | 8.2.1.8            | 8.2.1.8        | 8.2.1.8        |
 
-  * batch=5x1
+  * num_camera x batch=5x1
     | Model               | yolov5n       | yolov5n       | yolox-nano    | yolox-tiny    | nanodet-plus-m_416 | nanodet-plus-m_416 | yolo-fastest  | yolov5-lite-s |
     |---------------------|---------------|---------------|---------------|---------------|--------------------|--------------------|---------------|---------------|
     | Input-size          | 5x1x3x640x384 | 5x1x3x416x256 | 5x1x3x640x384 | 5x1x3x640x384 | 5x1x3x640x384      | 5x1x3x416x416      | 5x1x3x640x384 | 5x1x3x640x384 |
@@ -47,7 +49,7 @@ TODO
     | Average utilize     | 52.7%         | **47.7%**     | 58.4%         | 65.2%         | 65.2%              | 60.1%              | **49.9%**     | 61.9%         |
     | Max utilize         | 61%           | **56%**       | 65%           | 69%           | 68%                | 67%                | **55%**       | 65%           |
     | Tensorrt            | 8.2.1.8       | 8.2.1.8       | 8.2.1.8       | 8.2.1.8       | 8.2.1.8            | 8.2.1.8            | 8.2.1.8       | 8.2.1.8       |
-  * batch=5x1
+  * num_camera x batch=5x1
     | Model               | yolov5-lite-g | yolov5-lite-c | yolov5s       |
     |---------------------|---------------|---------------|---------------|
     | Input-size          | 5x1x3x640x384 | 5x1x3x640x384 | 5x1x3x640x384 |
@@ -59,10 +61,38 @@ TODO
     | Max utilize         | 70%           | 71%           | **68%**       |
     | Tensorrt            | 8.2.1.8       | 8.2.1.8       | 8.2.1.8       |
 
-  * 模型都是采用torch -> onnx -> engine的方式转tensorrt.
-  * `Input-size` = `num_camera` × `batch-size` × `w` × `h`.
-  * 去除了postprocess, 是为了排除其他的影响来测试gpu利用率，因为该代码库也采用gpu做postprocess.
-  * 测试流程是首先使用100frames作为warmup，然后计算500frames的平均值.
-  * 上表推理时间包含`normalize`操作(yolov5包含`images/255.`, yolox没有normalize).
-  * 由于nanodet的`normalize`操作是减均值除方差，所以会多花费一些时间，上表中nanodet后面的括弧数据为除去`normalize`的纯推理时间.
-  * 测试设备: RTX2070super.
+- prune test
+  * num_camera x batch=5x15
+    | Model               | original model | prune model(-42%) |
+    |---------------------|----------------|-------------------|
+    | Input-size          | 5x15x3x640x384 | 5x15x3x640x384    |
+    | Average preprocess  | 9.6ms          | 9.4ms             |
+    | Average inference   | 22.8ms         | **22.5ms**        |
+    | Average postprocess | 0.0ms          | 0.0ms             |
+    | Average memory      | **1927MB**     | 1929MB            |
+    | Average utilize     | 71.1%          | **70.9%**         |
+    | Max utilize         | 72%            | 72%               |
+    | Tensorrt            | 8.2.1.8        | 8.2.1.8           |
+  * num_camera x batch=5x1
+    | Model               | original model | prune model(-42%) |
+    |---------------------|----------------|-------------------|
+    | Input-size          | 5x1x3x640x384  | 5x1x3x640x384     |
+    | Average preprocess  | 0.8ms          | 0.8ms             |
+    | Average inference   | 3.4ms          | 3.4ms             |
+    | Average postprocess | 0.0ms          | 0.0ms             |
+    | Average memory      | 1371MB         | **1361MB**        |
+    | Average utilize     | 48.6%          | 48.0%             |
+    | Max utilize         | 57%            | 57%               |
+    | Tensorrt            | 8.2.1.8        | 8.2.1.8           |
+  * `-42%`表示剪枝后的模型减少了42%的参数量
+
+- 模型都是采用torch -> onnx -> engine的方式转tensorrt.
+- `Input-size` = `num_camera` × `batch-size` × `w` × `h`.
+- 去除了postprocess, 是为了排除其他的影响来测试gpu利用率，因为该代码库也采用gpu做postprocess.
+- 测试流程是首先使用100frames作为warmup，然后计算500frames的平均值.
+- 上表推理时间包含`normalize`操作(yolov5包含`images/255.`, yolox没有normalize).
+- 由于nanodet的`normalize`操作是减均值除方差，所以会多花费一些时间，上表中nanodet后面的括弧数据为除去`normalize`的纯推理时间.
+- 测试设备: RTX2070super.
+
+## Reference
+访存密集型vs计算密集型模型:[https://zhuanlan.zhihu.com/p/411522457](https://zhuanlan.zhihu.com/p/411522457)
