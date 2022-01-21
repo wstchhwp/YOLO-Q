@@ -1,0 +1,50 @@
+settings:
+  batch_size: 1
+  test_title: yolov5n
+  input_hw: [384, 640]
+  half: True
+  auto: False
+  pre_multi: False
+  infer_multi: False
+  post_multi: False
+
+models: 
+  model1:
+    model_type: yolov5
+    engine_file: /home/laughing/yolov5/weights/engine/nopost/yolov5n.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/yolov5n.yaml
+
+  model2:
+    model_type: yolov5
+    engine_file: /home/laughing/yolov5/weights/engine/nopost/yolov5n.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/yolov5n.yaml
+
+  model3:
+    model_type: yolov5
+    engine_file: /home/laughing/yolov5/weights/engine/nopost/yolov5n.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/yolov5n.yaml
+
+  model4:
+    model_type: yolov5
+    engine_file: /home/laughing/yolov5/weights/engine/nopost/yolov5n.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/yolov5n.yaml
+
+  model5:
+    model_type: yolov5
+    engine_file: /home/laughing/yolov5/weights/engine/nopost/yolov5n.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/yolov5n.yaml

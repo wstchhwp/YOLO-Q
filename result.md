@@ -94,5 +94,18 @@
 - 由于nanodet的`normalize`操作是减均值除方差，所以会多花费一些时间，上表中nanodet后面的括弧数据为除去`normalize`的纯推理时间.
 - 测试设备: RTX2070super.
 
+---
+- 补充
+  * 考虑到是为保持接口一致完善了nanodet中与anchor计算等操作，于是去掉该操作测试(保留了sigmoid等操作)
+  * `nanodet-plus-m_416` + `5x1x3x640x384`
+  * 7ms -> 6.4ms
+  * 65.2% -> 63.9%
+  * 总起来说区别不大
+  * 为作对比, 将yolov5的相关计算也去掉
+  * `yolov5` + `5x1x3x640x384`
+  * 3.9ms -> 3.4ms
+  * 52.7% -> 50.9%
+  * 总起来说区别不大
+
 ## Reference
 访存密集型vs计算密集型模型:[https://zhuanlan.zhihu.com/p/411522457](https://zhuanlan.zhihu.com/p/411522457)
