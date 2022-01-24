@@ -71,6 +71,19 @@ git clone https://github.com/Laughing-q/YOLOv5-Lite.git
 python export.py --weights pt_file --include=engine --device 0 --imgsz h w [--half]
 ```
 
+</details>
+
+<details open>
+<summary>MNN(experimental)</summary>
+
+- numpy >=1.20.1
+- yolov5
+```shell
+git clone https://github.com/Laughing-q/yolov5-6.git
+# without `--half`
+python export.py --weights pt_file --include=onnx --device 0 --imgsz h w
+./MNNConvert -f ONNX --modelFile onnx_file --MNNModel mnn_file --bizCode biz [--fp16]
+```
 
 </details>
 
