@@ -66,6 +66,10 @@ class Predictor(object):
             else None
         )
 
+    def close_thread(self):
+        if self.p is not None:
+            self.p.close()
+
     def preprocess_one_img(self, image, center_padding=True):
         """Preprocess one image.
 

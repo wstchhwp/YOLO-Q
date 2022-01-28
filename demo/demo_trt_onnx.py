@@ -95,7 +95,7 @@ if __name__ == "__main__":
         pbar.desc = f"{predictor.times}, {memory}, {utilize}"
         # logger.info(f"{predictor.times}, {memory}, {utilize}")
         meter.update(memory=memory, utilize=utilize, **predictor.times)
-
+    predictor.close_thread()
     logger.info("-------------------------------------------------------")
     logger.info(
         f"Tensort, {test_batch}x5, {test_model}, {test_size}, {test_frames}frames average time."

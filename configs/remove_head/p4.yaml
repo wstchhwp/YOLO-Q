@@ -1,0 +1,50 @@
+settings:
+  batch_size: 1
+  test_title: p4
+  input_hw: [384, 640]
+  half: True
+  auto: False
+  pre_multi: False
+  infer_multi: False
+  post_multi: False
+
+models:
+  model1:
+    model_type: yolov5
+    engine_file: /home/laughing/yolov5/runs/person_head_out_n_320/weights/best.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/person_head.yaml
+
+  model2:
+    model_type: yolov5
+    engine_file: /home/laughing/yolov5/runs/person_head_out_n_320/weights/best.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/person_head.yaml
+
+  model3:
+    model_type: yolov5
+    engine_file: /home/laughing/yolov5/runs/person_head_out_n_320/weights/best.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/person_head.yaml
+
+  model4:
+    model_type: yolov5
+    engine_file: /home/laughing/yolov5/runs/person_head_out_n_320/weights/best.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/person_head.yaml
+
+  model5:
+    model_type: yolov5
+    engine_file: /home/laughing/yolov5/runs/person_head_out_n_320/weights/best.engine
+    conf_thres: 0.4
+    iou_thres: 0.4
+    filter: null
+    names: ./weights/trt/person_head.yaml

@@ -86,12 +86,37 @@
     | Tensorrt            | 8.2.1.8        | 8.2.1.8           |
   * `-42%`表示剪枝后的模型减少了42%的参数量
 
+- remove head test
+  * num_camera x batch=5x15
+    | Model               | original model | p4             |
+    |---------------------|----------------|----------------|
+    | Input-size          | 5x15x3x640x384 | 5x15x3x640x384 |
+    | Average preprocess  | 9.4ms          | 9.5ms          |
+    | Average inference   | 20.0ms         | **18.3ms**     |
+    | Average postprocess | 0.0ms          | 0.0ms          |
+    | Average memory      | **2233MB**     | 2217MB         |
+    | Average utilize     | 68.9%          | **66.5%**      |
+    | Max utilize         | 69%            | **67%**        |
+    | Tensorrt            | 8.2.1.8        | 8.2.1.8        |
+  * num_camera x batch=5x1
+    | Model               | original model | p4            |
+    |---------------------|----------------|---------------|
+    | Input-size          | 5x1x3x640x384  | 5x1x3x640x384 |
+    | Average preprocess  | 0.8ms          | 0.8ms         |
+    | Average inference   | 3.3ms          | **2.7ms**     |
+    | Average postprocess | 0.0ms          | 0.0ms         |
+    | Average memory      | 1681MB         | **1679MB**    |
+    | Average utilize     | 50.2%          | **44.3%**     |
+    | Max utilize         | 58%            | **53%**       |
+    | Tensorrt            | 8.2.1.8        | 8.2.1.8       |
+
 - 模型都是采用torch -> onnx -> engine的方式转tensorrt.
 - `Input-size` = `num_camera` × `batch-size` × `w` × `h`.
 - 去除了postprocess, 是为了排除其他的影响来测试gpu利用率，因为该代码库也采用gpu做postprocess.
 - 测试流程是首先使用100frames作为warmup，然后计算500frames的平均值.
 - 上表推理时间包含`normalize`操作(yolov5包含`images/255.`, yolox没有normalize).
 - 由于nanodet的`normalize`操作是减均值除方差，所以会多花费一些时间，上表中nanodet后面的括弧数据为除去`normalize`的纯推理时间.
+- 估计是由于讲anchor计算以及sigmoid写入了engine，所以类别越少速度越快.
 - 测试设备: RTX2070super.
 
 ---
