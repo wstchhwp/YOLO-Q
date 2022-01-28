@@ -86,9 +86,9 @@
     | Tensorrt            | 8.2.1.8        | 8.2.1.8           |
   * `-42%`表示剪枝后的模型减少了42%的参数量
 
-- remove head test
+- remove head test(yolov5n_p4)
   * num_camera x batch=5x15
-    | Model               | original model | p4             |
+    | Model               | original model | p4(-25.5%)     |
     |---------------------|----------------|----------------|
     | Input-size          | 5x15x3x640x384 | 5x15x3x640x384 |
     | Average preprocess  | 9.4ms          | 9.5ms          |
@@ -99,7 +99,7 @@
     | Max utilize         | 69%            | **67%**        |
     | Tensorrt            | 8.2.1.8        | 8.2.1.8        |
   * num_camera x batch=5x1
-    | Model               | original model | p4            |
+    | Model               | original model | p4(-25.5%)    |
     |---------------------|----------------|---------------|
     | Input-size          | 5x1x3x640x384  | 5x1x3x640x384 |
     | Average preprocess  | 0.8ms          | 0.8ms         |
@@ -109,6 +109,31 @@
     | Average utilize     | 50.2%          | **44.3%**     |
     | Max utilize         | 58%            | **53%**       |
     | Tensorrt            | 8.2.1.8        | 8.2.1.8       |
+
+- remove head test(yolov5n_p4_tiny)
+  * num_camera x batch=5x15
+    | Model               | original model | p4_tiny(-73%)  |
+    |---------------------|----------------|----------------|
+    | Input-size          | 5x15x3x640x384 | 5x15x3x640x384 |
+    | Average preprocess  | 9.4ms          | 9.5ms          |
+    | Average inference   | <++>           | <++>           |
+    | Average postprocess | <++>           | <++>           |
+    | Average memory      | <++>           | <++>           |
+    | Average utilize     | <++>           | <++>           |
+    | Max utilize         | <++>           | <++>           |
+    | Tensorrt            | 8.2.1.8        | 8.2.1.8        |
+
+  * num_camera x batch=5x1
+    | Model               | original model | p4_tiny(-73%) |
+    |---------------------|----------------|---------------|
+    | Input-size          | 5x1x3x640x384  | 5x1x3x640x384 |
+    | Average preprocess  | 0.8ms          | 0.8ms         |
+    | Average inference   | <++>           | <++>           |
+    | Average postprocess | <++>           | <++>           |
+    | Average memory      | <++>           | <++>           |
+    | Average utilize     | <++>           | <++>           |
+    | Max utilize         | <++>           | <++>           |
+    | Tensorrt            | 8.2.1.8        | 8.2.1.8        |
 
 - 模型都是采用torch -> onnx -> engine的方式转tensorrt.
 - `Input-size` = `num_camera` × `batch-size` × `w` × `h`.
