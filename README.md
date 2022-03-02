@@ -19,7 +19,7 @@
 - [X] add `save` function in data reader.
 - [ ] return the output with dict type
 - [ ] device
-- [ ] add hydra
+- [ ] add `yolov5-q`
 
 <!-- ## <div align="center">Quick Start</div> -->
 ## Quick Start
