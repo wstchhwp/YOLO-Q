@@ -49,7 +49,6 @@ if __name__ == "__main__":
     predictor = Predictor(
         img_hw=(640, 640),
         models=model,
-        device="0",
         half=True,
         pre_multi=pre_multi,
         infer_multi=infer_multi, 

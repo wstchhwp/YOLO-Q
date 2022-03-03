@@ -169,7 +169,6 @@ class TRTPredictor(Predictor):
         self,
         img_hw,
         models,
-        device,
         half=True,
         auto=False,
         pre_multi=False,
@@ -177,7 +176,7 @@ class TRTPredictor(Predictor):
         post_multi=False,
     ):
         super(TRTPredictor, self).__init__(
-            img_hw, models, device, half, auto, pre_multi, infer_multi, post_multi
+            img_hw, models, half, auto, pre_multi, infer_multi, post_multi
         )
 
     def inference_one_model(

@@ -60,7 +60,6 @@ if __name__ == "__main__":
     predictor = TRTPredictor(
         img_hw=test_size,
         models=model,
-        device=0,
         auto=True,
         pre_multi=pre_multi,
         infer_multi=infer_multi,

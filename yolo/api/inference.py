@@ -2,8 +2,7 @@ from ..data.datasets import letterbox
 from ..utils.boxes import scale_coords
 from ..process import nms
 from ..utils.general import to_2tuple
-from ..utils.torch_utils import select_device
-from ..utils.timer import Timer, time_sync
+from ..utils.timer import Timer
 from ..process import normalize
 from multiprocessing.pool import ThreadPool
 from typing import Optional
@@ -11,12 +10,11 @@ import os
 import cv2
 import numpy as np
 import torch.nn as nn
-from itertools import repeat
 import torch
 
 
 class Predictor(object):
-    """Predictor for multi models and multi images.
+    """Predictor for multi models and multi images, support one gpu inference only.
 
     Args:
         img_hw (int | tuple[int]): Input size.
@@ -31,7 +29,6 @@ class Predictor(object):
         self,
         img_hw,
         models,
-        device,
         half=True,
         auto=True,
         pre_multi=False,
@@ -44,10 +41,10 @@ class Predictor(object):
         self.img_hw = img_hw
         self.ori_hw = []
         self.models = models
-        self.device = select_device(device)
         self.half = half
         self.auto = auto
         self.multi_model = True if isinstance(models, list) else False
+        self.device = models[0].device if self.multi_model else models.device
 
         # multi threading
         self.pre_multi = pre_multi
@@ -190,9 +187,9 @@ class Predictor(object):
         """
         if model is None:
             model = self.models
-        conf_thres = model.conf_thres
-        iou_thres = model.iou_thres
-        classes = model.filter
+        conf_thres = getattr(model, 'conf_thres', 0.4)
+        iou_thres = getattr(model, 'iou_thres', 0.5)
+        classes = getattr(model, 'filter', None)
         outputs = nms[model.model_type](
             preds, conf_thres, iou_thres, classes=classes, agnostic=False
         )
@@ -237,6 +234,7 @@ class Predictor(object):
         self.ori_hw.clear()
         return outputs
 
+    @torch.no_grad()
     def inference(self, images, post=True):
         """Inference.
 
@@ -244,7 +242,7 @@ class Predictor(object):
             images (numpy.ndarray | List[numpy.ndarray]): Input images.
             post (Bool): Whether to do postprocess, may be useful for some test situation.
         Return:
-            see function `inference_single_model` and `inference_multi_model`.
+            see function `inference_one_model` and `inference_multi_model`.
         """
         preprocess = (
             self.preprocess_multi_img
@@ -276,3 +274,7 @@ class Predictor(object):
         self.times["total"] = self.timer.since_start()
 
         return outputs if post else preds
+
+    def __call__(self, images, post=True):
+        """See the func:`inference`."""
+        return self.inference(images, post)

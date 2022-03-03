@@ -34,40 +34,35 @@
 
 model1:
   model_type: yolov5
-  yaml: ./weights/yolov5/yolov5n.yaml
-  weight: ./weights/yolov5/yolov5n.pth
+  weight: ./weights/yolov5/yolov5n.pt
   conf_thres: 0.4
   iou_thres: 0.4
   filter: null
 
-# model2:
-#   model_type: yolov5
-#   yaml: ./weights/yolov5/yolov5n.yaml
-#   weight: ./weights/yolov5/yolov5n.pth
-#   conf_thres: 0.4
-#   iou_thres: 0.4
-#   filter: null
-#
-# model3:
-#   model_type: yolov5
-#   yaml: ./weights/yolov5/yolov5n.yaml
-#   weight: ./weights/yolov5/yolov5n.pth
-#   conf_thres: 0.4
-#   iou_thres: 0.4
-#   filter: null
-#
-# model4:
-#   model_type: yolov5
-#   yaml: ./weights/yolov5/yolov5n.yaml
-#   weight: ./weights/yolov5/yolov5n.pth
-#   conf_thres: 0.4
-#   iou_thres: 0.4
-#   filter: null
-#
-# model5:
-#   model_type: yolov5
-#   yaml: ./weights/yolov5/yolov5n.yaml
-#   weight: ./weights/yolov5/yolov5n.pth
-#   conf_thres: 0.4
-#   iou_thres: 0.4
-#   filter: null
+model2:
+  model_type: yolov5
+  weight: ./weights/yolov5/yolov5n.pt
+  conf_thres: 0.4
+  iou_thres: 0.4
+  filter: null
+
+model3:
+  model_type: yolov5
+  weight: ./weights/yolov5/yolov5n.pt
+  conf_thres: 0.4
+  iou_thres: 0.4
+  filter: null
+
+model4:
+  model_type: yolov5
+  weight: ./weights/yolov5/yolov5n.pt
+  conf_thres: 0.4
+  iou_thres: 0.4
+  filter: null
+
+model5:
+  model_type: yolov5
+  weight: ./weights/yolov5/yolov5n.pt
+  conf_thres: 0.4
+  iou_thres: 0.4
+  filter: null

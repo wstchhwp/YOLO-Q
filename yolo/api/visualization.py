@@ -15,7 +15,7 @@ class Visualizer(object):
             [random.randint(0, 255) for _ in range(3)] for _ in range(num_classes)
         ]
 
-    def draw_one_img(self, img, output, vis_conf=0.4, offset=0):
+    def draw_one_img(self, img, output, vis_conf=0.4):
         """Visualize one images.
         
         Args:
@@ -57,8 +57,11 @@ class Visualizer(object):
             self.draw_one_img(imgs[i], output, vis_confs[i])
         return imgs
 
-    def draw_imgs(self, imgs, outputs, vis_confs=0.4, offset=0):
+    def draw_imgs(self, imgs, outputs, vis_confs=0.4):
         if isinstance(imgs, np.ndarray):
-            return self.draw_one_img(imgs, outputs, vis_confs, offset)
+            return self.draw_one_img(imgs, outputs, vis_confs)
         else:
             return self.draw_multi_img(imgs, outputs, vis_confs)
+
+    def __call__(self, imgs, outputs, vis_confs=0.4):
+        return self.draw_imgs(imgs, outputs, vis_confs)

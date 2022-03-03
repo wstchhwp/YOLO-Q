@@ -32,7 +32,10 @@ Clone repo and install [requirements.txt](https://github.com/Laughing-q/YOLO-Q/b
 **PyTorch>=1.7.1** and **Tensorrt >= 8.2.1.8**.
 
 ```shell
+git clone https://github.com/Laughing-q/yolov5-q.git
+cd yolov5-q && pip install -e .
 git clone https://github.com/Laughing-q/YOLO-Q.git
+cd YOLO-Q
 pip install -r requirements.txt
 pip install -e .
 ```
@@ -95,8 +98,7 @@ python export.py --weights pt_file --include=onnx --device 0 --imgsz h w
   ```vim
   model1:
     model_type: yolov5
-    yaml: yolov5s.yaml
-    weight: yolov5s.pth
+    weight: yolov5s.pt
     conf_thres: 0.4
     iou_thres: 0.4
     filter: null

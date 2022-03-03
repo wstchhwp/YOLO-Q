@@ -6,6 +6,7 @@ from ..utils.torch_utils import select_device
 import torch
 import torch.nn as nn
 from omegaconf import OmegaConf
+from yolov5.models import attempt_load
 
 yolox_type = {
     "nano": {"depth": 0.33, "width": 0.25, "depthwise": True,},
@@ -16,15 +17,12 @@ yolox_type = {
     "x": {"depth": 1.33, "width": 1.25, "depthwise": False,},
 }
 
-def build_yolov5(cfg, weight_path, device, half=True):
+def build_yolov5(weight_path, device, half=True):
     device = select_device(device)
-    # TODO, torch.no_grad() support inference only.
     # TODO, device may move to `Predictor`
     with torch.no_grad():
-        model = Model(cfg).to(device)
-        ckpt = torch.load(weight_path)
-        model.load_state_dict(ckpt, strict=False)
-        model.fuse().eval()
+        model = attempt_load(weight_path, map_location=device)
+        model.device = device
         if half:
             model.half()
     return model
@@ -66,15 +64,15 @@ def build_from_configs(config):
             config = OmegaConf.load(f)
 
     model_list = []
+    device = config.get('device', '0')
     for _, v in config.items():
         assert v.model_type in ['yolov5', 'yolox']
         if v.model_type == 'yolov5':
             builder = build_yolov5
         else:
             builder = build_yolox
-        model = builder(cfg=v.yaml,
-                        weight_path=v.weight,
-                        device='0')
+        model = builder(weight_path=v.weight,
+                        device=device)
         setattr(model, 'model_type', v.model_type)
         setattr(model, 'conf_thres', v.conf_thres)
         setattr(model, 'iou_thres', v.iou_thres)
