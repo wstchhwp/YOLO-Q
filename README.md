@@ -32,8 +32,7 @@ Clone repo and install [requirements.txt](https://github.com/Laughing-q/YOLO-Q/b
 **PyTorch>=1.7.1** and **Tensorrt >= 8.2.1.8**.
 
 ```shell
-git clone https://github.com/Laughing-q/yolov5-q.git
-cd yolov5-q && pip install -e .
+pip install git+https://github.com/Laughing-q/yolov5-q.git
 git clone https://github.com/Laughing-q/YOLO-Q.git
 cd YOLO-Q
 pip install -r requirements.txt
