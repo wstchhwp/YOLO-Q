@@ -200,9 +200,6 @@ class Predictor(object):
             det[:, :4] = scale_coords(
                 self.img_hw, det[:, :4], self.ori_hw[i], scale_fill=False
             ).round()
-        # TODO
-        if not self.multi_model:  # 表示只有一个模型
-            self.ori_hw.clear()
         return outputs
 
     def postprocess_multi_model(self, outputs: list):
@@ -230,8 +227,6 @@ class Predictor(object):
             # --------------single threading-----------
             for i in range(len(outputs)):
                 outputs[i] = self.postprocess_one_model(outputs[i], self.models[i])
-        # TODO
-        self.ori_hw.clear()
         return outputs
 
     @torch.no_grad()
@@ -270,6 +265,9 @@ class Predictor(object):
         self.times["inference"] = self.timer.since_last_check()
         if post:
             outputs = postprocess(preds)
+            # clear the list of original height and width,
+            # cause every time preprocessing images, self.ori_hw will be extended.
+            self.ori_hw.clear()
         self.times["postprocess"] = self.timer.since_last_check()
         self.times["total"] = self.timer.since_start()
 
