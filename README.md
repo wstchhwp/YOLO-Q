@@ -20,6 +20,7 @@
 - [ ] return the output with dict type
 - [ ] device
 - [ ] add `yolov5-q`
+- [ ] model half and image half
 
 <!-- ## <div align="center">Quick Start</div> -->
 ## Quick Start
