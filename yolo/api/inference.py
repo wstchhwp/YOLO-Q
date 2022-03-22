@@ -89,6 +89,7 @@ class Predictor(object):
             scaleFill=False,
             center_padding=center_padding,
         )
+        # TODO: fix this bugs
         if self.auto:
             self.img_hw = resized_img.shape[:2]
         # cv2.imshow('x', resized_img)
