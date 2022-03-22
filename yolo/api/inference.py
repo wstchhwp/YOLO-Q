@@ -89,9 +89,7 @@ class Predictor(object):
             scaleFill=False,
             center_padding=center_padding,
         )
-        # TODO: fix this bugs
-        if self.auto:
-            self.img_hw = resized_img.shape[:2]
+        self.current_hw = resized_img.shape[:2]
         # cv2.imshow('x', resized_img)
         # cv2.waitKey(0)
 
@@ -199,7 +197,7 @@ class Predictor(object):
                 continue
             # TODO, suppert center_padding only.
             det[:, :4] = scale_coords(
-                self.img_hw, det[:, :4], self.ori_hw[i], scale_fill=False
+                self.current_hw, det[:, :4], self.ori_hw[i], scale_fill=False
             ).round()
         return outputs
 
