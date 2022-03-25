@@ -34,6 +34,7 @@ Clone repo and install [requirements.txt](https://github.com/Laughing-q/YOLO-Q/b
 
 ```shell
 pip install git+https://github.com/Laughing-q/yolov5-q.git
+pip install git+https://github.com/Laughing-q/lqcv.git
 git clone https://github.com/Laughing-q/YOLO-Q.git
 cd YOLO-Q
 pip install -r requirements.txt

@@ -3,7 +3,7 @@ import numpy as np
 import MNN
 import cv2
 import torch
-from yolo.data.data_reader import create_reader
+from lqcv.data.data_reader import create_reader
 from yolo.data.augmentations import letterbox
 from yolo.process.post import non_max_suppression
 from yolo.api.visualization import Visualizer
